@@ -2,9 +2,11 @@ import styled from "styled-components";
 
 const NavBar = styled.nav`
   width: 100%;
-  padding: ${({theme}) => theme.space[4]};
+  padding: 0 ${({theme}) => theme.space[4]};
   background-color: ${({theme}) => theme.colors.primary};
-  z-index: 0;
+  height: ${({theme}) => theme.layout.navSize};
+  display: flex;
+  align-items: center;
 `
 
 const NavTitle = styled.h3`
