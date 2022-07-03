@@ -4,6 +4,7 @@ const NavBar = styled.nav`
   width: 100%;
   padding: ${({theme}) => theme.space[4]};
   background-color: ${({theme}) => theme.colors.primary};
+  z-index: 0;
 `
 
 const NavTitle = styled.h3`

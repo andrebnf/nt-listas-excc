@@ -1,10 +1,15 @@
 import type { NextPage } from 'next';
 import styled from 'styled-components';
-import { Navigation } from '../components/navigation';
+import { Sidebar } from '../components/sidebar';
+
+const PageContainer = styled.div`
+  display: flex;
+  height: 100%;
+`
 
 const Home: NextPage = () => {
   return (
-    <Navigation />
+    <Sidebar></Sidebar>
   )
 }
 
