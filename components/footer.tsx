@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const NavBar = styled.nav`
+const StyledFooter = styled.footer`
   width: 100%;
   text-align: center;
   background-color: ${({theme}) => theme.colors.primaryFaded};
@@ -10,14 +10,12 @@ const NavBar = styled.nav`
   justify-content: center;
 `
 
-const NavTitle = styled.h6`
+const FooterText = styled.h5`
   font-weight: normal;
-  padding: 0;
-  margin: 0;
 `
 
 export const Footer = (props: any) => (
-  <NavBar>
-    <NavTitle>Feito com ❤️ pelo Núcleo de Tecnologia do MTST</NavTitle>
-  </NavBar>
+  <StyledFooter>
+    <FooterText>Feito com ❤️ pelo Núcleo de Tecnologia do MTST</FooterText>
+  </StyledFooter>
 )

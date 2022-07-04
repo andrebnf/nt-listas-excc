@@ -37,6 +37,10 @@ class MyDocument extends Document {
             href="https://fonts.googleapis.com/css?family=Nunito:300,400,500,700&display=swap"
             rel="stylesheet"
           />
+          <link 
+            href="https://fonts.googleapis.com/css2?family=Fira+Code:300,400&display=swap" 
+            rel="stylesheet"
+          />
         </Head>
         <body>
           <Main />

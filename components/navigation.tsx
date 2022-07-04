@@ -17,6 +17,6 @@ const NavTitle = styled.h3`
 
 export const Navigation = (props: any) => (
   <NavBar>
-    <NavTitle>Listas de Exercícios do Curso Online</NavTitle>
+    <NavTitle>Listas de Exercícios - Curso Online</NavTitle>
   </NavBar>
 )

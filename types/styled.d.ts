@@ -18,7 +18,8 @@ declare module 'styled-components' {
       primary: string,
       primaryFaded: string,
       background: string,
-      text: string
+      text: string,
+      sectionSeparator: string
     },
     space: array,
     layout: {

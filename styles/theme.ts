@@ -17,7 +17,8 @@ export const theme: DefaultTheme = {
     primary: '#DB4682',
     background: '#FFF5E6',
     primaryFaded: '#eec5d5',
-    text: '#444'
+    text: '#444',
+    sectionSeparator: '#AAA'
   },
   space: [
     '4px', '8px', '12px', '16px', '24px', '32px',
