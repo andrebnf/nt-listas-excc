@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { VscPlay } from 'react-icons/vsc';
 
 const ButtonContainer = styled.div`
   width: 100%;
@@ -9,17 +10,23 @@ const ButtonContainer = styled.div`
 `
 
 const Button = styled.button`
-  line-height: ${({theme}) => theme.space[6]};
+  height: ${({theme}) => theme.space[6]};
   background-color: ${({theme}) => theme.colors.primary};
   border: 1px solid ${({theme}) => theme.colors.primary};
   color: white;
   font-size: ${({theme}) => theme.fontSize.xlarge};
   font-family: inherit;
   cursor: pointer;
+
+  &:hover {
+    background-color: ${({theme}) => theme.colors.primaryOpacity08};
+  }
 `
 
-export const FullWidthButton = (props: any) => (
+export const FullWidthButton = ({children}: any) => (
   <ButtonContainer>
-    <Button>▶️ Executar Código</Button>
+    <Button>
+      {children}
+    </Button>
   </ButtonContainer>
 )

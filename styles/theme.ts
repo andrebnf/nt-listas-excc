@@ -18,6 +18,7 @@ export const theme: DefaultTheme = {
     primary: '#DB4682',
     background: '#FFF5E6',
     primaryFaded: '#eec5d5',
+    primaryOpacity08: '#e26b9b',
     text: '#444',
     sectionSeparator: '#AAA'
   },

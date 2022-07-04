@@ -4,6 +4,7 @@ import { useTheme } from 'styled-components'
 import Editor from "@monaco-editor/react";
 
 import { FullWidthButton } from "./fullWidthButton";
+import { VscPlay } from "react-icons/vsc";
 
 const ExerciseCodeContainer = styled.div`
   padding: ${({theme}) => theme.space[4]};
@@ -33,7 +34,7 @@ export const ExerciseCode = (props: any) => {
         <Editor 
           defaultLanguage="javascript"
           defaultValue={code}
-          theme="light"
+          theme="vs-dark"
           options={
             {
               minimap: {enabled: false},
@@ -46,7 +47,9 @@ export const ExerciseCode = (props: any) => {
      
         />
       </EditorWrap>
-      <FullWidthButton />
+      <FullWidthButton>
+        <VscPlay/> Executar Código
+      </FullWidthButton>
     </ExerciseCodeContainer>
   )
 }
