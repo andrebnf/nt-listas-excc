@@ -2,6 +2,7 @@ import { useState } from "react";
 import Editor from "react-simple-code-editor";
 import { highlight, languages } from "prismjs";
 import styled from "styled-components";
+import { useTheme } from 'styled-components'
 
 import 'prismjs/components/prism-clike';
 import 'prismjs/components/prism-javascript';
@@ -23,6 +24,7 @@ const ExerciseCodeContainer = styled.div`
   textarea {
     outline: auto;
     outline-color: #ccc;
+    white-space: pre !important;
   }
 
   textarea:focus {
@@ -31,24 +33,36 @@ const ExerciseCodeContainer = styled.div`
   }
 `
 
+const EditorWrap = styled.div`
+  overflow: auto;
+`
+
+const StyledEditor = styled(Editor)`
+  white-space: pre;
+`;
+
 export const ExerciseCode = (props: any) => {
   const [code, setCode] = useState(
-    `function add(a, b) {\n  return a + b;\n}`
+    `// Exemplo de código para testar o editor\n// Problemas conhecidos: overflow vertical não tá funcionando e desloca a página toda\n\nmeu_array = [1, 2, 3, 'a']\narray_de_numeros = []\narray_de_strings = []\n\nfor (let i = 0; i < meu_array.length; i++){\n  elemento = meu_array[i]\n  if (typeof elemento === 'number') {\n    array_de_numeros.push(elemento)\n  } else if (typeof elemento === 'string') {\n    array_de_strings.push(elemento)\n  } else {\n    alert('Pulando elemento: ' + elemento + '. Motivo: tipo não encontrado')\n  }\n}\n\nalert('Arrays de numero e string respectivamente:')\nalert(array_de_numeros)\nalert(array_de_strings)`
   );
+
+  const theme = useTheme();
 
   return (
     <ExerciseCodeContainer>
-      <Editor
-        value={code}
-        onValueChange={code => setCode(code)}
-        highlight={code => highlight(code, languages.js, 'javascript')}
-        padding={10}
-        style={{
-          fontFamily: '"Fira code", "Fira Mono", monospace',
-          fontSize: 24
-        }}
-        textareaClassName="exercise-code-editor"
-      />
+      <EditorWrap>
+        <StyledEditor
+          value={code}
+          onValueChange={code => setCode(code)}
+          highlight={code => highlight(code, languages.js, 'javascript')}
+          padding={10}
+          style={{
+            fontFamily: theme.fonts.code,
+            lineHeight: theme.fontSize.xlarge,
+            fontSize: theme.fontSize.medium
+          }}
+        />
+      </EditorWrap>
       <FullWidthButton />
     </ExerciseCodeContainer>
   )

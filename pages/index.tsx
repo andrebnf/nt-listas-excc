@@ -10,6 +10,10 @@ const PageContainer = styled.div`
   grid-template-columns: 0.5fr 1fr 1.5fr;
 
   height: ${({theme}) => theme.layout.contentSize};
+
+  & > * {
+    max-height: ${({theme}) => theme.layout.contentSize};
+  }
 `
 
 const Home: NextPage = () => {
