@@ -23,9 +23,14 @@ const Button = styled.button`
   }
 `
 
-export const FullWidthButton = ({children}: any) => (
+interface FullWidthButtonProps {
+  children: React.ReactNode,
+  onClick(evt: any): void 
+}
+
+export const FullWidthButton = ({children, onClick}: FullWidthButtonProps) => (
   <ButtonContainer>
-    <Button>
+    <Button onClick={(evt) => { onClick(evt); evt.preventDefault() }}>
       {children}
     </Button>
   </ButtonContainer>

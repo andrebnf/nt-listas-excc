@@ -23,10 +23,15 @@ const EditorWrap = styled.div`
 
 export const ExerciseCode = (props: any) => {
   const [code, setCode] = useState(
-    `// Exemplo de código para testar o editor\n// Problemas conhecidos: overflow vertical não tá funcionando e desloca a página toda\n\nmeu_array = [1, 2, 3, 'a']\narray_de_numeros = []\narray_de_strings = []\n\nfor (let i = 0; i < meu_array.length; i++){\n  elemento = meu_array[i]\n  if (typeof elemento === 'number') {\n    array_de_numeros.push(elemento)\n  } else if (typeof elemento === 'string') {\n    array_de_strings.push(elemento)\n  } else {\n    alert('Pulando elemento: ' + elemento + '. Motivo: tipo não encontrado')\n  }\n}\n\nalert('Arrays de numero e string respectivamente:')\nalert(array_de_numeros)\nalert(array_de_strings)`
+    `// Exemplo de código para testar o editor\nmeu_array = [1, 2, 3, 'a']\narray_de_numeros = []\narray_de_strings = []\n\nfor (let i = 0; i < meu_array.length; i++){\n  elemento = meu_array[i]\n  if (typeof elemento === 'number') {\n    array_de_numeros.push(elemento)\n  } else if (typeof elemento === 'string') {\n    array_de_strings.push(elemento)\n  } else {\n    alert('Pulando elemento: ' + elemento + '. Motivo: tipo não encontrado')\n  }\n}\n\nalert('Arrays de numero e string respectivamente:')\nalert(array_de_numeros)\nalert(array_de_strings)`
   );
 
   const theme = useTheme();
+
+  function handleEditorChange(value: string | undefined) {
+    console.log("update to " + value)
+    setCode(value || "");
+  }
 
   return (
     <ExerciseCodeContainer>
@@ -34,6 +39,7 @@ export const ExerciseCode = (props: any) => {
         <Editor 
           defaultLanguage="javascript"
           defaultValue={code}
+          onChange={handleEditorChange}
           theme="vs-dark"
           options={
             {
@@ -47,7 +53,7 @@ export const ExerciseCode = (props: any) => {
      
         />
       </EditorWrap>
-      <FullWidthButton>
+      <FullWidthButton onClick={() => new Function(code)()}>
         <VscPlay/> Executar Código
       </FullWidthButton>
     </ExerciseCodeContainer>
