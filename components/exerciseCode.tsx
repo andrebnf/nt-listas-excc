@@ -1,12 +1,8 @@
 import { useState } from "react";
-import Editor from "react-simple-code-editor";
-import { highlight, languages } from "prismjs";
 import styled from "styled-components";
 import { useTheme } from 'styled-components'
+import Editor from "@monaco-editor/react";
 
-import 'prismjs/components/prism-clike';
-import 'prismjs/components/prism-javascript';
-import 'prismjs/themes/prism.css'; //Example style, you can use another
 import { FullWidthButton } from "./fullWidthButton";
 
 const ExerciseCodeContainer = styled.div`
@@ -16,30 +12,13 @@ const ExerciseCodeContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
-  & div:first-child {
-    height: 100%;
-  }
-
-  textarea {
-    outline: auto;
-    outline-color: #ccc;
-    white-space: pre !important;
-  }
-
-  textarea:focus {
-    outline-color: ${({theme}) => theme.colors.primary};
-    outline-offset: -1px;
-  }
 `
 
 const EditorWrap = styled.div`
-  overflow: auto;
+  border: 1px solid ${({theme}) => theme.colors.primary};
+  height: 100%;
 `
 
-const StyledEditor = styled(Editor)`
-  white-space: pre;
-`;
 
 export const ExerciseCode = (props: any) => {
   const [code, setCode] = useState(
@@ -51,16 +30,20 @@ export const ExerciseCode = (props: any) => {
   return (
     <ExerciseCodeContainer>
       <EditorWrap>
-        <StyledEditor
-          value={code}
-          onValueChange={code => setCode(code)}
-          highlight={code => highlight(code, languages.js, 'javascript')}
-          padding={10}
-          style={{
-            fontFamily: theme.fonts.code,
-            lineHeight: theme.fontSize.xlarge,
-            fontSize: theme.fontSize.medium
-          }}
+        <Editor 
+          defaultLanguage="javascript"
+          defaultValue={code}
+          theme="light"
+          options={
+            {
+              minimap: {enabled: false},
+              wordWrap: 'on',
+              padding: {top: theme.space[3], bottom: theme.space[3]},
+              scrollBeyondLastLine: false,
+              fontFamily: theme.fonts.code
+            }
+          }
+     
         />
       </EditorWrap>
       <FullWidthButton />
