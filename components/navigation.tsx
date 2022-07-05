@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Image from 'next/image'
 
 const NavBar = styled.nav`
   width: 100%;
@@ -11,12 +12,13 @@ const NavBar = styled.nav`
 
 const NavTitle = styled.h3`
   color: white;
-  padding: 0;
+  padding: 0 0 0 ${({theme}) => theme.space[4]};
   margin: 0;
 `
 
 export const Navigation = (props: any) => (
   <NavBar>
-    <NavTitle>Listas de Exercícios - Curso Online</NavTitle>
+    <Image src="/logo-white.svg" alt="Logotipo do Núcleo de Tecnologia MTST" width={40} height={40}/>
+    <NavTitle>Exercícios - Curso Online MTST</NavTitle>
   </NavBar>
 )

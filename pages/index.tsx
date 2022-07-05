@@ -28,7 +28,7 @@ export async function getStaticProps() {
 const Home: NextPage = ({ exercisesSummary }: any) => {
   return (
     <PageContainer>
-      <Sidebar items={exercisesSummary}></Sidebar>
+      <Sidebar title="Exercícios" items={exercisesSummary}></Sidebar>
       <ExerciseDetails></ExerciseDetails>
       <ExerciseCode></ExerciseCode>
     </PageContainer>

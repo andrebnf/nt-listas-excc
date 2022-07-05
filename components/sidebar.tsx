@@ -17,12 +17,13 @@ const ExercisesList = styled.ul`
 `
 
 interface SidebarProps {
-  items: {title: string, slug: string}[]
+  items: {title: string, slug: string}[];
+  title: string;
 }
 
-export const Sidebar = ({items}: SidebarProps) => (
+export const Sidebar = ({title, items}: SidebarProps) => (
   <SidebarContainer>
-    <h3>📔Módulos</h3>
+    <h3>{title}</h3>
     <ExercisesList>
       {items.map(({slug, title}) => {
         return <li key={slug}>{title}</li>
