@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { ExerciseDetails } from '../components/exerciseDetails';
 import { ExerciseCode } from '../components/exerciseCode';
 import { Sidebar } from '../components/sidebar';
+import { getExercisesSummary } from '../lib/exercises';
 
 const PageContainer = styled.div`
   display: grid;
@@ -16,10 +17,18 @@ const PageContainer = styled.div`
   }
 `
 
-const Home: NextPage = () => {
+export async function getStaticProps() {
+  const exercisesSummary = getExercisesSummary()
+
+  return {
+    props: { exercisesSummary }
+  }
+}
+
+const Home: NextPage = ({ exercisesSummary }: any) => {
   return (
     <PageContainer>
-      <Sidebar></Sidebar>
+      <Sidebar items={exercisesSummary}></Sidebar>
       <ExerciseDetails></ExerciseDetails>
       <ExerciseCode></ExerciseCode>
     </PageContainer>

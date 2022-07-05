@@ -40,7 +40,7 @@ export const ExerciseCode = (props: any) => {
           defaultLanguage="javascript"
           defaultValue={code}
           onChange={handleEditorChange}
-          theme="vs-dark"
+          theme="light"
           options={
             {
               minimap: {enabled: false},

@@ -7,7 +7,7 @@ const SidebarContainer = styled.div`
   padding-top: ${({theme}) => theme.space[2]};
 `
 
-const ModulesList = styled.ul`
+const ExercisesList = styled.ul`
   list-style: none;
   padding-left: 0;
 
@@ -16,46 +16,17 @@ const ModulesList = styled.ul`
   }
 `
 
-const TopicsList = styled.ul`
-  list-style: none;
-  padding-left: ${({theme}) => theme.space[4]};
-  padding-top: ${({theme}) => theme.space[1]};
-  padding-bottom: ${({theme}) => theme.space[1]};
-`
+interface SidebarProps {
+  items: {title: string, slug: string}[]
+}
 
-const ExercisesList = styled(TopicsList)`
-  font-size: ${({theme}) => theme.fontSize.small};
-`
-
-export const Sidebar = (props: any) => (
+export const Sidebar = ({items}: SidebarProps) => (
   <SidebarContainer>
     <h3>📔Módulos</h3>
-    <ModulesList>
-      <li>
-        Módulo 1
-        <TopicsList>
-          <li>
-            Lista 1
-            <ExercisesList>
-              <li>
-                Exercício 1
-              </li>
-            </ExercisesList>
-          </li>
-          <li>
-            Lista 2
-          </li>
-          <li>
-            Lista 3
-          </li>
-        </TopicsList>
-      </li>
-      <li>
-        Módulo 2
-      </li>
-      <li>
-        Módulo 3
-      </li>
-    </ModulesList>
+    <ExercisesList>
+      {items.map(({slug, title}) => {
+        return <li key={slug}>{title}</li>
+      })}
+    </ExercisesList>
   </SidebarContainer>
 )
