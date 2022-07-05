@@ -10,16 +10,23 @@ const ExerciseDetailsContainer = styled.div`
   }
 `
 
-const ExerciseText = styled.p`
-  font-size: ${({theme}) => theme.fontSize.xlarge};
+const mdContentClassName = "md-content"
+
+const ExerciseText = styled.div`
+    font-size: ${({theme}) => theme.fontSize.large};
 `
 
-export const ExerciseDetails = (props: any) => (
-  <ExerciseDetailsContainer>
-    <h4>Módulo 1 &gt; Lista 1 &gt; Exercício 3</h4>
+interface ExerciseDetailsProps {
+  breadcrumb: string,
+  content: string,
+  title: string
+}
 
-    <ExerciseText>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde repudiandae, asperiores explicabo quas numquam quae assumenda voluptas ipsa expedita iusto doloribus eos laudantium suscipit provident rerum illum nostrum mollitia nesciunt?
-    </ExerciseText>
+export const ExerciseDetails = ({breadcrumb, content, title}: ExerciseDetailsProps) => (
+  <ExerciseDetailsContainer>
+    <h4>{breadcrumb}</h4>
+    <h3>{title}</h3>
+
+    <ExerciseText dangerouslySetInnerHTML={{ __html: content }} className={mdContentClassName} />
   </ExerciseDetailsContainer>  
 )

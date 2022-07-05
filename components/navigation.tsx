@@ -4,7 +4,7 @@ import Image from 'next/image'
 const NavBar = styled.nav`
   width: 100%;
   padding: 0 ${({theme}) => theme.space[4]};
-  background-color: ${({theme}) => theme.colors.primary};
+  background-color: ${({theme}) => theme.colors.secondary};
   height: ${({theme}) => theme.layout.navSize};
   display: flex;
   align-items: center;

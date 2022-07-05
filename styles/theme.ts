@@ -19,6 +19,9 @@ export const theme: DefaultTheme = {
     background: '#FFF5E6',
     primaryFaded: '#eec5d5',
     primaryOpacity08: '#e26b9b',
+    secondary: '#6939ca',
+    secondaryOpacity03: '#d2c3ef',
+    secondaryOpacity02: '#e1d7f4',
     text: '#444',
     sectionSeparator: '#AAA'
   },

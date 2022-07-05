@@ -1,21 +1,9 @@
 import type { NextPage } from 'next';
 import styled from 'styled-components';
+import { PageContainer } from '../components/page-container';
 
-import { ExerciseDetails } from '../components/exerciseDetails';
-import { ExerciseCode } from '../components/exerciseCode';
 import { Sidebar } from '../components/sidebar';
 import { getExercisesSummary } from '../lib/exercises';
-
-const PageContainer = styled.div`
-  display: grid;
-  grid-template-columns: 0.5fr 1fr 1.5fr;
-
-  height: ${({theme}) => theme.layout.contentSize};
-
-  & > * {
-    max-height: ${({theme}) => theme.layout.contentSize};
-  }
-`
 
 export async function getStaticProps() {
   const exercisesSummary = getExercisesSummary()
@@ -25,12 +13,19 @@ export async function getStaticProps() {
   }
 }
 
+const PlaceholderText = styled.div`
+  padding-left: ${({theme}) => theme.space[4]};
+`
+
 const Home: NextPage = ({ exercisesSummary }: any) => {
   return (
-    <PageContainer>
+    <PageContainer columns={2}>
       <Sidebar title="Exercícios" items={exercisesSummary}></Sidebar>
-      <ExerciseDetails></ExerciseDetails>
-      <ExerciseCode></ExerciseCode>
+      {/* <ExerciseDetails></ExerciseDetails> */}
+      {/* <ExerciseCode></ExerciseCode> */}
+      <PlaceholderText>
+        <h1>Selecione um exercício ao lado</h1>
+      </PlaceholderText>    
     </PageContainer>
   )
 }

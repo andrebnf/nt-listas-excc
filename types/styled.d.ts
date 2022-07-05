@@ -19,6 +19,9 @@ declare module 'styled-components' {
       primary: string,
       primaryFaded: string,
       primaryOpacity08: string,
+      secondary: string,
+      secondaryOpacity03: string,
+      secondaryOpacity02: string,
       background: string,
       text: string,
       sectionSeparator: string

@@ -4,11 +4,14 @@ import matter from 'gray-matter'
 
 const exercisesDirectory = join(process.cwd(), '_exercises')
 
+const getRealSlug = (slugWithFileFormat: string): string => {
+  return slugWithFileFormat.replace(/\.md$/, '')
+}
+
 const readFileContents = (slug: string) => {
-  const realSlug = slug.replace(/\.md$/, '')
-  const fullPath = join(exercisesDirectory, `${realSlug}.md`)
+  const fullPath = join(exercisesDirectory, `${slug}.md`)
   const fileContents = fs.readFileSync(fullPath, 'utf8')
-  return {...matter(fileContents), slug: realSlug}
+  return matter(fileContents)
 }
 
 export interface ExerciseSummary {
@@ -18,22 +21,24 @@ export interface ExerciseSummary {
 
 export interface ExerciseDetails {
   title: string,
+  breadcrumb: string,
   slug: string,
   content: string
 }
 
-export function getExercisesSlugs() {
-  return fs.readdirSync(exercisesDirectory)
+export function getExercisesSlugs(): string[] {
+  return fs.readdirSync(exercisesDirectory).map(getRealSlug)
 }
 
-export function getExerciseBySlug(slugInput: string): ExerciseDetails {
-  const { data, slug, content } = readFileContents(slugInput);
-  return { slug: slug, title: data['title'], content }
+export function getExerciseBySlug(slug: string): ExerciseDetails {
+  const { data, content } = readFileContents(slug)
+  const { breadcrumb, title } = data
+  return { title, breadcrumb, slug, content }
 }
 
-export function getExerciseMetadataBySlug(slugInput: string): ExerciseSummary {
-  const { data, slug } = readFileContents(slugInput);
-  return { slug: slug, title: data['title'] }
+export function getExerciseMetadataBySlug(slug: string): ExerciseSummary {
+  const { data } = readFileContents(slug)
+  return { slug, title: data['title'] }
 }
 
 export function getExercisesSummary(): ExerciseSummary[] {

@@ -29,7 +29,6 @@ export const ExerciseCode = (props: any) => {
   const theme = useTheme();
 
   function handleEditorChange(value: string | undefined) {
-    console.log("update to " + value)
     setCode(value || "");
   }
 
