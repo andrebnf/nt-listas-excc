@@ -1,5 +1,7 @@
 import Link from "next/link";
 import styled from "styled-components";
+import { ExerciseSummary } from "../lib/exercises";
+import { VscFileCode } from 'react-icons/vsc'
 
 const SidebarContainer = styled.div`
   background-color: ${({theme}) => theme.colors.secondaryOpacity02};
@@ -17,8 +19,25 @@ const SidebarList = styled.ul`
   }
 `
 
+const StyledA = styled.a`
+  text-decoration: none;
+  color: ${({theme}) => theme.colors.text};
+  font-size: ${({theme}) => theme.fontSize.medium};
+  font-weight: bold;
+
+  &:hover, &:focus {
+    cursor: pointer;
+    color: ${({theme}) => theme.colors.primary};
+  }
+`
+
+const StyledIcon = styled(VscFileCode)`
+  top: 2px;
+  position: relative;
+`
+
 interface SidebarProps {
-  items: {title: string, slug: string}[];
+  items: ExerciseSummary[];
   title: string;
 }
 
@@ -29,7 +48,7 @@ export const Sidebar = ({title, items}: SidebarProps) => (
       {items.map(({slug, title}) => (
         <li key={slug}>
           <Link href={`/exercises/${slug}`}>
-            <a className="hover:underline">{title}</a>
+            <StyledA className="hover:underline"><StyledIcon/> {title}</StyledA>
           </Link>
         </li>
     ))}

@@ -21,8 +21,6 @@ const Home: NextPage = ({ exercisesSummary }: any) => {
   return (
     <PageContainer columns={2}>
       <Sidebar title="Exercícios" items={exercisesSummary}></Sidebar>
-      {/* <ExerciseDetails></ExerciseDetails> */}
-      {/* <ExerciseCode></ExerciseCode> */}
       <PlaceholderText>
         <h1>Selecione um exercício ao lado</h1>
       </PlaceholderText>    

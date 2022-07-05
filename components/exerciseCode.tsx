@@ -52,7 +52,19 @@ export const ExerciseCode = (props: any) => {
      
         />
       </EditorWrap>
-      <FullWidthButton onClick={() => new Function(code)()}>
+      <FullWidthButton onClick={() => {
+        try {
+          return new Function(code)() 
+        } catch (error) {
+          let message = 'Erro desconhecido'
+          let stack
+          if (error instanceof Error) {
+            message = error.message
+            stack = error.stack?.toString()
+          } 
+          alert(`Ops, tem algo de errado com seu código: ${message}\n\nStackTrace:\n${stack}`)
+        }
+      }}>
         <VscPlay/> Executar Código
       </FullWidthButton>
     </ExerciseCodeContainer>
