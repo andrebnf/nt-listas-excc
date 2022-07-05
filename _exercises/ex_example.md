@@ -1,11 +1,8 @@
 ---
-title: '1.1 - Condicionais'
-breadcrumb: 'Módulo 1 > Lista 1 > Execício 1.1'
-solution: '
-let a = 0
-let b = 1
-if (a>b) alert('aaa')
-'
+title: 'Ex. Exemplo'
+breadcrumb: 'Módulo 0 > Aula 0 > Execício Exemplo'
+# solution
+# difficulty
 ---
 
 Nesse exercício vamos aprender sobre condicionais. Na lógica de programação, frequentemente é necessário criar condições para que o nosso código consiga representar um certo problema da vida real. Vamos supor que estamos criando um jogo entre dois oponentes (Ana e Bianca) e queremos saber quem ganhou o jogo. Neste caso, a condição que nos ajuda a descobrir quem tem maior pontuação é:
