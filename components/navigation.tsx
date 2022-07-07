@@ -1,5 +1,11 @@
-import styled from "styled-components";
 import Image from 'next/image'
+import styled from "styled-components";
+import { Auth } from 'aws-amplify';
+import { CognitoHostedUIIdentityProvider } from '@aws-amplify/auth';
+import { useUserContext } from "../context/userAuth";
+import { Button } from './button';
+import { BsGoogle } from "react-icons/bs";
+import { StyledReactIcon } from './styledReactIcon';
 
 const NavBar = styled.nav`
   width: 100%;
@@ -16,9 +22,30 @@ const NavTitle = styled.h3`
   margin: 0;
 `
 
-export const Navigation = (props: any) => (
-  <NavBar>
-    <Image src="/logo-white.svg" alt="Logotipo do Núcleo de Tecnologia MTST" width={40} height={40}/>
-    <NavTitle>Exercícios - Curso Online MTST</NavTitle>
-  </NavBar>
-)
+const AuthAction = styled.div`
+  margin-left: auto;
+`
+
+export const Navigation = (props: any) => { 
+  const [user, _setUser] = useUserContext();
+
+  return (
+    <NavBar>
+      <Image src="/logo-white.svg" alt="Logotipo do Núcleo de Tecnologia MTST" width={40} height={40}/>
+      <NavTitle>Exercícios - Curso Online MTST</NavTitle>
+      {user?.username ? (
+        <AuthAction>
+          <Button onClick={() => Auth.signOut()}>Sair</Button>
+        </AuthAction>
+      ) : (
+        <AuthAction>
+          <Button onClick={
+              () => Auth.federatedSignIn({provider: CognitoHostedUIIdentityProvider.Google })
+            }>
+            <StyledReactIcon><BsGoogle/></StyledReactIcon> Entrar com minha conta do Google
+          </Button>
+        </AuthAction>
+      )}
+    </NavBar>
+  )
+}

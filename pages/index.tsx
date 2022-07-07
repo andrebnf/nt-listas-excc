@@ -1,5 +1,6 @@
-import type { NextPage } from 'next';
+import { NextPage } from 'next';
 import styled from 'styled-components';
+
 import { PageContainer } from '../components/page-container';
 
 import { Sidebar } from '../components/sidebar';
@@ -28,4 +29,4 @@ const Home: NextPage = ({ exercisesSummary }: any) => {
   )
 }
 
-export default Home
+export default Home;
