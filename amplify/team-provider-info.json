@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-ntlistasexcc-dev-145714-authRole",
+      "UnauthRoleArn": "arn:aws:iam::129426043631:role/amplify-ntlistasexcc-dev-145714-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::129426043631:role/amplify-ntlistasexcc-dev-145714-authRole",
+      "Region": "sa-east-1",
+      "DeploymentBucketName": "amplify-ntlistasexcc-dev-145714-deployment",
+      "UnauthRoleName": "amplify-ntlistasexcc-dev-145714-unauthRole",
+      "StackName": "amplify-ntlistasexcc-dev-145714",
+      "StackId": "arn:aws:cloudformation:sa-east-1:129426043631:stack/amplify-ntlistasexcc-dev-145714/3c5d3c60-fe1e-11ec-857e-0685148b8de6",
+      "AmplifyAppId": "dkrqx2amtcpmt"
+    }
+  }
+}
