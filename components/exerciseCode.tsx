@@ -7,7 +7,7 @@ import { FullWidthButton } from "./fullWidthButton";
 import { VscPlay } from "react-icons/vsc";
 
 const ExerciseCodeContainer = styled.div`
-  padding: ${({theme}) => theme.space[4]};
+  padding: ${({theme}) => theme.space[7]};
 
   height: 100%;
   display: flex;
