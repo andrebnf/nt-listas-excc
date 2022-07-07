@@ -10,6 +10,11 @@
       "StackName": "amplify-ntlistasexcc-dev-145714",
       "StackId": "arn:aws:cloudformation:sa-east-1:129426043631:stack/amplify-ntlistasexcc-dev-145714/3c5d3c60-fe1e-11ec-857e-0685148b8de6",
       "AmplifyAppId": "dkrqx2amtcpmt"
+    },
+    "categories": {
+      "auth": {
+        "ntlistasexccc3a32f7f": {}
+      }
     }
   }
 }
