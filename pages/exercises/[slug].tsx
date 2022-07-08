@@ -6,6 +6,7 @@ import { ExerciseSummary, getExerciseBySlug, getExercisesSlugs, getExercisesSumm
 import { PageContainer } from '../../components/page-container'
 import { ExerciseCode } from '../../components/exerciseCode'
 import { Sidebar } from '../../components/sidebar'
+import { useUserContext } from '../../context/userAuth'
 
 interface ExerciseProps {
   title: string,
@@ -17,6 +18,8 @@ interface ExerciseProps {
 
 export default function Exercise({ title, breadcrumb, slug, content, exercisesSummary }: ExerciseProps) {
   const router = useRouter()
+  const [user, _] = useUserContext();
+
   if (!router.isFallback && !slug) {
     return <ErrorPage statusCode={404} />
   }
@@ -32,7 +35,12 @@ export default function Exercise({ title, breadcrumb, slug, content, exercisesSu
         <>
           <Sidebar title="Exercícios" items={exercisesSummary}></Sidebar>
           <ExerciseDetails title={title} breadcrumb={breadcrumb} content={content} />
-          <ExerciseCode></ExerciseCode>
+          {user.isAuthenticated ? (
+            <ExerciseCode></ExerciseCode>
+
+          ) : (
+            <h1>Faça o Login acima para resolver o exercício</h1>
+          )}
         </>
       )}
     </PageContainer>

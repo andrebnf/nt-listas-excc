@@ -8,6 +8,7 @@ import { theme } from '../styles/theme'
 import { Amplify } from 'aws-amplify';
 import awsconfig from '../src/aws-exports';
 import { UserAuthProvider } from '../context/userAuth'
+import { UserNavigationProvider } from '../context/userNavigation'
 
 const isDevelopmentEnv = process.env.NODE_ENV === "development";
 
@@ -32,11 +33,13 @@ function MyApp({ Component, pageProps }: AppProps) {
     <>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <UserAuthProvider>
-          <Navigation />
-          <Component {...pageProps} />
-          <Footer />
-        </UserAuthProvider>
+        <UserNavigationProvider>
+          <UserAuthProvider>
+            <Navigation />
+            <Component {...pageProps} />
+            <Footer />
+          </UserAuthProvider>
+        </UserNavigationProvider>
       </ThemeProvider>
     </>
   )

@@ -37,11 +37,6 @@
     "usernameAttributes": [
       "email"
     ],
-    "hostedUIDomainName": "auth",
-    "authProvidersUserPool": [
-      "Google"
-    ],
-    "hostedUIProviderMeta": "[{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}}]",
     "userPoolGroupList": [],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
@@ -62,7 +57,12 @@
     "dependsOn": [],
     "userPoolGroups": false,
     "adminQueries": false,
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/\",\"https://nt-listas-excc.vercel.app/\"],\"LogoutURLs\":[\"http://localhost:3000/\",\"https://nt-listas-excc.vercel.app/\"]}",
+    "hostedUIDomainName": "auth-nt-curso-online",
+    "authProvidersUserPool": [
+      "Google"
+    ],
+    "hostedUIProviderMeta": "[{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}}]",
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/auth_redirect/\",\"https://nt-listas-excc.vercel.app/auth_redirect/\"],\"LogoutURLs\":[\"http://localhost:3000/auth_redirect/\",\"https://nt-listas-excc.vercel.app/auth_redirect/\"]}",
     "authProviders": []
   }
 }
