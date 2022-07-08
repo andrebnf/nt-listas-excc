@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "^3.0.4",
     "@monaco-editor/react": "^4.4.5",
     "gray-matter": "^4.0.3",
     "next": "12.2.0",

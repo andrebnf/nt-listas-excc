@@ -5,28 +5,26 @@ import { Navigation } from '../components/navigation'
 import { GlobalStyle } from '../styles/global'
 import { theme } from '../styles/theme'
 
-import { Amplify } from 'aws-amplify';
-import awsconfig from '../src/aws-exports';
 import { UserAuthProvider } from '../context/userAuth'
 import { UserNavigationProvider } from '../context/userNavigation'
 
 const isDevelopmentEnv = process.env.NODE_ENV === "development";
 
 // Assuming you have two redirect URIs, and the first is for localhost and second is for production
-const [localRedirectSignIn, productionRedirectSignIn] = awsconfig.oauth.redirectSignIn.split(",");
-const [localRedirectSignOut, productionRedirectSignOut] = awsconfig.oauth.redirectSignOut.split(",");
+// const [localRedirectSignIn, productionRedirectSignIn] = awsconfig.oauth.redirectSignIn.split(",");
+// const [localRedirectSignOut, productionRedirectSignOut] = awsconfig.oauth.redirectSignOut.split(",");
 
-const updatedAwsConfig = {
-  ...awsconfig,
-  ssr: true,
-  oauth: {
-    ...awsconfig.oauth,
-    redirectSignIn: isDevelopmentEnv ? localRedirectSignIn : productionRedirectSignIn,
-    redirectSignOut: isDevelopmentEnv ? localRedirectSignOut : productionRedirectSignOut,
-  }
-}
+// const updatedAwsConfig = {
+//   ...awsconfig,
+//   ssr: true,
+//   oauth: {
+//     ...awsconfig.oauth,
+//     redirectSignIn: isDevelopmentEnv ? localRedirectSignIn : productionRedirectSignIn,
+//     redirectSignOut: isDevelopmentEnv ? localRedirectSignOut : productionRedirectSignOut,
+//   }
+// }
 
-Amplify.configure(updatedAwsConfig);
+// Amplify.configure(updatedAwsConfig);
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

@@ -1,7 +1,5 @@
 import Image from 'next/image'
 import styled from "styled-components";
-import { Auth } from 'aws-amplify';
-import { CognitoHostedUIIdentityProvider } from '@aws-amplify/auth';
 import { useUserContext } from "../context/userAuth";
 import { Button } from './button';
 import { BsGoogle } from "react-icons/bs";
@@ -39,14 +37,14 @@ export const Navigation = (props: any) => {
       <NavTitle>Exercícios - Curso Online MTST {user?.username}</NavTitle>
       {user?.username ? (
         <AuthAction>
-          <Button onClick={() => Auth.signOut()}>Sair</Button>
+          {/* <Button onClick={() => Auth.signOut()}>Sair</Button> */}
         </AuthAction>
       ) : (
         <AuthAction>
           <Button onClick={
               () => {
                 setLastPageBeforeSignIn(router.asPath);
-                Auth.federatedSignIn({provider: CognitoHostedUIIdentityProvider.Google });
+                // Auth.federatedSignIn({provider: CognitoHostedUIIdentityProvider.Google });
               }
             }>
             <StyledReactIcon><BsGoogle/></StyledReactIcon> Entrar com minha conta do Google
