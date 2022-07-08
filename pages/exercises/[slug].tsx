@@ -1,12 +1,13 @@
-import { useRouter } from 'next/router'
-import ErrorPage from 'next/error'
+import ErrorPage from 'next/error';
 import markdownToHtml from '../../lib/markdownToHtml'
 import { ExerciseDetails } from '../../components/exerciseDetails'
 import { ExerciseSummary, getExerciseBySlug, getExercisesSlugs, getExercisesSummary } from '../../lib/exercises'
 import { PageContainer } from '../../components/page-container'
 import { ExerciseCode } from '../../components/exerciseCode'
 import { Sidebar } from '../../components/sidebar'
-import { useUserContext } from '../../context/userAuth'
+import { useRouter } from 'next/router';
+import { auth } from "../../firebase/clientApp";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 interface ExerciseProps {
   title: string,
@@ -18,7 +19,7 @@ interface ExerciseProps {
 
 export default function Exercise({ title, breadcrumb, slug, content, exercisesSummary }: ExerciseProps) {
   const router = useRouter()
-  const [user, _] = useUserContext();
+  const [user, loading, _error] = useAuthState(auth);
 
   if (!router.isFallback && !slug) {
     return <ErrorPage statusCode={404} />
@@ -35,11 +36,14 @@ export default function Exercise({ title, breadcrumb, slug, content, exercisesSu
         <>
           <Sidebar title="Exercícios" items={exercisesSummary}></Sidebar>
           <ExerciseDetails title={title} breadcrumb={breadcrumb} content={content} />
-          {user.isAuthenticated ? (
+          {user ? (
             <ExerciseCode></ExerciseCode>
-
           ) : (
-            <h1>Faça o Login acima para resolver o exercício</h1>
+            loading ? (
+              <h1>Carregando...</h1>
+            ) : (
+              <h1>Faça o Login acima para resolver o exercício</h1>
+            )
           )}
         </>
       )}
