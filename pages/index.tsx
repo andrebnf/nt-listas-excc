@@ -14,24 +14,30 @@ export async function getStaticProps() {
   }
 }
 
-const PlaceholderText = styled.div`
+const WelcomeTextContainer = styled.div`
   padding-left: ${({theme}) => theme.space[4]};
   padding-top: ${({theme}) => theme.space[2]};
+`
+
+const WelcomeText = styled.p`
+  font-size: ${({theme}) => theme.fontSize.large};
 `
 
 const Home: NextPage = ({ exercisesSummary }: any) => {
   return (
     <PageContainer columns={2}>
       <Sidebar title="Exercícios" items={exercisesSummary}></Sidebar>
-      <PlaceholderText>
+      <WelcomeTextContainer>
         <h1>Curso Online de Programação</h1>
         <h2>Núcleo de Tecnologia - MTST</h2>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores debitis, <br/>
-          iusto magni consequatur suscipit, ullam animi possimus maxime, earum eius <br/>
-          impedit quo omnis ab iste inventore quae excepturi distinctio totam.
-        </p>
-      </PlaceholderText>    
+        <WelcomeText>
+          Bem vinde ao portal do Curso Online de Programação! <br/>
+          Use o menu à esquerda para acessar os exercícios. Na <br/>
+          página do exercício é possível programar a solução <br/>
+          utilizando JavaScrpt, mas para isso é necessário fazer<br/>
+          login utilizando sua conta do Google.
+        </WelcomeText>
+      </WelcomeTextContainer>    
     </PageContainer>
   )
 }

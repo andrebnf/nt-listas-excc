@@ -4,6 +4,7 @@ const ExerciseDetailsContainer = styled.div`
   padding-top: ${({theme}) => theme.space[2]};
   padding-left: ${({theme}) => theme.space[4]};
   padding-right: ${({theme}) => theme.space[2]};
+  overflow-y: auto;
 `
 
 const ExerciseText = styled.div`

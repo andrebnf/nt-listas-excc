@@ -1,21 +1,21 @@
 import Link from "next/link";
 import styled from "styled-components";
 import { ExerciseSummary } from "../lib/exercises";
-import { VscFileCode } from 'react-icons/vsc'
 import { useRouter } from "next/router";
 
 const SidebarContainer = styled.div`
   background-color: ${({theme}) => theme.colors.secondaryOpacity01};
-  padding-left: ${({theme}) => theme.space[5]};
-  padding-right: ${({theme}) => theme.space[7]};
+  padding-left: ${({theme}) => theme.space[4]};
+  padding-right: ${({theme}) => theme.space[4]};
   padding-top: ${({theme}) => theme.space[2]};
 `
 
 const SidebarList = styled.ul`
   list-style: none;
   padding-left: 0;
-
+  
   li {
+    line-height: ${({theme}) => theme.space[4]};
     padding-bottom: ${({theme}) => theme.space[0]};
   }
 `
@@ -37,11 +37,6 @@ const StyledA = styled.a`
   }
 `
 
-const StyledIcon = styled(VscFileCode)`
-  top: 2px;
-  position: relative;
-`
-
 interface SidebarProps {
   items: ExerciseSummary[];
   title: string;
@@ -61,7 +56,7 @@ export const Sidebar = ({title, items}: SidebarProps) => {
           <li key={slug}>
             <Link href={`/exercises/${slug}`}>
               <StyledA className={slug === currentSlug ? 'sidebar-item-active' : ''}>
-                <StyledIcon/> {title}
+                {title}
               </StyledA>
             </Link>
           </li>
