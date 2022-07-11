@@ -41,6 +41,7 @@ interface SidebarProps {
   title: string;
 }
 
+// TODO: marcar item ativo na sidebar (useRouter().query === slug)
 export const Sidebar = ({title, items}: SidebarProps) => (
   <SidebarContainer>
     <h3>{title}</h3>
@@ -48,7 +49,7 @@ export const Sidebar = ({title, items}: SidebarProps) => (
       {items.map(({slug, title}) => (
         <li key={slug}>
           <Link href={`/exercises/${slug}`}>
-            <StyledA className="hover:underline"><StyledIcon/> {title}</StyledA>
+            <StyledA><StyledIcon/> {title}</StyledA>
           </Link>
         </li>
     ))}

@@ -1,6 +1,6 @@
 import { useAuthState } from "react-firebase-hooks/auth";
 import { signInWithPopup } from "firebase/auth";
-import { BsGoogle } from 'react-icons/bs';
+import { ImGoogle2 } from 'react-icons/im';
 import styled from "styled-components";
 import { auth, authProvider } from "../firebase/clientApp";
 import { Button } from './button';
@@ -46,7 +46,7 @@ export const Navigation = (props: any) => {
                 }).catch(e => console.log(JSON.stringify(error))); // TODO tratar erros (ex: sem conexão)
               }
             }>
-            <StyledReactIcon><BsGoogle/></StyledReactIcon> Entrar com minha conta do Google
+            <StyledReactIcon><ImGoogle2/></StyledReactIcon>&nbsp;&nbsp;Entrar com o Google
           </Button>
         </AuthAction>
       )}

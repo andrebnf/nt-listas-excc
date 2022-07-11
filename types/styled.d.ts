@@ -27,6 +27,9 @@ declare module 'styled-components' {
       sectionSeparator: string
     },
     space: array,
+    iconSize: {
+      large: string,
+    },
     layout: {
       navSize: string,
       contentSize: string,

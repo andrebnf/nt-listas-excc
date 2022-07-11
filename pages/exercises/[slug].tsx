@@ -1,13 +1,29 @@
+import { useRouter } from 'next/router';
 import ErrorPage from 'next/error';
-import markdownToHtml from '../../lib/markdownToHtml'
-import { ExerciseDetails } from '../../components/exerciseDetails'
+import { useAuthState } from "react-firebase-hooks/auth";
+import { TbFileCode2 } from 'react-icons/tb';
+import styled from 'styled-components';
+import { auth } from "../../firebase/clientApp";
+
 import { ExerciseSummary, getExerciseBySlug, getExercisesSlugs, getExercisesSummary } from '../../lib/exercises'
+import markdownToHtml from '../../lib/markdownToHtml'
+
+import { ExerciseDetails } from '../../components/exerciseDetails'
 import { PageContainer } from '../../components/page-container'
 import { ExerciseCode } from '../../components/exerciseCode'
 import { Sidebar } from '../../components/sidebar'
-import { useRouter } from 'next/router';
-import { auth } from "../../firebase/clientApp";
-import { useAuthState } from "react-firebase-hooks/auth";
+
+const NonLoggedContentWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+`;
+
+const StyledIcon = styled(TbFileCode2)`
+  width: ${({theme}) => theme.iconSize.large};
+  height: ${({theme}) => theme.iconSize.large};
+`;
 
 interface ExerciseProps {
   title: string,
@@ -44,7 +60,12 @@ export default function Exercise({ title, breadcrumb, slug, content, exercisesSu
             loading ? (
               <h1>Carregando...</h1>
             ) : (
-              <h1>Faça o Login acima para resolver o exercício</h1>
+              <NonLoggedContentWrapper>
+                <div>
+                  <StyledIcon />
+                </div>  
+                <h3>Faça o Login acima para<br/> resolver o exercício</h3>
+              </NonLoggedContentWrapper>
             )
           )}
         </>

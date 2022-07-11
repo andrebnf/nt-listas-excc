@@ -16,6 +16,7 @@ export async function getStaticProps() {
 
 const PlaceholderText = styled.div`
   padding-left: ${({theme}) => theme.space[4]};
+  padding-top: ${({theme}) => theme.space[2]};
 `
 
 const Home: NextPage = ({ exercisesSummary }: any) => {
@@ -23,7 +24,13 @@ const Home: NextPage = ({ exercisesSummary }: any) => {
     <PageContainer columns={2}>
       <Sidebar title="Exercícios" items={exercisesSummary}></Sidebar>
       <PlaceholderText>
-        <h1>Selecione um exercício ao lado</h1>
+        <h1>Curso Online de Programação</h1>
+        <h2>Núcleo de Tecnologia - MTST</h2>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores debitis, <br/>
+          iusto magni consequatur suscipit, ullam animi possimus maxime, earum eius <br/>
+          impedit quo omnis ab iste inventore quae excepturi distinctio totam.
+        </p>
       </PlaceholderText>    
     </PageContainer>
   )

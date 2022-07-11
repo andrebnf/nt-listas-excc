@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components"
 
 interface PageContainerProps {
   columns: number,
@@ -16,11 +16,11 @@ const ContainerBasis = styled.div`
 `
 
 const ThreeColumnsPage = styled(ContainerBasis)`
-  grid-template-columns: 0.5fr 1fr 1.5fr;
+  grid-template-columns: 0.65fr 1fr 1.35fr;
 `
 
 const TwoColumnsPage = styled(ContainerBasis)`
-  grid-template-columns: 0.5fr 2.5fr;
+  grid-template-columns: 0.65fr 2.35fr;
 `
 
 const OneColumnPage = styled(ContainerBasis)`
