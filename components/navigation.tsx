@@ -1,14 +1,11 @@
-import { useUserContext } from "../context/userAuth";
-import { Button } from './button';
-import { StyledReactIcon } from './styledReactIcon';
-import { useUserNavigationContext } from '../context/userNavigation';
-import Image from "next/image";
-import styled from "styled-components";
-import { useRouter } from "next/router";
-import { BsGoogle } from 'react-icons/bs';
-import { auth, authProvider } from "../firebase/clientApp";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { signInWithPopup } from "firebase/auth";
+import { BsGoogle } from 'react-icons/bs';
+import styled from "styled-components";
+import { auth, authProvider } from "../firebase/clientApp";
+import { Button } from './button';
+import Image from "next/image";
+import { StyledReactIcon } from './styledReactIcon';
 
 const NavBar = styled.nav`
   width: 100%;
@@ -30,10 +27,7 @@ const AuthAction = styled.div`
 `
 
 export const Navigation = (props: any) => { 
-  // const [user, _setUser] = useUserContext();
-  const { setLastPageBeforeSignIn } = useUserNavigationContext();
-  const router = useRouter();
-  const [user, loading, error] = useAuthState(auth);
+  const [user, _loading, error] = useAuthState(auth);
 
   return (
     <NavBar>
@@ -47,11 +41,9 @@ export const Navigation = (props: any) => {
         <AuthAction>
           <Button onClick={
               () => {
-                setLastPageBeforeSignIn(router.asPath);
                 signInWithPopup(auth, authProvider).then(function(result) {
                   console.log(result)
-                 });
-                 
+                }).catch(e => console.log(JSON.stringify(error)));
               }
             }>
             <StyledReactIcon><BsGoogle/></StyledReactIcon> Entrar com minha conta do Google
