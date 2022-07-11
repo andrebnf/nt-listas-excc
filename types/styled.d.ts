@@ -24,7 +24,8 @@ declare module 'styled-components' {
       secondaryOpacity02: string,
       background: string,
       text: string,
-      sectionSeparator: string
+      sectionSeparator: string,
+      white: string
     },
     space: array,
     iconSize: {

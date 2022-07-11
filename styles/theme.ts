@@ -23,7 +23,8 @@ export const theme: DefaultTheme = {
     secondaryOpacity03: '#d2c3ef',
     secondaryOpacity02: '#e1d7f4',
     text: '#444',
-    sectionSeparator: '#AAA'
+    sectionSeparator: '#AAA',
+    white: '#DDD',
   },
   space: [
     '4px', '8px', '12px', '16px', '24px', '32px',
@@ -33,8 +34,8 @@ export const theme: DefaultTheme = {
     large: '48px'
   },
   layout: {
-    navSize: '8vh',
-    contentSize: '88vh',
-    footerSize: '4vh'
+    navSize: '0vh',
+    contentSize: '100vh',
+    footerSize: '0vh'
   }
 };
