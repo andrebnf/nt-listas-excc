@@ -6,6 +6,10 @@ import { Navigation } from '../components/navigation'
 import { GlobalStyle } from '../styles/global'
 import { theme } from '../styles/theme'
 
+import Moment from 'react-moment'
+import 'moment/locale/pt-br';
+Moment.globalLocale = 'pt-br';
+
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>

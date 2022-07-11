@@ -6,6 +6,7 @@ import Editor from "@monaco-editor/react";
 import { FullWidthButton } from "./full-width-button";
 import { VscPlay } from "react-icons/vsc";
 import { useDebouncedCallback } from "use-debounce";
+import Moment from "react-moment";
 
 const ExerciseCodeContainer = styled.div`
   padding: ${({theme}) => theme.space[7]};
@@ -21,13 +22,20 @@ const EditorWrap = styled.div`
   height: 100%;
 `
 
+const SavedAtInfo = styled.p`
+  text-align: right;
+  font-size: ${({theme}) => theme.fontSize.medium};
+`
+
 interface ExerciseCodeProps {
-  onCodeChangeCallback: (value: string) => void,
-  initialCode: string
+  onAutoSaveEvent: (value: string) => void,
+  onChange: (value: string) => void,
+  code: string,
+  lastSavedAt: number | null,
+  autosaveMilliseconds: number
 }
 
-export const ExerciseCode = ({ onCodeChangeCallback, initialCode }: ExerciseCodeProps) => {
-  const [code, setCode] = useState(initialCode);
+export const ExerciseCode = ({ onAutoSaveEvent, onChange, code, lastSavedAt, autosaveMilliseconds }: ExerciseCodeProps) => {
 
   const theme = useTheme();
 
@@ -35,24 +43,21 @@ export const ExerciseCode = ({ onCodeChangeCallback, initialCode }: ExerciseCode
   // A cada X segundos determinados abaixo, a função será executada somente 1 vez
   const debouncedEditorChange = useDebouncedCallback(
     (value) => {
-      onCodeChangeCallback(value)
-      setCode(value);
+      onAutoSaveEvent(value)
     },
-    2000 // A cada 2 segundos depois da última alteração no código
+    autosaveMilliseconds // Se for igual a 2000, a cada 2 segundos depois da última alteração no código
   );
-
-  useEffect(() => {
-    console.log('Hello from useEffect!');
-    
-  }, []);
 
   return (
     <ExerciseCodeContainer>
       <EditorWrap>
         <Editor 
           defaultLanguage="javascript"
-          defaultValue={code}
-          onChange={debouncedEditorChange}
+          value={code}
+          onChange={(value) => {
+            debouncedEditorChange(value);
+            onChange(value || '');
+          }}
           theme="light"
           options={
             {
@@ -81,6 +86,11 @@ export const ExerciseCode = ({ onCodeChangeCallback, initialCode }: ExerciseCode
       }}>
         <VscPlay/> Executar Código
       </FullWidthButton>
+      {lastSavedAt && (
+        <SavedAtInfo>
+          Código salvo pela última vez: <Moment fromNow>{lastSavedAt}</Moment>
+        </SavedAtInfo>
+      )}
     </ExerciseCodeContainer>
   )
 }

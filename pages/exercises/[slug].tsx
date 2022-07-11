@@ -5,7 +5,7 @@ import { TbFileCode2 } from 'react-icons/tb';
 import styled from 'styled-components';
 
 import { auth, db } from "../../firebase/clientApp";
-import { doc, getDoc } from "firebase/firestore"; 
+import { doc, DocumentReference, getDoc, setDoc, updateDoc } from "firebase/firestore"; 
 
 import { ExerciseSummary, getExerciseBySlug, getExercisesSlugs, getExercisesSummary } from '../../lib/exercises'
 import markdownToHtml from '../../lib/markdownToHtml'
@@ -14,11 +14,11 @@ import { ExerciseDetails } from '../../components/exercise-details'
 import { PageContainer } from '../../components/page-container'
 import { ExerciseCode } from '../../components/exercise-code'
 import { Sidebar } from '../../components/sidebar'
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const NonLoggedContentWrapper = styled.div`
   display: flex;
-  justify-content: center;
+  padding-top: ${({theme}) => theme.space[6]};
   flex-direction: column;
   text-align: center;
 `;
@@ -40,31 +40,73 @@ interface ExerciseProps {
 //       para identificar quando PageContainer for redimensionado: https://github.com/wellyshen/react-cool-dimensions
 export default function Exercise({ title, breadcrumb, slug, content, exercisesSummary }: ExerciseProps) {
   const router = useRouter()
-  const [user, loading, _error] = useAuthState(auth);
+  const [code, setCode] = useState('');
+  const [uiLoading, setUiLoading] = useState(true);
+  const [docExists, setDocExists] = useState<boolean | null>(null);
+  const [lastSavedAt, setLastSavedAt] = useState<number | null>(null);
+
+  const [user, authLoading, _error] = useAuthState(auth);
+  let userExerciseRef: DocumentReference | null = null;
+
+  if (user && user?.uid) {
+    userExerciseRef = doc(db, "user_exercises", user.uid, "exercises", slug);
+  }
 
   if (!router.isFallback && !slug) {
     return <ErrorPage statusCode={404} />
   }
 
   const onCodeChangeCallback = (value: string) => {
-    console.log("SALVA PORRR")
-    console.log(value)
+    setCode(value);
+  
+    (async() => {
+      if (userExerciseRef) {
+        const now = (new Date()).valueOf();
+
+        if (docExists) {
+          console.log('Atualizando doc existente');
+          await updateDoc(userExerciseRef, {
+            code: value,
+            updatedAt: now
+          })
+        } else {
+          console.log('criando novo doc')
+          await setDoc(userExerciseRef, {
+            code: value,
+            updatedAt: now,
+            createdAt: now
+          })
+        }
+        setLastSavedAt(now);
+      } else {
+        console.log('Warning: não foi possível salvar: referencia do doc nao encontrada')
+      }
+    })()
   }
 
   useEffect(() => {
+    // Recupera informações do exercício caso a pessoa já tenha começado
+    // ou cria um novo documento daquele exercício para aquele user
     (async() => {
+      setUiLoading(true);
       if (user && user?.uid) {
         const userExerciseRef = doc(db, "user_exercises", user.uid, "exercises", slug);
-        console.log(JSON.stringify(userExerciseRef))
         const docSnap = await getDoc(userExerciseRef);
         
         if (docSnap.exists()) {
-          console.log("Document data:", docSnap.data());
+          setDocExists(true);
+          console.log("Dados do documento encontrado:", docSnap.data());
+          setCode(docSnap.data().code);
+          setLastSavedAt(docSnap.data().updatedAt);
         } else {
-          // doc.data() will be undefined in this case
-          console.log("No such document!");
+          console.log("Documento não encontrado");
+          setDocExists(false);
+          setCode('');
+          setLastSavedAt(null);
         }
       }
+      
+      setUiLoading(false);
     })();
   }, [slug]);
 
@@ -80,16 +122,22 @@ export default function Exercise({ title, breadcrumb, slug, content, exercisesSu
           <Sidebar title="Exercícios" items={exercisesSummary}></Sidebar>
           <ExerciseDetails title={title} breadcrumb={breadcrumb} content={content} />
           {user ? (
-            <ExerciseCode onCodeChangeCallback={onCodeChangeCallback} initialCode=""></ExerciseCode>
+            <ExerciseCode 
+              onAutoSaveEvent={onCodeChangeCallback}
+              onChange={(value: string) => setCode(value)} 
+              code={code} 
+              lastSavedAt={lastSavedAt}
+              autosaveMilliseconds={2000}
+              />
           ) : (
-            loading ? (
+            authLoading || uiLoading ? (
               <h1>Carregando...</h1>
             ) : (
               <NonLoggedContentWrapper>
                 <div>
                   <StyledIcon />
                 </div>  
-                <h3>Faça o Login acima para<br/> resolver o exercício</h3>
+                <h3>Faça o Login utilizando o botão acima<br/> para resolver o exercício</h3>
               </NonLoggedContentWrapper>
             )
           )}
