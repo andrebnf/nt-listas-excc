@@ -4,7 +4,7 @@ import { ExerciseSummary } from "../lib/exercises";
 import { VscFileCode } from 'react-icons/vsc'
 
 const SidebarContainer = styled.div`
-  background-color: ${({theme}) => theme.colors.secondaryOpacity02};
+  background-color: ${({theme}) => theme.colors.secondaryOpacity01};
   padding-left: ${({theme}) => theme.space[5]};
   padding-right: ${({theme}) => theme.space[7]};
   padding-top: ${({theme}) => theme.space[2]};
