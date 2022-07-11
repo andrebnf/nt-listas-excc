@@ -42,7 +42,7 @@ interface SidebarProps {
 }
 
 // TODO: marcar item ativo na sidebar (useRouter().query === slug)
-// TODO: sidebar acessível em telas menores
+// TODO: sidebar acessível em telas menores (https://github.com/azouaoui-med/react-pro-sidebar)
 export const Sidebar = ({title, items}: SidebarProps) => (
   <SidebarContainer>
     <h3>{title}</h3>
