@@ -51,11 +51,7 @@ export default function Exercise({ title, breadcrumb, slug, content, exercisesSu
   if (user && user?.uid) {
     userExerciseRef = doc(db, "user_exercises", user.uid, "exercises", slug);
   }
-
-  if (!router.isFallback && !slug) {
-    return <ErrorPage statusCode={404} />
-  }
-
+  
   const onCodeChangeCallback = (value: string) => {
     setCode(value);
   
@@ -109,6 +105,10 @@ export default function Exercise({ title, breadcrumb, slug, content, exercisesSu
       setUiLoading(false);
     })();
   }, [slug]);
+
+  if (!router.isFallback && !slug) {
+    return <ErrorPage statusCode={404} />
+  }
 
   return (
     <PageContainer columns={3}>
