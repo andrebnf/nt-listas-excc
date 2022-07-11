@@ -8,9 +8,9 @@ import { auth } from "../../firebase/clientApp";
 import { ExerciseSummary, getExerciseBySlug, getExercisesSlugs, getExercisesSummary } from '../../lib/exercises'
 import markdownToHtml from '../../lib/markdownToHtml'
 
-import { ExerciseDetails } from '../../components/exerciseDetails'
+import { ExerciseDetails } from '../../components/exercise-details'
 import { PageContainer } from '../../components/page-container'
-import { ExerciseCode } from '../../components/exerciseCode'
+import { ExerciseCode } from '../../components/exercise-code'
 import { Sidebar } from '../../components/sidebar'
 
 const NonLoggedContentWrapper = styled.div`

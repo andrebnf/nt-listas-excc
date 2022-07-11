@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useTheme } from 'styled-components'
 import Editor from "@monaco-editor/react";
 
-import { FullWidthButton } from "./fullWidthButton";
+import { FullWidthButton } from "./full-width-button";
 import { VscPlay } from "react-icons/vsc";
 
 const ExerciseCodeContainer = styled.div`

@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { auth, authProvider } from "../firebase/clientApp";
 import { Button } from './button';
 import Image from "next/image";
-import { StyledReactIcon } from './styledReactIcon';
+import { StyledReactIcon } from './styled-react-icon';
 
 const NavBar = styled.nav`
   width: 100%;
