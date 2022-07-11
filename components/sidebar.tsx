@@ -2,6 +2,7 @@ import Link from "next/link";
 import styled from "styled-components";
 import { ExerciseSummary } from "../lib/exercises";
 import { VscFileCode } from 'react-icons/vsc'
+import { useRouter } from "next/router";
 
 const SidebarContainer = styled.div`
   background-color: ${({theme}) => theme.colors.secondaryOpacity01};
@@ -28,6 +29,11 @@ const StyledA = styled.a`
   &:hover, &:focus {
     cursor: pointer;
     color: ${({theme}) => theme.colors.primary};
+    text-decoration: underline;
+  }
+
+  &.sidebar-item-active {
+    color: ${({theme}) => theme.colors.primary};
   }
 `
 
@@ -43,17 +49,24 @@ interface SidebarProps {
 
 // TODO: marcar item ativo na sidebar (useRouter().query === slug)
 // TODO: sidebar acessível em telas menores (https://github.com/azouaoui-med/react-pro-sidebar)
-export const Sidebar = ({title, items}: SidebarProps) => (
-  <SidebarContainer>
-    <h3>{title}</h3>
-    <SidebarList>
-      {items.map(({slug, title}) => (
-        <li key={slug}>
-          <Link href={`/exercises/${slug}`}>
-            <StyledA><StyledIcon/> {title}</StyledA>
-          </Link>
-        </li>
-    ))}
-    </SidebarList>
-  </SidebarContainer>
-)
+export const Sidebar = ({title, items}: SidebarProps) => {
+  const router = useRouter();
+  const currentSlug = router.query.slug
+
+  return (
+    <SidebarContainer>
+      <h3>{title}</h3>
+      <SidebarList>
+        {items.map(({slug, title}) => (
+          <li key={slug}>
+            <Link href={`/exercises/${slug}`}>
+              <StyledA className={slug === currentSlug ? 'sidebar-item-active' : ''}>
+                <StyledIcon/> {title}
+              </StyledA>
+            </Link>
+          </li>
+      ))}
+      </SidebarList>
+    </SidebarContainer>
+  )
+}
