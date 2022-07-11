@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useTheme } from 'styled-components'
 import Editor from "@monaco-editor/react";
 
 import { FullWidthButton } from "./full-width-button";
 import { VscPlay } from "react-icons/vsc";
+import { useDebouncedCallback } from "use-debounce";
 
 const ExerciseCodeContainer = styled.div`
   padding: ${({theme}) => theme.space[7]};
@@ -20,17 +21,30 @@ const EditorWrap = styled.div`
   height: 100%;
 `
 
+interface ExerciseCodeProps {
+  onCodeChangeCallback: (value: string) => void,
+  initialCode: string
+}
 
-export const ExerciseCode = (props: any) => {
-  const [code, setCode] = useState(
-    `// Exemplo de código para testar o editor\nmeu_array = [1, 2, 3, 'a']\narray_de_numeros = []\narray_de_strings = []\n\nfor (let i = 0; i < meu_array.length; i++){\n  elemento = meu_array[i]\n  if (typeof elemento === 'number') {\n    array_de_numeros.push(elemento)\n  } else if (typeof elemento === 'string') {\n    array_de_strings.push(elemento)\n  } else {\n    alert('Pulando elemento: ' + elemento + '. Motivo: tipo não encontrado')\n  }\n}\n\nalert('Arrays de numero e string respectivamente:')\nalert(array_de_numeros)\nalert(array_de_strings)`
-  );
+export const ExerciseCode = ({ onCodeChangeCallback, initialCode }: ExerciseCodeProps) => {
+  const [code, setCode] = useState(initialCode);
 
   const theme = useTheme();
 
-  function handleEditorChange(value: string | undefined) {
-    setCode(value || "");
-  }
+  // Debounce significa garantir que a função seja chamada um número absurdo de vezes
+  // A cada X segundos determinados abaixo, a função será executada somente 1 vez
+  const debouncedEditorChange = useDebouncedCallback(
+    (value) => {
+      onCodeChangeCallback(value)
+      setCode(value);
+    },
+    2000 // A cada 2 segundos depois da última alteração no código
+  );
+
+  useEffect(() => {
+    console.log('Hello from useEffect!');
+    
+  }, []);
 
   return (
     <ExerciseCodeContainer>
@@ -38,7 +52,7 @@ export const ExerciseCode = (props: any) => {
         <Editor 
           defaultLanguage="javascript"
           defaultValue={code}
-          onChange={handleEditorChange}
+          onChange={debouncedEditorChange}
           theme="light"
           options={
             {

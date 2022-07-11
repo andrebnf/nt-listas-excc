@@ -3,7 +3,9 @@ import ErrorPage from 'next/error';
 import { useAuthState } from "react-firebase-hooks/auth";
 import { TbFileCode2 } from 'react-icons/tb';
 import styled from 'styled-components';
-import { auth } from "../../firebase/clientApp";
+
+import { auth, db } from "../../firebase/clientApp";
+import { doc, getDoc } from "firebase/firestore"; 
 
 import { ExerciseSummary, getExerciseBySlug, getExercisesSlugs, getExercisesSummary } from '../../lib/exercises'
 import markdownToHtml from '../../lib/markdownToHtml'
@@ -12,6 +14,7 @@ import { ExerciseDetails } from '../../components/exercise-details'
 import { PageContainer } from '../../components/page-container'
 import { ExerciseCode } from '../../components/exercise-code'
 import { Sidebar } from '../../components/sidebar'
+import { useEffect } from 'react';
 
 const NonLoggedContentWrapper = styled.div`
   display: flex;
@@ -43,6 +46,28 @@ export default function Exercise({ title, breadcrumb, slug, content, exercisesSu
     return <ErrorPage statusCode={404} />
   }
 
+  const onCodeChangeCallback = (value: string) => {
+    console.log("SALVA PORRR")
+    console.log(value)
+  }
+
+  useEffect(() => {
+    (async() => {
+      if (user && user?.uid) {
+        const userExerciseRef = doc(db, "user_exercises", user.uid, "exercises", slug);
+        console.log(JSON.stringify(userExerciseRef))
+        const docSnap = await getDoc(userExerciseRef);
+        
+        if (docSnap.exists()) {
+          console.log("Document data:", docSnap.data());
+        } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+        }
+      }
+    })();
+  }, [slug]);
+
   return (
     <PageContainer columns={3}>
       {router.isFallback ? (
@@ -55,7 +80,7 @@ export default function Exercise({ title, breadcrumb, slug, content, exercisesSu
           <Sidebar title="Exercícios" items={exercisesSummary}></Sidebar>
           <ExerciseDetails title={title} breadcrumb={breadcrumb} content={content} />
           {user ? (
-            <ExerciseCode></ExerciseCode>
+            <ExerciseCode onCodeChangeCallback={onCodeChangeCallback} initialCode=""></ExerciseCode>
           ) : (
             loading ? (
               <h1>Carregando...</h1>
@@ -75,6 +100,7 @@ export default function Exercise({ title, breadcrumb, slug, content, exercisesSu
 }
 
 export async function getStaticProps({ params }: { params: { slug: string } }) {
+  // Lendo arquivos dos exercícios
   const exerciseDetails = getExerciseBySlug(params.slug)
   const content = await markdownToHtml(exerciseDetails.content || '')
   const exercisesSummary = getExercisesSummary()

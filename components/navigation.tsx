@@ -35,6 +35,7 @@ export const Navigation = (props: any) => {
       <NavTitle>Exercícios - Curso Online MTST</NavTitle>
       {user ? (
         <AuthAction>
+          <span>User ID: {user.uid}</span>
           <Button onClick={() => auth.signOut()}>Sair</Button>
         </AuthAction>
       ) : (

@@ -19,7 +19,8 @@
     "react-icons": "^4.4.0",
     "remark": "^14.0.2",
     "remark-html": "^15.0.1",
-    "styled-components": "^5.1.25"
+    "styled-components": "^5.1.25",
+    "use-debounce": "^8.0.1"
   },
   "devDependencies": {
     "@types/node": "18.0.0",

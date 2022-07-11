@@ -1,6 +1,7 @@
 import { getApps } from 'firebase/app'
 import { initializeApp, FirebaseApp } from "firebase/app"
 import { getAuth, GoogleAuthProvider } from 'firebase/auth'
+import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -18,3 +19,4 @@ if (getApps().length > 1) {
 export const firebaseApp: FirebaseApp = initializeApp(firebaseConfig);
 export const auth = getAuth(firebaseApp);
 export const authProvider = (new GoogleAuthProvider()).addScope('email');
+export const db = getFirestore(firebaseApp);
