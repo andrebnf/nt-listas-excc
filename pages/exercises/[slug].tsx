@@ -17,6 +17,8 @@ interface ExerciseProps {
   exercisesSummary: ExerciseSummary[]
 }
 
+// TODO: quando PageContainer for redimensionado, alterar tamanho do editor (IEditor.layout({} as IDimension))
+//       para identificar quando PageContainer for redimensionado: https://github.com/wellyshen/react-cool-dimensions
 export default function Exercise({ title, breadcrumb, slug, content, exercisesSummary }: ExerciseProps) {
   const router = useRouter()
   const [user, loading, _error] = useAuthState(auth);
@@ -68,16 +70,10 @@ export async function getStaticProps({ params }: { params: { slug: string } }) {
 }
 
 export async function getStaticPaths() {
-  const exerciseSlugs = getExercisesSlugs()
+  const slugs = getExercisesSlugs()
 
   return {
-    paths: exerciseSlugs.map((exerciseSlug) => {
-      return {
-        params: {
-          slug: exerciseSlug
-        },
-      }
-    }),
+    paths: slugs.map((slug) => ({params: { slug }})),
     fallback: false,
   }
 }

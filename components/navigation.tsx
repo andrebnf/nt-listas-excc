@@ -43,7 +43,7 @@ export const Navigation = (props: any) => {
               () => {
                 signInWithPopup(auth, authProvider).then(function(result) {
                   console.log(result)
-                }).catch(e => console.log(JSON.stringify(error)));
+                }).catch(e => console.log(JSON.stringify(error))); // TODO tratar erros (ex: sem conexão)
               }
             }>
             <StyledReactIcon><BsGoogle/></StyledReactIcon> Entrar com minha conta do Google
