@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useTheme } from 'styled-components'
 import Editor from "@monaco-editor/react";
