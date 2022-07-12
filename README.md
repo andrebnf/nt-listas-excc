@@ -1,6 +1,6 @@
-Repositório do Website para resolução de Exercícios do Curso Online - Núcleo de Tecnnologia MTST
+> Acesse o site aqui: https://nt-listas-excc.vercel.app/ (branch `main`, produção)
 
-Acesse o site aqui: https://nt-listas-excc.vercel.app/ (branch `main`, produção)
+Repositório do Website do Curso Online - Núcleo de Tecnologia MTST
 
 ## Contribuindo para o repositório
 
