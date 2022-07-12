@@ -26,7 +26,7 @@ Existem 2 maneiras de alterar o código: pela interface do GitHub ou baixando o 
 
 3. Execute as alterações no arquivo utilizando o editor de texto do GitHub.
 4. Quando finalizar as alterações, role até a parte inferior da página. Lá você verá algumas opções e também um botão escrito "Propor Mudanças". Ao preencher as 
-opções, utilize a escolha "Criar uma nova branch para este commit e inicie um Pull Request". Dê um nome para usa branch no input de texto disponível abaixo desta opção.
+opções, utilize a escolha "Criar uma nova branch para este commit e inicie um Pull Request". Dê um nome para usa branch no input de texto disponível abaixo desta opção (o nome não pode ser `main` ou algum outro nome de branch já existente no GitHub)
 Exemplo:
 ![image](https://user-images.githubusercontent.com/1435403/178541542-da3d9276-e97f-4f8b-a934-5400281f6cfb.png)
 1. Preencha os campos de Título e Descrição (opcionais, mas desejáveis para novas funcionalidades ou modificações complexas) 
@@ -40,7 +40,7 @@ funcionalidades novas adicionadas
 
 1. Configure seu ambiente de desenvolvimento (veja o guia de instalação)
 1. Clone o repositório
-1. Crie uma nova branch
+1. Crie uma nova branch com um nome qualquer (o nome não pode ser `main` ou algum outro nome de branch já existente no GitHub)
 1. Execute as alterações no código
 1. Adicione suas alterações no git
 1. Suba sua branch com o código alterado para o GitHub
