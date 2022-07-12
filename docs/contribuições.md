@@ -2,13 +2,14 @@
 
 Antes de contribuir para este repositório, por favor leia este guia.
 
-## Sobre entrega contínua
-O repositório utiliza o serviço da [Vercel](https://vercel.com/) para disponilizar o site usando o conceito de entrega contínua. Atualmente temos 2 ambientes
-na Vercel: **produção** (entregável para o usuário final) e o ambiente de **prévia** (ambiente similar ao de produção porém o usuário final não verá este 
-ambiente).
+## Sobre os Ambientes e Entrega contínua
+O repositório utiliza o serviço da [Vercel](https://vercel.com/) para disponibilizar o site usando o conceito de entrega contínua. Atualmente temos 2 ambientes na Vercel: **produção** (entregável para o usuário final) e o ambiente de **prévia** (ambiente similar ao de produção porém o usuário final não terá acesso a este ambiente).
 
-Quando a branch principal do repositório (`main`) é atualizada, Vercel automaticamente atualiza o site de produção. Logo, durante a fase de desenvolvimento, é proibido
-subir alterações direto na branch `main`. A única forma de uma alteração ir para a branch `main` é através de um Pull Request.
+Quando a branch principal do repositório (`main`) é atualizada, Vercel automaticamente atualiza o site de produção. Logo, durante a fase de desenvolvimento, é proibido subir alterações direto na branch `main`. A única forma de uma alteração ir para a branch `main` é através de um Pull Request.
+
+Quando um Pull Request é aberto no GitHub, um serviço da Vercel vai fazer o deploy da sua branch no ambiente de **prévia** e vai retornar um link no próprio Pull Request para a versão do site online utilizando o código novo
+
+Veja mais detalhes do fluxo de desenvolvimento abaixo:
 
 ## Alterar o código
 
