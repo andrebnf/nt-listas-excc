@@ -1,4 +1,4 @@
-# Executando o projeto no ambiente local
+# Executando o projeto no ambiente local (desenvolvimento)
 
 Vá até a sessão do seu sistema para instruções detalhadas.
 
