@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import ErrorPage from 'next/error';
 import { useAuthState } from "react-firebase-hooks/auth";
-import { TbFileCode2 } from 'react-icons/tb';
+import { VscSignIn } from 'react-icons/vsc';
 import styled from 'styled-components';
 
 import { auth, db } from "../../firebase/clientApp";
@@ -23,7 +23,7 @@ const NonLoggedContentWrapper = styled.div`
   text-align: center;
 `;
 
-const StyledIcon = styled(TbFileCode2)`
+const StyledIcon = styled(VscSignIn)`
   width: ${({theme}) => theme.iconSize.large};
   height: ${({theme}) => theme.iconSize.large};
 `;
