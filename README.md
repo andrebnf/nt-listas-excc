@@ -8,7 +8,7 @@ Para entender o fluxo de contribuição (fluxo git) e deploy (entrega contínua)
 
 ## Configurando e Executando o projeto no seu computador
 
-Para configurar e executar o projeto no seu computador, acesse o guia [Executando o projeto no ambiente local](./docs/executando%20local.md)
+Para configurar e executar o projeto no seu computador, acesse o guia [Executando o projeto no ambiente local (desenvolvimento)](./docs/executando%20local.md)
 
 ## Stack do projeto
 
