@@ -64,7 +64,8 @@ export const ExerciseCode = ({ onAutoSaveEvent, onChange, code, lastSavedAt, aut
               wordWrap: 'on',
               padding: {top: theme.space[3], bottom: theme.space[3]},
               scrollBeyondLastLine: false,
-              fontFamily: theme.fonts.code
+              fontFamily: theme.fonts.code,
+              tabSize: 2
             }
           }
      
