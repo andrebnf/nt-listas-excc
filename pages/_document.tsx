@@ -38,7 +38,7 @@ class MyDocument extends Document {
             rel="stylesheet"
           />
           <link 
-            href="https://fonts.googleapis.com/css2?family=Fira+Code:300,400&display=swap" 
+            href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" 
             rel="stylesheet"
           />
         </Head>
