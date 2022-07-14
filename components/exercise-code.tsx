@@ -6,7 +6,7 @@ import { FullWidthButton } from "./full-width-button";
 import { VscPlay } from "react-icons/vsc";
 import { useDebouncedCallback } from "use-debounce";
 import Moment from "react-moment";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const ExerciseCodeContainer = styled.div`
   padding: ${({theme}) => theme.space[7]};
@@ -17,9 +17,9 @@ const ExerciseCodeContainer = styled.div`
   justify-content: space-between;
 `
 
-const EditorWrap = styled.div`
-  border: 1px solid ${({theme}) => theme.colors.primary};
-  height: 100%;
+const EditorContainer = styled.div`
+  border: 1px solid ${({theme}) => theme.colors.secondary};
+  height: 60%;
 `
 
 const SavedAtInfo = styled.p`
@@ -30,12 +30,25 @@ const SavedAtInfo = styled.p`
 `
 
 const OutputContainer = styled.div`
-  border: 1px solid red;
+  padding: ${({theme}) => theme.space[1]};
+  border: 1px solid ${({theme}) => theme.colors.secondary};
+  border-top: 0px;
+  border-bottom: 0px;
+  height: 40%;
+  overflow: auto;
 `
 
 const OutputText = styled.p`
   margin: 0;
+  font-size: ${({theme}) => theme.fontSize.medium};
   font-family: ${({theme}) => theme.fonts.code};
+`
+
+const OutputTitle = styled.p`
+  margin: 0;
+  margin-bottom: ${({theme}) => theme.space[1]};
+  font-size: ${({theme}) => theme.fontSize.medium};
+  font-weight: bold;
 `
 
 interface ExerciseCodeProps {
@@ -59,6 +72,10 @@ export const ExerciseCode = ({ onAutoSaveEvent, onChange, code, lastSavedAt, aut
     autosaveMilliseconds // Se for igual a 2000, a cada 2 segundos depois da última alteração no código
   );
 
+  useEffect(() => {
+    setLogs([])
+  }, [code])
+
   return (
     <ExerciseCodeContainer>
       <SavedAtInfo>
@@ -68,7 +85,7 @@ export const ExerciseCode = ({ onAutoSaveEvent, onChange, code, lastSavedAt, aut
           </>
         )}
       </SavedAtInfo>
-      <EditorWrap>
+      <EditorContainer>
         <Editor 
           defaultLanguage="javascript"
           value={code}
@@ -89,35 +106,44 @@ export const ExerciseCode = ({ onAutoSaveEvent, onChange, code, lastSavedAt, aut
           }
      
         />
-      </EditorWrap>
+      </EditorContainer>
       <OutputContainer>
+        <OutputTitle>Saída do console:</OutputTitle>
         <OutputText>
-          {logs.join('\n')}
+          {logs.map((log: string) => (
+            <span key={log}> {log} <br/> </span>
+          ))}
         </OutputText>
       </OutputContainer>
       <FullWidthButton onClick={() => {
         try {
           const wrapCode = (code: string): string[] => {
-            // Essas variáveis não podem conflitar com variáveis definidas pelo
-            // usuário, por isto o prefixo "w___" ("w" de "wrapped")
-            let prefixFn
-            let w___logs: string[] = []
-            function w___customLogFn(text: string){
-              w___logs.push(text)
-            }
-            
-            new Function(code.replaceAll("console.log", "w___customLogFn"))();
-            return w___logs;
+            const prefixFnCode = "" +
+              "let w___logs = []; \n" + 
+              "function w___customLogFn(text){ \n" +
+              "  w___logs.push(String(text)); \n" +
+              "} \n";
+
+            const parsedCode = code.replace(
+              /console\.(log|info|debug|warn|error)/g, 
+              "w___customLogFn"
+            ) + "\n";
+
+            const suffixFnCode = `return w___logs`;
+            const finalCode = prefixFnCode + parsedCode + suffixFnCode;
+
+            return new Function(finalCode)();
           }
           setLogs(wrapCode(code));
         } catch (error) {
-          let message = 'Erro desconhecido'
-          let stack
+          let message = 'Erro desconhecido';
+          let stack;
           if (error instanceof Error) {
-            message = error.message
-            stack = error.stack?.toString()
+            message = error.message;
+            stack = error.stack?.toString();
           } 
-          alert(`Ops, tem algo de errado com seu código: ${message}\n\nStackTrace:\n${stack}`)
+          alert(`Ops, tem algo de errado com seu código: ${message}\n\nStackTrace:\n${stack}`);
+          setLogs([]);
         }
       }}>
         <VscPlay/> Executar Código
