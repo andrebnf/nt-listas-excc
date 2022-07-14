@@ -68,13 +68,11 @@ export default function Exercise({ title, breadcrumb, slug, content, exercisesSu
         const now = (new Date()).valueOf();
 
         if (docExists) {
-          console.log('Atualizando doc existente');
           await updateDoc(userExerciseRef, {
             code: value,
             updatedAt: now
           })
         } else {
-          console.log('criando novo doc')
           await setDoc(userExerciseRef, {
             code: value,
             updatedAt: now,
@@ -99,11 +97,9 @@ export default function Exercise({ title, breadcrumb, slug, content, exercisesSu
         
         if (docSnap.exists()) {
           setDocExists(true);
-          console.log("Dados do documento encontrado:", docSnap.data());
           setCode(docSnap.data().code);
           setLastSavedAt(docSnap.data().updatedAt);
         } else {
-          console.log("Documento não encontrado");
           setCode(startingEditorCode);
           setDocExists(false);
           setLastSavedAt(null);
@@ -112,7 +108,7 @@ export default function Exercise({ title, breadcrumb, slug, content, exercisesSu
       
       setUiLoading(false);
     })();
-  }, [slug, user]);
+  }, [slug, user, startingEditorCode]);
 
   if (!router.isFallback && !slug) {
     return <ErrorPage statusCode={404} />

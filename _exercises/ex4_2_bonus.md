@@ -6,13 +6,13 @@ startingEditorCode: |
   let continuarAtendimento = true
 
   while (continuarAtendimento === false) {
-    alert(`Próximo paciente com senha: ${senhaDeAtendimento}`)
+    console.log(`Próximo paciente com senha: ${senhaDeAtendimento}`)
     let idade = +prompt("Qual a idade do paciente?")
 
     if (idade < 12) {
-      alert("Dirija-se à Pediatria")
+      console.log("Dirija-se à Pediatria")
     } else {
-      alert("Aguarde ser chamada(o) pelo nome")
+      console.log("Aguarde ser chamada(o) pelo nome")
     }
     
     let entrada = prompt("Chamar próxima senha? (Digite 's' ou 'n')")
@@ -29,13 +29,13 @@ let senhaDeAtendimento = 1
 let continuarAtendimento = true
 
 while (continuarAtendimento === false) {
-  alert(`Próximo paciente com senha: ${senhaDeAtendimento}`)
+  console.log(`Próximo paciente com senha: ${senhaDeAtendimento}`)
   let idade = +prompt("Qual a idade do paciente?")
 
   if (idade < 12) {
-    alert("Dirija-se à Pediatria")
+    console.log("Dirija-se à Pediatria")
   } else {
-    alert("Aguarde ser chamada(o) pelo nome")
+    console.log("Aguarde ser chamada(o) pelo nome")
   }
   
   let entrada = prompt("Chamar próxima senha? (Digite 's' ou 'n')")

@@ -60,6 +60,6 @@ Pronto. Agora qualquer alteração no código surtirá efeito na página local d
 **Executando o processo de build:**
 > Este processo é útil para validar que nosso código está válido para o passo de build (o comando `npm run dev` não executa completamente este passo)
 
-1. na pasta do projeto, execute `next build`
-1. após finalizado o processo de build, execute `next start -p 3001`
+1. na pasta do projeto, execute `npm run build`
+1. após finalizado o processo de build, execute `npm run start -p 3001`
 1. no seu navegador, visite `http://localhost:3001` para abrir a versão final do site
