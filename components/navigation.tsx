@@ -41,9 +41,7 @@ export const Navigation = (props: any) => {
         <AuthAction>
           <Button onClick={
               () => {
-                signInWithPopup(auth, authProvider).then(function(result) {
-                  console.log(result)
-                }).catch(e => console.log(JSON.stringify(error))); // TODO tratar erros (ex: sem conexão)
+                signInWithPopup(auth, authProvider).then().catch(e => console.error("Erro ao fazer Login: ", error)); // TODO tratar erros (ex: sem conexão)
               }
             }>
             <StyledReactIcon><ImGoogle2/></StyledReactIcon>&nbsp;&nbsp;Entrar com o Google

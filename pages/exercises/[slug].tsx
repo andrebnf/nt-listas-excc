@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import ErrorPage from 'next/error';
 import { useAuthState } from "react-firebase-hooks/auth";
-import { VscSignIn } from 'react-icons/vsc';
+import { VscSignIn, VscLoading } from 'react-icons/vsc';
 import styled from 'styled-components';
 
 import { auth, db } from "../../firebase/clientApp";
@@ -15,6 +15,7 @@ import { PageContainer } from '../../components/page-container'
 import { ExerciseCode } from '../../components/exercise-code'
 import { Sidebar } from '../../components/sidebar'
 import { useEffect, useState } from 'react';
+import { StyledReactIcon } from '../../components/styled-react-icon';
 
 const NonLoggedContentWrapper = styled.div`
   display: flex;
@@ -27,6 +28,12 @@ const StyledIcon = styled(VscSignIn)`
   width: ${({theme}) => theme.iconSize.large};
   height: ${({theme}) => theme.iconSize.large};
 `;
+
+const LoadingWrapper = styled.div`
+  justify-content: center;
+  display: flex;
+  align-items: center;
+`
 
 interface ExerciseProps {
   title: string,
@@ -131,7 +138,9 @@ export default function Exercise({ title, breadcrumb, slug, content, exercisesSu
               />
           ) : (
             authLoading || uiLoading ? (
-              <h1>Carregando...</h1>
+              <LoadingWrapper>
+                <StyledReactIcon isRotating size="large"><VscLoading/></StyledReactIcon>
+              </LoadingWrapper>
             ) : (
               <NonLoggedContentWrapper>
                 <div>

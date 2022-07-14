@@ -31,6 +31,7 @@ export const theme: DefaultTheme = {
     '48px', '64px', '96px', '128px', '192px', '256px'
   ],
   iconSize: {
+    small: '16px',
     large: '48px'
   },
   layout: {

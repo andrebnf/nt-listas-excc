@@ -29,6 +29,7 @@ declare module 'styled-components' {
     },
     space: array,
     iconSize: {
+      small: string,
       large: string,
     },
     layout: {
