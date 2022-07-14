@@ -40,14 +40,15 @@ interface ExerciseProps {
   breadcrumb: string,
   slug: string,
   content: string,
-  exercisesSummary: ExerciseSummary[]
+  exercisesSummary: ExerciseSummary[],
+  startingCode?: string
 }
 
 // TODO: quando PageContainer for redimensionado, alterar tamanho do editor (IEditor.layout({} as IDimension))
 //       para identificar quando PageContainer for redimensionado: https://github.com/wellyshen/react-cool-dimensions
-export default function Exercise({ title, breadcrumb, slug, content, exercisesSummary }: ExerciseProps) {
+export default function Exercise({ title, breadcrumb, slug, content, exercisesSummary, startingCode = '' }: ExerciseProps) {
   const router = useRouter()
-  const [code, setCode] = useState('');
+  const [code, setCode] = useState(startingCode);
   const [uiLoading, setUiLoading] = useState(true);
   const [docExists, setDocExists] = useState<boolean | null>(null);
   const [lastSavedAt, setLastSavedAt] = useState<number | null>(null);
@@ -60,7 +61,7 @@ export default function Exercise({ title, breadcrumb, slug, content, exercisesSu
   }
   
   const onCodeChangeCallback = (value: string) => {
-    setCode(value);
+    setCode(!!value ? value : startingCode);
   
     (async() => {
       if (userExerciseRef) {
@@ -103,8 +104,8 @@ export default function Exercise({ title, breadcrumb, slug, content, exercisesSu
           setLastSavedAt(docSnap.data().updatedAt);
         } else {
           console.log("Documento não encontrado");
+          setCode(startingCode);
           setDocExists(false);
-          setCode('');
           setLastSavedAt(null);
         }
       }
@@ -167,6 +168,7 @@ export async function getStaticProps({ params }: { params: { slug: string } }) {
       title: exerciseDetails.title,
       slug: exerciseDetails.slug,
       breadcrumb: exerciseDetails.breadcrumb,
+      startingCode: exerciseDetails.startingCode || null,
       content,
       exercisesSummary
     },

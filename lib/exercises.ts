@@ -14,6 +14,11 @@ const readFileContents = (slug: string) => {
   return matter(fileContents)
 }
 
+function getExerciseMetadataBySlug(slug: string): ExerciseSummary {
+  const { data } = readFileContents(slug)
+  return { slug, title: data['title'] }
+}
+
 export interface ExerciseSummary {
   title: string,
   slug: string
@@ -23,7 +28,8 @@ export interface ExerciseDetails {
   title: string,
   breadcrumb: string,
   slug: string,
-  content: string
+  content: string,
+  startingCode?: string
 }
 
 export function getExercisesSlugs(): string[] {
@@ -32,13 +38,8 @@ export function getExercisesSlugs(): string[] {
 
 export function getExerciseBySlug(slug: string): ExerciseDetails {
   const { data, content } = readFileContents(slug)
-  const { breadcrumb, title } = data
-  return { title, breadcrumb, slug, content }
-}
-
-export function getExerciseMetadataBySlug(slug: string): ExerciseSummary {
-  const { data } = readFileContents(slug)
-  return { slug, title: data['title'] }
+  const { breadcrumb, title, startingCode } = data
+  return { title, breadcrumb, slug, content, startingCode }
 }
 
 export function getExercisesSummary(): ExerciseSummary[] {
