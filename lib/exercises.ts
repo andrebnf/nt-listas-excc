@@ -29,7 +29,7 @@ export interface ExerciseDetails {
   breadcrumb: string,
   slug: string,
   content: string,
-  startingCode?: string
+  startingEditorCode?: string
 }
 
 export function getExercisesSlugs(): string[] {
@@ -38,8 +38,8 @@ export function getExercisesSlugs(): string[] {
 
 export function getExerciseBySlug(slug: string): ExerciseDetails {
   const { data, content } = readFileContents(slug)
-  const { breadcrumb, title, startingCode } = data
-  return { title, breadcrumb, slug, content, startingCode }
+  const { breadcrumb, title, startingEditorCode } = data
+  return { title, breadcrumb, slug, content, startingEditorCode }
 }
 
 export function getExercisesSummary(): ExerciseSummary[] {

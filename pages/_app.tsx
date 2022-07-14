@@ -6,6 +6,8 @@ import { Navigation } from '../components/navigation'
 import { GlobalStyle } from '../styles/global'
 import { theme } from '../styles/theme'
 
+import 'highlight.js/styles/xcode.css'
+
 import Moment from 'react-moment'
 import 'moment/locale/pt-br';
 Moment.globalLocale = 'pt-br';

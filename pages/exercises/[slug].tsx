@@ -41,14 +41,14 @@ interface ExerciseProps {
   slug: string,
   content: string,
   exercisesSummary: ExerciseSummary[],
-  startingCode?: string
+  startingEditorCode?: string
 }
 
 // TODO: quando PageContainer for redimensionado, alterar tamanho do editor (IEditor.layout({} as IDimension))
 //       para identificar quando PageContainer for redimensionado: https://github.com/wellyshen/react-cool-dimensions
-export default function Exercise({ title, breadcrumb, slug, content, exercisesSummary, startingCode = '' }: ExerciseProps) {
+export default function Exercise({ title, breadcrumb, slug, content, exercisesSummary, startingEditorCode = '' }: ExerciseProps) {
   const router = useRouter()
-  const [code, setCode] = useState(startingCode);
+  const [code, setCode] = useState(startingEditorCode);
   const [uiLoading, setUiLoading] = useState(true);
   const [docExists, setDocExists] = useState<boolean | null>(null);
   const [lastSavedAt, setLastSavedAt] = useState<number | null>(null);
@@ -61,7 +61,7 @@ export default function Exercise({ title, breadcrumb, slug, content, exercisesSu
   }
   
   const onCodeChangeCallback = (value: string) => {
-    setCode(!!value ? value : startingCode);
+    setCode(!!value ? value : startingEditorCode);
   
     (async() => {
       if (userExerciseRef) {
@@ -104,7 +104,7 @@ export default function Exercise({ title, breadcrumb, slug, content, exercisesSu
           setLastSavedAt(docSnap.data().updatedAt);
         } else {
           console.log("Documento não encontrado");
-          setCode(startingCode);
+          setCode(startingEditorCode);
           setDocExists(false);
           setLastSavedAt(null);
         }
@@ -168,7 +168,7 @@ export async function getStaticProps({ params }: { params: { slug: string } }) {
       title: exerciseDetails.title,
       slug: exerciseDetails.slug,
       breadcrumb: exerciseDetails.breadcrumb,
-      startingCode: exerciseDetails.startingCode || null,
+      startingEditorCode: exerciseDetails.startingEditorCode || null,
       content,
       exercisesSummary
     },
