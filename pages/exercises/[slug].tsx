@@ -104,7 +104,7 @@ export default function Exercise({ title, breadcrumb, slug, content, exercisesSu
       
       setUiLoading(false);
     })();
-  }, [slug]);
+  }, [slug, user]);
 
   if (!router.isFallback && !slug) {
     return <ErrorPage statusCode={404} />

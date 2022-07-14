@@ -81,7 +81,7 @@ export const ExerciseCode = ({ onAutoSaveEvent, onChange, code, lastSavedAt, aut
       <SavedAtInfo>
         {lastSavedAt && (
           <>
-            Código salvo pela última vez: <Moment fromNow>{lastSavedAt}</Moment>
+            Código salvo: <Moment fromNow>{lastSavedAt}</Moment>
           </>
         )}
       </SavedAtInfo>
