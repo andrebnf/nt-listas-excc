@@ -98,23 +98,16 @@ export const ExerciseCode = ({ onAutoSaveEvent, onChange, code, lastSavedAt, aut
       <FullWidthButton onClick={() => {
         try {
           const wrapCode = (code: string): string[] => {
-            const oldConsole = window.console;
-            let logs: string[] = []
-            let logFn = function(value: any) { 
-                logs.push(value)
+            // Essas variáveis não podem conflitar com variáveis definidas pelo
+            // usuário, por isto o prefixo "w___" ("w" de "wrapped")
+            let prefixFn
+            let w___logs: string[] = []
+            function w___customLogFn(text: string){
+              w___logs.push(text)
             }
-
-            // console.log = logFn;
-            // console.info = (value: string) => logFn(`INFO: ${value}`)
-            // console.debug = (value: string) => logFn(`DEBUG: ${value}`)
-            // console.warn = (value: string) => logFn(`WARN: ${value}`)
-            // console.error = (value: string) => logFn(`ERROR: ${value}`)
             
-            new Function(code)();
-
-            // window.console = oldConsole
-
-            return logs;
+            new Function(code.replaceAll("console.log", "w___customLogFn"))();
+            return w___logs;
           }
           setLogs(wrapCode(code));
         } catch (error) {
