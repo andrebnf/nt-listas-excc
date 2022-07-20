@@ -9,7 +9,7 @@ import Moment from "react-moment";
 import { useEffect, useState } from "react";
 
 const ExerciseCodeContainer = styled.div`
-  padding: ${({theme}) => theme.space[7]};
+  padding: ${({theme}) => theme.space[4]} ${({theme}) => theme.space[6]};
 
   height: 100%;
   display: flex;
@@ -19,7 +19,7 @@ const ExerciseCodeContainer = styled.div`
 
 const EditorContainer = styled.div`
   border: 1px solid ${({theme}) => theme.colors.secondary};
-  height: 60%;
+  height: 65%;
 `
 
 const SavedAtInfo = styled.p`
@@ -34,7 +34,7 @@ const OutputContainer = styled.div`
   border: 1px solid ${({theme}) => theme.colors.secondary};
   border-top: 0px;
   border-bottom: 0px;
-  height: 40%;
+  height: 35%;
   overflow: auto;
 `
 

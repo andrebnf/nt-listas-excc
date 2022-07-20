@@ -60,10 +60,10 @@ export default function Exercise({ title, breadcrumb, slug, content, exercisesSu
     userExerciseRef = doc(db, "user_exercises", user.uid, "exercises", slug);
   }
   
-  const onCodeChangeCallback = (value: string) => {
+  const createOrUpdateCode = (value: string) => {
     setCode(!!value ? value : startingEditorCode);
   
-    (async() => {
+    return (async() => {
       if (userExerciseRef) {
         const now = (new Date()).valueOf();
 
@@ -100,8 +100,8 @@ export default function Exercise({ title, breadcrumb, slug, content, exercisesSu
           setCode(docSnap.data().code);
           setLastSavedAt(docSnap.data().updatedAt);
         } else {
-          setCode(startingEditorCode);
           setDocExists(false);
+          setCode(startingEditorCode);
           setLastSavedAt(null);
         }
       }
@@ -119,20 +119,24 @@ export default function Exercise({ title, breadcrumb, slug, content, exercisesSu
       {router.isFallback ? (
         <>
           <Sidebar title="Exercícios" items={exercisesSummary}></Sidebar>
-          <ExerciseDetails title="Carregando..." breadcrumb="" content="" />
+          <LoadingWrapper>
+            <StyledReactIcon isRotating size="large"><VscLoading/></StyledReactIcon>
+          </LoadingWrapper>
         </>
       ) : (
         <>
           <Sidebar title="Exercícios" items={exercisesSummary}></Sidebar>
           <ExerciseDetails title={title} breadcrumb={breadcrumb} content={content} />
           {user ? (
-            <ExerciseCode 
-              onAutoSaveEvent={onCodeChangeCallback}
-              onChange={(value: string) => setCode(value)} 
-              code={code} 
-              lastSavedAt={lastSavedAt}
-              autosaveMilliseconds={2000}
+            <div>
+              <ExerciseCode 
+                onAutoSaveEvent={createOrUpdateCode}
+                onChange={(value: string) => setCode(value)} 
+                code={code} 
+                lastSavedAt={lastSavedAt}
+                autosaveMilliseconds={2000}
               />
+            </div>
           ) : (
             authLoading || uiLoading ? (
               <LoadingWrapper>

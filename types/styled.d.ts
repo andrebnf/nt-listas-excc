@@ -24,6 +24,7 @@ declare module 'styled-components' {
       secondaryOpacity01: string,
       background: string,
       text: string,
+      codeBlockBorder: string,
       sectionSeparator: string,
       white: string
     },

@@ -17,4 +17,8 @@ export const GlobalStyle = createGlobalStyle`
   body * {
     box-sizing: border-box;
   }
+
+  button {
+    font-family: inherit;
+  }
 `;

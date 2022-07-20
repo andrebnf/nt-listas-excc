@@ -1,6 +1,6 @@
 ---
-title: "4.3.0 - Aula"
-breadcrumb: "Módulo 4 > Aula 4 > Aula"
+title: "4.3 - Aula"
+breadcrumb: "Módulo 4 > Aula 3"
 startingEditorCode: |
   console.log("Olá, mundo")
   let alunos = ["Dani", "Giovanna", "Nicollas"];
