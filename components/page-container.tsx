@@ -16,7 +16,7 @@ const ContainerBasis = styled.div`
 `
 
 const ThreeColumnsPage = styled(ContainerBasis)`
-  grid-template-columns: 300px 1fr 1.2fr;
+  grid-template-columns: 300px 1.2fr 1fr;
 `
 
 const TwoColumnsPage = styled(ContainerBasis)`
