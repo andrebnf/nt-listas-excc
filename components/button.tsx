@@ -6,7 +6,6 @@ export const Button = styled.button`
   border: 1px solid ${({theme}) => theme.colors.primary};
   color: white;
   font-size: ${({theme}) => theme.fontSize.large};
-  font-family: inherit;
   cursor: pointer;
 
   &:hover {

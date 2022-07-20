@@ -5,6 +5,10 @@ const ExerciseDetailsContainer = styled.div`
   padding-left: ${({theme}) => theme.space[4]};
   padding-right: ${({theme}) => theme.space[2]};
   overflow-y: auto;
+
+  pre {
+    border: 1px solid ${({ theme }) => theme.colors.codeBlockBorder};
+  }
 `
 
 const ExerciseText = styled.div`

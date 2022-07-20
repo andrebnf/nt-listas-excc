@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import ErrorPage from 'next/error';
 import { useAuthState } from "react-firebase-hooks/auth";
 import { VscSignIn, VscLoading } from 'react-icons/vsc';
+import { FaRegShareSquare } from 'react-icons/fa';
 import styled from 'styled-components';
 
 import { auth, db } from "../../firebase/clientApp";
@@ -35,6 +36,28 @@ const LoadingWrapper = styled.div`
   align-items: center;
 `
 
+const UserActionsContainer = styled.div`
+  text-align: right;
+  padding-right: ${({theme}) => theme.space[6]};  
+  padding-top: ${({theme}) => theme.space[3]};  
+`
+
+const InlineButton = styled.button`
+  text-align: right;
+  height: 20px;
+  color: ${({ theme }) => theme.colors.primary};
+  background-color: unset;
+  border: unset;
+  outline: unset;
+  font-size: ${({ theme }) => theme.fontSize.medium};
+  
+  &:hover, &:focus {
+    cursor: pointer;
+    color: ${({theme}) => theme.colors.primary};
+    text-decoration: underline;
+  }
+`
+
 interface ExerciseProps {
   title: string,
   breadcrumb: string,
@@ -60,10 +83,10 @@ export default function Exercise({ title, breadcrumb, slug, content, exercisesSu
     userExerciseRef = doc(db, "user_exercises", user.uid, "exercises", slug);
   }
   
-  const onCodeChangeCallback = (value: string) => {
+  const createOrUpdateCode = (value: string) => {
     setCode(!!value ? value : startingEditorCode);
   
-    (async() => {
+    return (async() => {
       if (userExerciseRef) {
         const now = (new Date()).valueOf();
 
@@ -100,8 +123,8 @@ export default function Exercise({ title, breadcrumb, slug, content, exercisesSu
           setCode(docSnap.data().code);
           setLastSavedAt(docSnap.data().updatedAt);
         } else {
-          setCode(startingEditorCode);
           setDocExists(false);
+          setCode(startingEditorCode);
           setLastSavedAt(null);
         }
       }
@@ -119,20 +142,27 @@ export default function Exercise({ title, breadcrumb, slug, content, exercisesSu
       {router.isFallback ? (
         <>
           <Sidebar title="Exercícios" items={exercisesSummary}></Sidebar>
-          <ExerciseDetails title="Carregando..." breadcrumb="" content="" />
+          <LoadingWrapper>
+            <StyledReactIcon isRotating size="large"><VscLoading/></StyledReactIcon>
+          </LoadingWrapper>
         </>
       ) : (
         <>
           <Sidebar title="Exercícios" items={exercisesSummary}></Sidebar>
           <ExerciseDetails title={title} breadcrumb={breadcrumb} content={content} />
           {user ? (
-            <ExerciseCode 
-              onAutoSaveEvent={onCodeChangeCallback}
-              onChange={(value: string) => setCode(value)} 
-              code={code} 
-              lastSavedAt={lastSavedAt}
-              autosaveMilliseconds={2000}
+            <div>
+              <UserActionsContainer>
+                <InlineButton onClick={() => console.log(2)}><FaRegShareSquare /> Compartilhar exercício</InlineButton>
+              </UserActionsContainer>
+              <ExerciseCode 
+                onAutoSaveEvent={createOrUpdateCode}
+                onChange={(value: string) => setCode(value)} 
+                code={code} 
+                lastSavedAt={lastSavedAt}
+                autosaveMilliseconds={2000}
               />
+            </div>
           ) : (
             authLoading || uiLoading ? (
               <LoadingWrapper>
