@@ -26,15 +26,24 @@ const AuthAction = styled.div`
   margin-left: auto;
 `
 
+const UserNameTag = styled.p`
+  display: inline;
+  color: ${({theme}) => theme.colors.white};
+  padding-right: ${({theme}) => theme.space[3]};
+`;
+
 export const Navigation = (props: any) => { 
   const [user, _loading, error] = useAuthState(auth);
 
   return (
     <NavBar>
       <Image src="/logo-white.svg" alt="Logotipo do Núcleo de Tecnologia MTST" width={40} height={40}/>
-      <NavTitle>Exercícios - Curso Online MTST</NavTitle>
+      <NavTitle>Curso Online de JavaScript - Núcleo de Tecnologia MTST</NavTitle>
       {user ? (
         <AuthAction>
+          <UserNameTag>
+            Olá, <b>{auth.currentUser?.displayName}</b>
+          </UserNameTag>
           <Button onClick={() => auth.signOut()}>Sair</Button>
         </AuthAction>
       ) : (
