@@ -2,7 +2,6 @@ import { useRouter } from 'next/router';
 import ErrorPage from 'next/error';
 import { useAuthState } from "react-firebase-hooks/auth";
 import { VscSignIn, VscLoading } from 'react-icons/vsc';
-import { FaRegShareSquare } from 'react-icons/fa';
 import styled from 'styled-components';
 
 import { auth, db } from "../../firebase/clientApp";
@@ -34,28 +33,6 @@ const LoadingWrapper = styled.div`
   justify-content: center;
   display: flex;
   align-items: center;
-`
-
-const UserActionsContainer = styled.div`
-  text-align: right;
-  padding-right: ${({theme}) => theme.space[6]};  
-  padding-top: ${({theme}) => theme.space[3]};  
-`
-
-const InlineButton = styled.button`
-  text-align: right;
-  height: 20px;
-  color: ${({ theme }) => theme.colors.primary};
-  background-color: unset;
-  border: unset;
-  outline: unset;
-  font-size: ${({ theme }) => theme.fontSize.medium};
-  
-  &:hover, &:focus {
-    cursor: pointer;
-    color: ${({theme}) => theme.colors.primary};
-    text-decoration: underline;
-  }
 `
 
 interface ExerciseProps {
@@ -152,9 +129,6 @@ export default function Exercise({ title, breadcrumb, slug, content, exercisesSu
           <ExerciseDetails title={title} breadcrumb={breadcrumb} content={content} />
           {user ? (
             <div>
-              <UserActionsContainer>
-                <InlineButton onClick={() => console.log(2)}><FaRegShareSquare /> Compartilhar exercício</InlineButton>
-              </UserActionsContainer>
               <ExerciseCode 
                 onAutoSaveEvent={createOrUpdateCode}
                 onChange={(value: string) => setCode(value)} 
