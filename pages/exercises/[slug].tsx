@@ -151,7 +151,7 @@ export default function Exercise({ title, breadcrumb, slug, content, exercisesSu
                 <div>
                   <StyledIcon />
                 </div>  
-                <h3>Faça o Login utilizando o botão acima<br/> para resolver o exercício</h3>
+                <h3>Faça o Login utilizando o botão acima<br/> para abrir o editor de código</h3>
               </NonLoggedContentWrapper>
             )
           )}
