@@ -9,7 +9,7 @@ import Moment from "react-moment";
 import { useEffect, useState } from "react";
 
 const ExerciseCodeContainer = styled.div`
-  padding: ${({theme}) => theme.space[4]} ${({theme}) => theme.space[6]};
+  padding: ${({theme}) => theme.space[5]} ${({theme}) => theme.space[6]};
 
   height: 100%;
   display: flex;

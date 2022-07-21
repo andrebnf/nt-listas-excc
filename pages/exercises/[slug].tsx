@@ -11,7 +11,6 @@ import { ExerciseSummary, getExerciseBySlug, getExercisesSlugs, getExercisesSumm
 import markdownToHtml from '../../lib/markdownToHtml'
 
 import { ExerciseDetails } from '../../components/exercise-details'
-import { PageContainer } from '../../components/page-container'
 import { ExerciseCode } from '../../components/exercise-code'
 import { Sidebar } from '../../components/sidebar'
 import { useEffect, useState } from 'react';
