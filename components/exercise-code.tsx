@@ -55,11 +55,12 @@ interface ExerciseCodeProps {
   onAutoSaveEvent: (value: string) => void,
   onChange: (value: string) => void,
   code: string,
+  slug: string,
   lastSavedAt: number | null,
   autosaveMilliseconds: number
 }
 
-export const ExerciseCode = ({ onAutoSaveEvent, onChange, code, lastSavedAt, autosaveMilliseconds }: ExerciseCodeProps) => {
+export const ExerciseCode = ({ onAutoSaveEvent, onChange, code, slug, lastSavedAt, autosaveMilliseconds }: ExerciseCodeProps) => {
   const [logs, setLogs] = useState<string[]>([]);
   const theme = useTheme();
 
@@ -67,7 +68,7 @@ export const ExerciseCode = ({ onAutoSaveEvent, onChange, code, lastSavedAt, aut
   // A cada X segundos determinados abaixo, a função será executada somente 1 vez
   const debouncedEditorChange = useDebouncedCallback(
     (value) => {
-      onAutoSaveEvent(value)
+      onAutoSaveEvent(value);
     },
     autosaveMilliseconds // Se for igual a 2000, a cada 2 segundos depois da última alteração no código
   );
@@ -75,6 +76,11 @@ export const ExerciseCode = ({ onAutoSaveEvent, onChange, code, lastSavedAt, aut
   useEffect(() => {
     setLogs([])
   }, [code])
+
+  useEffect(() => {
+    console.log('cancel debounce!')
+    debouncedEditorChange.cancel();
+  }, [slug])
 
   return (
     <ExerciseCodeContainer>

@@ -136,6 +136,7 @@ export default function Exercise({ title, breadcrumb, slug, content, exercisesSu
                 onAutoSaveEvent={createOrUpdateCode}
                 onChange={(value: string) => setCode(value)} 
                 code={code} 
+                slug={slug}
                 lastSavedAt={lastSavedAt}
                 autosaveMilliseconds={2000}
               />
