@@ -4,7 +4,8 @@ const ExerciseDetailsContainer = styled.div`
   padding-top: ${({theme}) => theme.space[2]};
   padding-left: ${({theme}) => theme.space[4]};
   padding-right: ${({theme}) => theme.space[2]};
-  max-height: ${({theme}) => theme.layout.contentSize};
+  
+  height: ${({theme}) => theme.layout.contentSize};
   overflow-y: auto;
 
   pre {
