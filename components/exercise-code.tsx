@@ -78,7 +78,6 @@ export const ExerciseCode = ({ onAutoSaveEvent, onChange, code, slug, lastSavedA
   }, [code])
 
   useEffect(() => {
-    console.log('cancel debounce!')
     debouncedEditorChange.cancel();
   }, [slug])
 
