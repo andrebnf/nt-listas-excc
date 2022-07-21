@@ -7,7 +7,6 @@ import { Footer } from '../components/footer'
 import { Navigation } from '../components/navigation'
 import AppLayout from '../components/layout/app-layout'
 
-import 'highlight.js/styles/xcode.css'
 import 'react-pro-sidebar/dist/css/styles.css';
 
 import Moment from 'react-moment'

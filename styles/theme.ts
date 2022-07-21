@@ -25,6 +25,7 @@ export const theme: DefaultTheme = {
     secondaryOpacity015: '#d9e2f1',
     secondaryOpacity01: '#e5ebf6',
     text: '#444',
+    textDarkGray: '#666',
     sectionSeparator: '#AAA',
     codeBlockBorder: '#CCC',
     white: '#DDD',

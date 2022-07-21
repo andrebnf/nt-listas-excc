@@ -8,6 +8,9 @@ const ExerciseDetailsContainer = styled.div`
 
   pre {
     border: 1px solid ${({ theme }) => theme.colors.codeBlockBorder};
+    color: ${({ theme }) => theme.colors.textDarkGray};
+    padding: ${({theme}) => theme.space[2]};
+    overflow: auto;
   }
 `
 
@@ -24,7 +27,7 @@ interface ExerciseDetailsProps {
 export const ExerciseDetails = ({breadcrumb, content, title}: ExerciseDetailsProps) => (
   <ExerciseDetailsContainer>
     <h4>{breadcrumb}</h4>
-    <h3>{title}</h3>
+    <h1>{title}</h1>
 
     <ExerciseText dangerouslySetInnerHTML={{ __html: content }} />
   </ExerciseDetailsContainer>  
