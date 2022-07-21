@@ -7,7 +7,7 @@ interface PageContainerProps {
 const ContainerBasis = styled.div`
   display: grid;
 
-  max-height: ${({theme}) => theme.layout.contentSize};
+  height: ${({theme}) => theme.layout.contentSize};
 
   & > * {
     max-height: ${({theme}) => theme.layout.contentSize};
