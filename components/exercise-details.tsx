@@ -8,6 +8,9 @@ const ExerciseDetailsContainer = styled.div`
 
   pre {
     border: 1px solid ${({ theme }) => theme.colors.codeBlockBorder};
+    color: ${({ theme }) => theme.colors.textDarkGray};
+    padding: ${({theme}) => theme.space[2]};
+    overflow: auto;
   }
 `
 
