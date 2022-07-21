@@ -15,6 +15,8 @@ const ExerciseCodeContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  max-height: ${({theme}) => theme.layout.contentSize};
 `
 
 const EditorContainer = styled.div`
