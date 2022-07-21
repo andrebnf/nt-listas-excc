@@ -26,5 +26,3 @@ while (continuarAtendimento === false) {
   }
 }
 ```
-
-**Obs**: Ao abrir o exercício pela primeira vez, o código acima será copiado para o editor para que sirva de ponto de partida
