@@ -1,5 +1,5 @@
 ---
-title: "4.3 - Aula"
+title: "Aula: Utilidades"
 breadcrumb: "Módulo 4 > Aula 3"
 startingEditorCode: |
   console.log("Olá, mundo")

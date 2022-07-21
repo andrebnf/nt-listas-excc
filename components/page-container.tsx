@@ -1,7 +1,6 @@
 import styled from "styled-components"
 
 interface PageContainerProps {
-  columns: number,
   children: React.ReactNode
 }
 
@@ -15,24 +14,12 @@ const ContainerBasis = styled.div`
   }
 `
 
-const ThreeColumnsPage = styled(ContainerBasis)`
-  grid-template-columns: 300px 1.2fr 1fr;
-`
-
 const TwoColumnsPage = styled(ContainerBasis)`
   grid-template-columns: 300px 2.35fr;
 `
 
-const OneColumnPage = styled(ContainerBasis)`
-  grid-template-columns: 1fr;
-`
-
-export const PageContainer = ({ columns, children }: PageContainerProps) => {
+export const PageContainer = ({ children }: PageContainerProps) => {
   return (
-    <>
-      {columns === 1 && <OneColumnPage>{children}</OneColumnPage>}
-      {columns === 2 && <TwoColumnsPage>{children}</TwoColumnsPage>}
-      {columns === 3 && <ThreeColumnsPage>{children}</ThreeColumnsPage>}
-    </>
+    <TwoColumnsPage>{children}</TwoColumnsPage>
   )
 }
