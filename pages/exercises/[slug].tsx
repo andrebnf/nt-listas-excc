@@ -35,6 +35,11 @@ const LoadingWrapper = styled.div`
   align-items: center;
 `
 
+const ContentContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+`
+
 interface ExerciseProps {
   title: string,
   breadcrumb: string,
@@ -115,7 +120,7 @@ export default function Exercise({ title, breadcrumb, slug, content, exercisesSu
   }
 
   return (
-    <PageContainer columns={3}>
+    <>
       {router.isFallback ? (
         <>
           <Sidebar title="Exercícios" items={exercisesSummary}></Sidebar>
@@ -124,8 +129,7 @@ export default function Exercise({ title, breadcrumb, slug, content, exercisesSu
           </LoadingWrapper>
         </>
       ) : (
-        <>
-          <Sidebar title="Exercícios" items={exercisesSummary}></Sidebar>
+        <ContentContainer>
           <ExerciseDetails title={title} breadcrumb={breadcrumb} content={content} />
           {user ? (
             <div>
@@ -151,9 +155,9 @@ export default function Exercise({ title, breadcrumb, slug, content, exercisesSu
               </NonLoggedContentWrapper>
             )
           )}
-        </>
+        </ContentContainer>
       )}
-    </PageContainer>
+    </>
   )
 }
 

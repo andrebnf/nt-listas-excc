@@ -1,67 +1,91 @@
 import Link from "next/link";
 import styled from "styled-components";
-import { ExerciseSummary } from "../lib/exercises";
 import { useRouter } from "next/router";
+import { ProSidebar, Menu, MenuItem, SubMenu, SidebarHeader, SidebarContent } from 'react-pro-sidebar';
+import { GoBook } from 'react-icons/go';
+import { ExerciseSummary } from "../lib/exercises";
 
-const SidebarContainer = styled.div`
-  background-color: ${({theme}) => theme.colors.secondaryOpacity01};
-  padding-left: ${({theme}) => theme.space[4]};
-  padding-right: ${({theme}) => theme.space[4]};
-  padding-top: ${({theme}) => theme.space[2]};
-`
-
-const SidebarList = styled.ul`
-  list-style: none;
-  padding-left: 0;
-  
-  li {
-    line-height: ${({theme}) => theme.space[4]};
-    padding-bottom: ${({theme}) => theme.space[0]};
-  }
-`
-
-const StyledA = styled.a`
-  text-decoration: none;
-  color: ${({theme}) => theme.colors.text};
-  font-size: ${({theme}) => theme.fontSize.medium};
-  font-weight: bold;
-
-  &:hover, &:focus {
-    cursor: pointer;
-    color: ${({theme}) => theme.colors.primary};
-    text-decoration: underline;
+const StyledProSidebar = styled(ProSidebar)`
+  &>div {
+    background-color: ${({theme}) => theme.colors.secondaryOpacity01} !important;
   }
 
-  &.sidebar-item-active {
-    color: ${({theme}) => theme.colors.primary};
+  .pro-inner-list-item {
+    background-color: ${({theme}) => theme.colors.secondaryOpacity01} !important;
   }
-`
+
+  .pro-item-content, .pro-menu-item .pro-inner-item {
+    font-weight: bold;
+
+    &:hover, &:active, &.active {
+      color: ${({theme}) => theme.colors.primary} !important;
+    }
+
+    &:visited {
+      color: ${({theme}) => theme.colors.text} !important;
+
+    }
+  }
+
+  .pro-item-content a {
+    color: ${({theme}) => theme.colors.text} !important;
+    &:hover {
+      color: ${({theme}) => theme.colors.primary} !important;
+    }
+  }
+
+  .pro-menu-item > .pro-inner-item:focus {
+    color: ${({theme}) => theme.colors.primary} !important;
+  }
+
+  .react-slidedown {
+    background-color: ${({theme}) => theme.colors.secondaryOpacity015} !important;
+  }
+
+  a.sidebar-item-active {
+    color: ${({theme}) => theme.colors.primary} !important;
+  }
+`;
+
+const StyledSidebarHeader = styled.h3`
+  padding-left: 20px;
+`;
 
 interface SidebarProps {
   items: ExerciseSummary[];
   title: string;
 }
 
-// TODO: marcar item ativo na sidebar (useRouter().query === slug)
 // TODO: sidebar acessível em telas menores (https://github.com/azouaoui-med/react-pro-sidebar)
 export const Sidebar = ({title, items}: SidebarProps) => {
   const router = useRouter();
   const currentSlug = router.query.slug
 
   return (
-    <SidebarContainer>
-      <h3>{title}</h3>
-      <SidebarList>
-        {items.map(({slug, title}) => (
-          <li key={slug}>
-            <Link href={`/exercises/${slug}`}>
-              <StyledA className={slug === currentSlug ? 'sidebar-item-active' : ''}>
-                {title}
-              </StyledA>
-            </Link>
-          </li>
-      ))}
-      </SidebarList>
-    </SidebarContainer>
+    <StyledProSidebar>
+      <SidebarHeader>
+        <StyledSidebarHeader>{title}</StyledSidebarHeader>
+      </SidebarHeader>
+      <SidebarContent>
+        <Menu iconShape="square">
+          <SubMenu title="Módulo 4">
+            <SubMenu title="Aula 3">
+              {/* <MenuItem>
+                <StyledReactIcon><GoBook/></StyledReactIcon> Aula
+              </MenuItem> */}
+               {items.map(({slug, title}) => (
+                <MenuItem key={slug}>
+                  <Link href={`/exercises/${slug}`}>
+                    <a className={slug === currentSlug ? 'sidebar-item-active' : ''}>
+                      {title}
+                    </a>
+                  </Link> 
+                </MenuItem>
+              ))}
+            </SubMenu>
+          </SubMenu>
+        </Menu>
+      </SidebarContent>
+    </StyledProSidebar>
   )
 }

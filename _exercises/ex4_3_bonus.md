@@ -1,5 +1,5 @@
 ---
-title: '4.3 - Bônus'
+title: 'Exercício Bônus'
 breadcrumb: 'Módulo 4 > Aula 3 > Execício Bônus'
 startingEditorCode: '// copie o código do enunciado e faça seus ajustes'
 ---
