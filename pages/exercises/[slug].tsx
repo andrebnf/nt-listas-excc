@@ -36,7 +36,7 @@ const LoadingWrapper = styled.div`
 
 const ContentContainer = styled.div`
   display: grid;
-  grid-template-columns: 1.2fr 1fr;
+  grid-template-columns: 1fr 1.2fr;
 `
 
 interface ExerciseProps {

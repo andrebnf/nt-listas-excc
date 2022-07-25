@@ -9,7 +9,7 @@ import Moment from "react-moment";
 import { useEffect, useState } from "react";
 
 const ExerciseCodeContainer = styled.div`
-  padding: ${({theme}) => theme.space[5]} ${({theme}) => theme.space[6]};
+  padding: ${({theme}) => theme.space[4]} ${({theme}) => theme.space[4]};
 
   height: 100%;
   display: flex;
@@ -104,10 +104,11 @@ export const ExerciseCode = ({ onAutoSaveEvent, onChange, code, slug, lastSavedA
           options={
             {
               minimap: {enabled: false},
-              wordWrap: 'on',
+              automaticLayout: true,
               padding: {top: theme.space[3], bottom: theme.space[3]},
               scrollBeyondLastLine: false,
               fontFamily: theme.fonts.code,
+              fontSize: 16,
               tabSize: 2
             }
           }

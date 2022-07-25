@@ -2,10 +2,12 @@ import Link from "next/link";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import { ProSidebar, Menu, MenuItem, SubMenu, SidebarHeader, SidebarContent } from 'react-pro-sidebar';
-import { GoBook } from 'react-icons/go';
 import { ExerciseSummary } from "../lib/exercises";
 
 const StyledProSidebar = styled(ProSidebar)`
+  width: ${({theme}) => theme.layout.sidebarWidth} !important;
+  min-width: ${({theme}) => theme.layout.sidebarWidth} !important;
+
   &>div {
     background-color: ${({theme}) => theme.colors.secondaryOpacity01} !important;
   }

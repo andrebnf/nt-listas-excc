@@ -39,7 +39,8 @@ declare module 'styled-components' {
     layout: {
       navSize: string,
       contentSize: string,
-      footerSize: string
+      footerSize: string,
+      sidebarWidth: string
     }
   }
 }

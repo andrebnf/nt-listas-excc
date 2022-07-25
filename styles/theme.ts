@@ -41,6 +41,7 @@ export const theme: DefaultTheme = {
   layout: {
     navSize: '8vh',
     contentSize: '88vh',
-    footerSize: '4vh'
+    footerSize: '4vh',
+    sidebarWidth: '230px'
   }
 };
