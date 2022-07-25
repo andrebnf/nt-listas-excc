@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "concurrently \"next dev\" \"firebase emulators:start\"",
+    "dev": "concurrently -p \"[{name}]\" -n \"NEXT-DEV,FIRE-EMU\" -c \"bgBlue.bold,bgYellow.bold\" \"next dev\" \"firebase emulators:start\"",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
