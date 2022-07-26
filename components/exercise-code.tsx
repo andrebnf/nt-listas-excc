@@ -109,7 +109,19 @@ export const ExerciseCode = ({ onAutoSaveEvent, onChange, code, slug, lastSavedA
               scrollBeyondLastLine: false,
               fontFamily: theme.fonts.code,
               fontSize: 16,
-              tabSize: 2
+              tabSize: 2,
+              quickSuggestions: {
+                other: false,
+                comments: false,
+                strings: false
+              },
+              parameterHints: {
+                enabled: false
+              },
+              suggestOnTriggerCharacters: false,
+              acceptSuggestionOnEnter: "off",
+              tabCompletion: "off",
+              wordBasedSuggestions: false
             }
           }
      
