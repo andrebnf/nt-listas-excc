@@ -15,7 +15,7 @@ const ContainerBasis = styled.div`
 `
 
 const TwoColumnsPage = styled(ContainerBasis)`
-  grid-template-columns: 300px 2.35fr;
+  grid-template-columns: ${({theme}) => theme.layout.sidebarWidth} 1fr;
 `
 
 export const PageContainer = ({ children }: PageContainerProps) => {
