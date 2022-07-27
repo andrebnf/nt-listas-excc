@@ -121,7 +121,7 @@ export const ExerciseCode = ({ onAutoSaveEvent, onChange, code, slug, lastSavedA
               suggestOnTriggerCharacters: false,
               acceptSuggestionOnEnter: "off",
               tabCompletion: "off",
-              wordBasedSuggestions: false
+              wordBasedSuggestions: false,
             }
           }
      
