@@ -1,10 +1,10 @@
 import React from "react";
-import { ExerciseSummary, getExercisesSummary } from "../../lib/exercises";
+import { ContentSummary, getExercisesSummary } from "../../lib/exercises";
 import { PageContainer } from "../page-container";
 import { Sidebar } from "../sidebar";
 
 interface AppLayoutProps {
-  exercisesSummary?: ExerciseSummary[];
+  exercisesSummary?: ContentSummary[];
   children: React.ReactNode;
 }
 

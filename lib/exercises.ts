@@ -14,17 +14,17 @@ const readFileContents = (slug: string) => {
   return matter(fileContents)
 }
 
-function getExerciseMetadataBySlug(slug: string): ExerciseSummary {
+function getExerciseMetadataBySlug(slug: string): ContentSummary {
   const { data } = readFileContents(slug)
   return { slug, title: data['title'] }
 }
 
-export interface ExerciseSummary {
+export interface ContentSummary {
   title: string,
   slug: string
 }
 
-export interface ExerciseDetails {
+export interface ContentDetails {
   title: string,
   breadcrumb: string,
   slug: string,
@@ -36,13 +36,13 @@ export function getExercisesSlugs(): string[] {
   return fs.readdirSync(exercisesDirectory).map(getRealSlug)
 }
 
-export function getExerciseBySlug(slug: string): ExerciseDetails {
+export function getExerciseBySlug(slug: string): ContentDetails {
   const { data, content } = readFileContents(slug)
   const { breadcrumb, title, startingEditorCode } = data
   return { title, breadcrumb, slug, content, startingEditorCode }
 }
 
-export function getExercisesSummary(): ExerciseSummary[] {
+export function getExercisesSummary(): ContentSummary[] {
   const slugs = getExercisesSlugs()
   const exercises = slugs
     .map((slug) => getExerciseMetadataBySlug(slug))
