@@ -7,10 +7,10 @@ import styled from 'styled-components';
 import { auth, db } from "../../firebase/clientApp";
 import { doc, DocumentReference, getDoc, setDoc, updateDoc } from "firebase/firestore"; 
 
-import { ExerciseSummary, getExerciseBySlug, getExercisesSlugs, getExercisesSummary } from '../../lib/exercises'
+import { ContentSummary, getExerciseBySlug, getExercisesSlugs, getExercisesSummary } from '../../lib/exercises'
 import markdownToHtml from '../../lib/markdownToHtml'
 
-import { ExerciseDetails } from '../../components/exercise-details'
+import { ContentDetails } from '../../components/exercise-details'
 import { ExerciseCode } from '../../components/exercise-code'
 import { Sidebar } from '../../components/sidebar'
 import { useEffect, useState } from 'react';
@@ -44,7 +44,7 @@ interface ExerciseProps {
   breadcrumb: string,
   slug: string,
   content: string,
-  exercisesSummary: ExerciseSummary[],
+  exercisesSummary: ContentSummary[],
   startingEditorCode?: string
 }
 
@@ -129,7 +129,7 @@ export default function Exercise({ title, breadcrumb, slug, content, exercisesSu
         </>
       ) : (
         <ContentContainer>
-          <ExerciseDetails title={title} breadcrumb={breadcrumb} content={content} />
+          <ContentDetails title={title} breadcrumb={breadcrumb} content={content} />
           {user ? (
             <div>
               <ExerciseCode 
@@ -163,16 +163,16 @@ export default function Exercise({ title, breadcrumb, slug, content, exercisesSu
 
 export async function getStaticProps({ params }: { params: { slug: string } }) {
   // Lendo arquivos dos exercícios
-  const exerciseDetails = getExerciseBySlug(params.slug)
-  const content = await markdownToHtml(exerciseDetails.content || '')
+  const ContentDetails = getExerciseBySlug(params.slug)
+  const content = await markdownToHtml(ContentDetails.content || '')
   const exercisesSummary = getExercisesSummary()
 
   return {
     props: {
-      title: exerciseDetails.title,
-      slug: exerciseDetails.slug,
-      breadcrumb: exerciseDetails.breadcrumb,
-      startingEditorCode: exerciseDetails.startingEditorCode || null,
+      title: ContentDetails.title,
+      slug: ContentDetails.slug,
+      breadcrumb: ContentDetails.breadcrumb,
+      startingEditorCode: ContentDetails.startingEditorCode || null,
       content,
       exercisesSummary
     },

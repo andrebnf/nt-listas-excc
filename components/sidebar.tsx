@@ -2,7 +2,7 @@ import Link from "next/link";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import { ProSidebar, Menu, MenuItem, SubMenu, SidebarHeader, SidebarContent } from 'react-pro-sidebar';
-import { ExerciseSummary } from "../lib/exercises";
+import { ContentSummary } from "../lib/exercises";
 
 const StyledProSidebar = styled(ProSidebar)`
   width: ${({theme}) => theme.layout.sidebarWidth} !important;
@@ -54,7 +54,7 @@ const StyledSidebarHeader = styled.h3`
 `;
 
 interface SidebarProps {
-  items: ExerciseSummary[];
+  items: ContentSummary[];
   title: string;
 }
 
@@ -75,15 +75,34 @@ export const Sidebar = ({title, items}: SidebarProps) => {
               {/* <MenuItem>
                 <StyledReactIcon><GoBook/></StyledReactIcon> Aula
               </MenuItem> */}
-               {items.map(({slug, title}) => (
-                <MenuItem key={slug}>
-                  <Link href={`/exercises/${slug}`}>
-                    <a className={slug === currentSlug ? 'sidebar-item-active' : ''}>
-                      {title}
-                    </a>
-                  </Link> 
-                </MenuItem>
-              ))}
+              {items.map(({slug, title, moduleId, classId}) => {
+                if (moduleId === '4' && classId === '3') {
+                  return (
+                    <MenuItem key={slug}>
+                      <Link href={`/exercises/${slug}`}>
+                        <a className={slug === currentSlug ? 'sidebar-item-active' : ''}>
+                          {title}
+                        </a>
+                      </Link> 
+                    </MenuItem>
+                  )
+                }    
+              })}
+            </SubMenu>
+            <SubMenu title="Aula 4">
+              {items.map(({slug, title, moduleId, classId}) => {
+                if (moduleId === '4' && classId === '4') {
+                  return (
+                    <MenuItem key={slug}>
+                      <Link href={`/exercises/${slug}`}>
+                        <a className={slug === currentSlug ? 'sidebar-item-active' : ''}>
+                          {title}
+                        </a>
+                      </Link> 
+                    </MenuItem>
+                  )
+                }    
+              })}
             </SubMenu>
           </SubMenu>
         </Menu>

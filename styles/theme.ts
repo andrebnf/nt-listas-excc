@@ -42,6 +42,6 @@ export const theme: DefaultTheme = {
     navSize: '8vh',
     contentSize: '88vh',
     footerSize: '4vh',
-    sidebarWidth: '210px'
+    sidebarWidth: '220px'
   }
 };
