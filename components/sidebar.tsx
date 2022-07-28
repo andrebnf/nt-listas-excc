@@ -75,15 +75,34 @@ export const Sidebar = ({title, items}: SidebarProps) => {
               {/* <MenuItem>
                 <StyledReactIcon><GoBook/></StyledReactIcon> Aula
               </MenuItem> */}
-               {items.map(({slug, title}) => (
-                <MenuItem key={slug}>
-                  <Link href={`/exercises/${slug}`}>
-                    <a className={slug === currentSlug ? 'sidebar-item-active' : ''}>
-                      {title}
-                    </a>
-                  </Link> 
-                </MenuItem>
-              ))}
+              {items.map(({slug, title, moduleId, classId}) => {
+                if (moduleId === '4' && classId === '3') {
+                  return (
+                    <MenuItem key={slug}>
+                      <Link href={`/exercises/${slug}`}>
+                        <a className={slug === currentSlug ? 'sidebar-item-active' : ''}>
+                          {title}
+                        </a>
+                      </Link> 
+                    </MenuItem>
+                  )
+                }    
+              })}
+            </SubMenu>
+            <SubMenu title="Aula 4">
+              {items.map(({slug, title, moduleId, classId}) => {
+                if (moduleId === '4' && classId === '4') {
+                  return (
+                    <MenuItem key={slug}>
+                      <Link href={`/exercises/${slug}`}>
+                        <a className={slug === currentSlug ? 'sidebar-item-active' : ''}>
+                          {title}
+                        </a>
+                      </Link> 
+                    </MenuItem>
+                  )
+                }    
+              })}
             </SubMenu>
           </SubMenu>
         </Menu>

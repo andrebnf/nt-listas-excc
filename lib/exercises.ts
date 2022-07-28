@@ -15,13 +15,61 @@ const readFileContents = (slug: string) => {
 }
 
 function getExerciseMetadataBySlug(slug: string): ContentSummary {
-  const { data } = readFileContents(slug)
-  return { slug, title: data['title'] }
+  const { data: { title } } = readFileContents(slug)
+
+  const slugMatchGroup = slug.match(/(aula|ex)(\d)_(\d)/)
+
+  if (slugMatchGroup === null) {
+    throw new Error(`Nome de arquivo com formato errado: ${slug}`)
+  }
+
+  const [_, type, moduleId, classId] = slugMatchGroup as [any, 'aula' | 'ex', string, string]
+
+  return { 
+    slug, 
+    title,
+    moduleId,
+    classId,
+    type 
+  }
+}
+
+export function groupSummary(contentList: ContentSummary[]): ModulesGroup {
+  const group: ModulesGroup = {}
+
+  for (let i = 0; i < contentList.length; i++){
+    const content = contentList[i];
+    const classContent = group[content.moduleId].classContentList || []
+    const exerciseContent = group[content.moduleId].exerciseContentList || []
+
+    if (content.type === 'aula') {
+      group[content.moduleId] = {
+        classId: content.classId,
+        classContentList: [...classContent, content],
+        exerciseContentList: [...exerciseContent, content]
+      }
+    }
+  }
+
+  console.log(JSON.stringify(group))
+
+  return group as ModulesGroup
+}
+
+interface ModulesGroup {
+  [key: string]: {
+    classId: string,
+    classContentList: ContentSummary[],
+    exerciseContentList: ContentSummary[]
+  }
 }
 
 export interface ContentSummary {
   title: string,
-  slug: string
+  slug: string,
+  moduleId: string,
+  classId: string,
+  type: 'aula' | 'ex' // também são os prefixos dos arquivos
 }
 
 export interface ContentDetails {
