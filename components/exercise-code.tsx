@@ -20,7 +20,7 @@ const ExerciseCodeContainer = styled.div`
 `
 
 const EditorContainer = styled.div`
-  border: 1px solid ${({theme}) => theme.colors.secondary};
+  border: 1px solid ${({theme}) => theme.colors.editorBorder};
   height: 65%;
 `
 
@@ -33,7 +33,7 @@ const SavedAtInfo = styled.p`
 
 const OutputContainer = styled.div`
   padding: ${({theme}) => theme.space[1]};
-  border: 1px solid ${({theme}) => theme.colors.secondary};
+  border: 1px solid ${({theme}) => theme.colors.editorBorder};
   border-top: 0px;
   border-bottom: 0px;
   height: 35%;
@@ -107,7 +107,7 @@ export const ExerciseCode = ({ onAutoSaveEvent, onChange, code, slug, lastSavedA
               automaticLayout: true,
               padding: {top: theme.space[3], bottom: theme.space[3]},
               scrollBeyondLastLine: false,
-              fontFamily: theme.fonts.code,
+              fontFamily: theme.fonts.codeEditor,
               fontSize: 16,
               tabSize: 2,
               quickSuggestions: {
