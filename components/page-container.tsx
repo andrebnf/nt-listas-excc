@@ -5,7 +5,7 @@ interface PageContainerProps {
 }
 
 const ContainerBasis = styled.div`
-  display: grid;
+  display: flex;
 
   height: ${({theme}) => theme.layout.contentSize};
 
@@ -15,7 +15,7 @@ const ContainerBasis = styled.div`
 `
 
 const TwoColumnsPage = styled(ContainerBasis)`
-  grid-template-columns: ${({theme}) => theme.layout.sidebarWidth} 1fr;
+  /* grid-template-columns: ${({theme}) => theme.layout.sidebarWidth} 1fr; */
 `
 
 export const PageContainer = ({ children }: PageContainerProps) => {
