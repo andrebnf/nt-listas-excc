@@ -8,7 +8,7 @@ const ContentDetailsContainer = styled.div`
   overflow-y: auto;
 
   pre {
-    border: 1px solid ${({ theme }) => theme.colors.codeBlockBorder};
+    border: 1px solid ${({ theme }) => theme.colors.contentCodeBorder};
     color: ${({ theme }) => theme.colors.textDarkGray};
     padding: ${({theme}) => theme.space[2]};
     overflow: auto;
@@ -16,7 +16,7 @@ const ContentDetailsContainer = styled.div`
 `
 
 const ExerciseText = styled.div`
-    font-size: ${({theme}) => theme.fontSize.large};
+  font-size: ${({theme}) => theme.fontSize.large};
 `
 
 interface ContentDetailsProps {
