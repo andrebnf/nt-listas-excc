@@ -29,6 +29,7 @@ declare module 'styled-components' {
       text: string,
       textDarkGray: string,
       editorBorder: string,
+      contentCodeBorder: string,
       sectionSeparator: string,
       white: string
     },

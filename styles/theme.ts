@@ -28,7 +28,8 @@ export const theme: DefaultTheme = {
     text: '#444',
     textDarkGray: '#666',
     sectionSeparator: '#AAA',
-    editorBorder: '#CCC',
+    editorBorder: '#ccd8ec',
+    contentCodeBorder: '#DFDFDF',
     white: '#DDD',
   },
   space: [
