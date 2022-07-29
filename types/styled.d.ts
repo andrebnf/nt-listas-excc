@@ -4,7 +4,8 @@ declare module 'styled-components' {
   export interface DefaultTheme {
     fonts: {
         primary: string,
-        code: string
+        code: string,
+        codeEditor: string
     },
     fontSize: {
       xsmall: string,
@@ -27,7 +28,8 @@ declare module 'styled-components' {
       background: string,
       text: string,
       textDarkGray: string,
-      codeBlockBorder: string,
+      editorBorder: string,
+      contentCodeBorder: string,
       sectionSeparator: string,
       white: string
     },

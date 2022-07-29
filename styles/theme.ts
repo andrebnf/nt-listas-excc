@@ -3,7 +3,8 @@ import { DefaultTheme } from 'styled-components'
 export const theme: DefaultTheme = {
   fonts: {
     primary: 'Nunito',
-    code: '"Fira code", "Fira Mono", monospace'
+    code: '"Fira code", "Fira Mono"',
+    codeEditor: 'monospace'
   },
   fontSize: {
     xsmall: '0.75em',
@@ -27,7 +28,8 @@ export const theme: DefaultTheme = {
     text: '#444',
     textDarkGray: '#666',
     sectionSeparator: '#AAA',
-    codeBlockBorder: '#CCC',
+    editorBorder: '#ccd8ec',
+    contentCodeBorder: '#DFDFDF',
     white: '#DDD',
   },
   space: [
