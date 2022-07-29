@@ -1,10 +1,26 @@
 import Link from "next/link";
 import styled from "styled-components";
 import { useRouter } from "next/router";
-import { ProSidebar, Menu, MenuItem, SubMenu, SidebarHeader, SidebarContent } from 'react-pro-sidebar';
 import { ContentSummary } from "../lib/exercises";
+import React, { ReactNode } from "react";
 
-const StyledProSidebar = styled(ProSidebar)`
+const SidebarHeader = styled.div`
+
+`;
+
+const SidebarContent = styled.div`
+  
+`;
+
+const Menu = styled.div`
+  
+`;
+
+const MenuItem = styled.li`
+
+`;
+
+const StyledAside = styled.aside`
   width: ${({theme}) => theme.layout.sidebarWidth} !important;
   min-width: ${({theme}) => theme.layout.sidebarWidth} !important;
 
@@ -58,18 +74,30 @@ interface SidebarProps {
   title: string;
 }
 
+const SubMenu = ({title, children}: { title: string, children: ReactNode }) => (
+  <>
+    <h3>{title}</h3>
+    <ul>
+      {/* {React.Children.map(children, (child: ReactNode) => (
+        <li>{child}</li>
+      ))} */}
+      {children}
+    </ul>
+  </>
+)
+
 // TODO: sidebar acessível em telas menores (https://github.com/azouaoui-med/react-pro-sidebar)
 export const Sidebar = ({title, items}: SidebarProps) => {
   const router = useRouter();
   const currentSlug = router.query.slug
 
   return (
-    <StyledProSidebar>
+    <StyledAside>
       <SidebarHeader>
         <StyledSidebarHeader>{title}</StyledSidebarHeader>
       </SidebarHeader>
       <SidebarContent>
-        <Menu iconShape="square">
+        <Menu>
           <SubMenu title="Módulo 4">
             <SubMenu title="Aula 3">
               {/* <MenuItem>
@@ -107,6 +135,6 @@ export const Sidebar = ({title, items}: SidebarProps) => {
           </SubMenu>
         </Menu>
       </SidebarContent>
-    </StyledProSidebar>
+    </StyledAside>
   )
 }
