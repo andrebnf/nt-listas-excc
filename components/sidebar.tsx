@@ -1,16 +1,20 @@
 import Link from "next/link";
 import styled, { DefaultTheme } from "styled-components";
+import { Collapse } from 'react-collapse';
 import { useRouter } from "next/router";
 import { ContentSummary } from "../lib/exercises";
 import { ReactNode, useState } from "react";
 
 const StyledAside = styled.aside`
   min-width: ${({theme}) => theme.layout.sidebarWidth};
-  padding-left: ${({theme}) => theme.space[2]};
 
   background-color: ${({theme}) => theme.colors.secondaryOpacity01};
   * {
     color: ${({theme}) => theme.colors.text}; 
+  }
+
+  .ReactCollapse--collapse {
+    transition: height 200ms ease-out;
   }
 `;
 
@@ -34,14 +38,7 @@ const SubMenuList = styled.ul`
   list-style: none;
   padding-left: ${({theme}) => theme.space[2]};
   margin-top: 0;
-
-  transition: max-height .6s ease;
-  overflow: hidden;
-  max-height: 0;
-
-  &.sub-menu-open {
-    max-height: 400px;
-  }
+  background-color: ${({theme}) => theme.colors.secondaryOpacity015};
 `;
 
 const SidebarContent = styled.div`
@@ -76,30 +73,20 @@ const SubMenu = ({title, children}: {
   title: string, 
   children: ReactNode 
 }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [isOpened, setIsOpened] = useState<boolean>(false)
 
   return (
     <>
-      <SubMenuHeader onClick={() => setIsOpen(!isOpen)}>{title}</SubMenuHeader>
-      <SubMenuList className={isOpen ? 'sub-menu-open' : ''}>
-        {children}
-      </SubMenuList>
+      <SubMenuHeader onClick={() => setIsOpened(!isOpened)}>{title}</SubMenuHeader>
+      <Collapse isOpened={isOpened}>
+        <SubMenuList>
+          {children}
+        </SubMenuList>
+      </Collapse>
     </>
   )
 }
 
-// interface SidebarState {
-//   [moduleId: string]: {
-//     isOpen: boolean,
-//     classes: {
-//       [classId: string]: {
-//         isOpen: boolean
-//       }
-//     }
-//   }
-// }
-
-// TODO: sidebar acessível em telas menores (https://github.com/azouaoui-med/react-pro-sidebar)
 export const Sidebar = ({title, items}: SidebarProps) => {
   const activeItemClass = 'sidebar-item-active'
   const router = useRouter()
