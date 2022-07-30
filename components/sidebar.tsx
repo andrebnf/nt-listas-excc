@@ -1,73 +1,60 @@
 import Link from "next/link";
-import styled from "styled-components";
+import styled, { DefaultTheme } from "styled-components";
 import { useRouter } from "next/router";
 import { ContentSummary } from "../lib/exercises";
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 
-const SidebarHeader = styled.div`
+const StyledAside = styled.aside`
+  min-width: ${({theme}) => theme.layout.sidebarWidth};
+  padding-left: ${({theme}) => theme.space[2]};
 
+  background-color: ${({theme}) => theme.colors.secondaryOpacity01};
+`;
+
+const SidebarHeader = styled.h3`
+  margin: ${({theme}) => theme.space[2]} 0;
+`;
+
+const SubMenuHeader = styled.h4`
+  padding-left: ${({theme}) => theme.space[2]};
+  margin: ${({theme}) => theme.space[1]} 0;
+`;
+
+const SubMenuList = styled.ul`
+  list-style: none;
+  padding-left: ${({theme}) => theme.space[2]};
+
+  transition: max-height .6s ease;
+  overflow: hidden;
+  max-height: 0;
+
+  &.open {
+    max-height: 400px;
+  }
 `;
 
 const SidebarContent = styled.div`
-  
 `;
 
 const Menu = styled.div`
-  
 `;
 
 const MenuItem = styled.li`
-
+  padding-bottom: ${({theme}) => theme.space[0]};
 `;
 
-const StyledAside = styled.aside`
-  width: ${({theme}) => theme.layout.sidebarWidth} !important;
-  min-width: ${({theme}) => theme.layout.sidebarWidth} !important;
-
-  &>div {
-    background-color: ${({theme}) => theme.colors.secondaryOpacity01} !important;
+const StyledNavLink = styled.a<{theme: DefaultTheme, activeClassName: string }>`
+  text-decoration: none;
+  
+  &.${(props => props.activeClassName)} {
+    color: ${({theme}) => theme.colors.primary};
   }
 
-  .pro-inner-list-item {
-    background-color: ${({theme}) => theme.colors.secondaryOpacity01} !important;
+  &:hover {
+    cursor: pointer;
+    color: ${({theme}) => theme.colors.primary};
   }
-
-  .pro-item-content, .pro-menu-item .pro-inner-item {
-    font-weight: bold;
-
-    &:hover, &:active, &.active {
-      color: ${({theme}) => theme.colors.primary} !important;
-    }
-
-    &:visited {
-      color: ${({theme}) => theme.colors.text} !important;
-
-    }
-  }
-
-  .pro-item-content a {
-    color: ${({theme}) => theme.colors.text} !important;
-    &:hover {
-      color: ${({theme}) => theme.colors.primary} !important;
-    }
-  }
-
-  .pro-menu-item > .pro-inner-item:focus {
-    color: ${({theme}) => theme.colors.primary} !important;
-  }
-
-  .react-slidedown {
-    background-color: ${({theme}) => theme.colors.secondaryOpacity015} !important;
-  }
-
-  a.sidebar-item-active {
-    color: ${({theme}) => theme.colors.primary} !important;
-  }
-`;
-
-const StyledSidebarHeader = styled.h3`
-  padding-left: 20px;
-`;
+`
 
 interface SidebarProps {
   items: ContentSummary[];
@@ -76,41 +63,34 @@ interface SidebarProps {
 
 const SubMenu = ({title, children}: { title: string, children: ReactNode }) => (
   <>
-    <h3>{title}</h3>
-    <ul>
-      {/* {React.Children.map(children, (child: ReactNode) => (
-        <li>{child}</li>
-      ))} */}
+    <SubMenuHeader>{title}</SubMenuHeader>
+    <SubMenuList>
       {children}
-    </ul>
+    </SubMenuList>
   </>
 )
 
 // TODO: sidebar acessível em telas menores (https://github.com/azouaoui-med/react-pro-sidebar)
 export const Sidebar = ({title, items}: SidebarProps) => {
+  const activeClass = 'sidebar-item-active'
   const router = useRouter();
   const currentSlug = router.query.slug
 
   return (
     <StyledAside>
-      <SidebarHeader>
-        <StyledSidebarHeader>{title}</StyledSidebarHeader>
-      </SidebarHeader>
+      <SidebarHeader>{title}</SidebarHeader>
       <SidebarContent>
         <Menu>
           <SubMenu title="Módulo 4">
             <SubMenu title="Aula 3">
-              {/* <MenuItem>
-                <StyledReactIcon><GoBook/></StyledReactIcon> Aula
-              </MenuItem> */}
               {items.map(({slug, title, moduleId, classId}) => {
                 if (moduleId === '4' && classId === '3') {
                   return (
                     <MenuItem key={slug}>
                       <Link href={`/exercises/${slug}`}>
-                        <a className={slug === currentSlug ? 'sidebar-item-active' : ''}>
+                        <StyledNavLink activeClassName={activeClass} className={slug === currentSlug ? activeClass : ''}>
                           {title}
-                        </a>
+                        </StyledNavLink>
                       </Link> 
                     </MenuItem>
                   )
@@ -123,9 +103,9 @@ export const Sidebar = ({title, items}: SidebarProps) => {
                   return (
                     <MenuItem key={slug}>
                       <Link href={`/exercises/${slug}`}>
-                        <a className={slug === currentSlug ? 'sidebar-item-active' : ''}>
+                        <StyledNavLink activeClassName={activeClass}  className={slug === currentSlug ? activeClass : ''}>
                           {title}
-                        </a>
+                        </StyledNavLink>
                       </Link> 
                     </MenuItem>
                   )
