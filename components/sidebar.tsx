@@ -1,15 +1,24 @@
 import Link from "next/link";
-import styled, { DefaultTheme, useTheme } from "styled-components";
+import styled, { css, DefaultTheme, useTheme } from "styled-components";
 import { Collapse } from 'react-collapse';
 import { useRouter } from "next/router";
 import { ContentSummary } from "../lib/exercises";
 import { ReactNode, useState } from "react";
 import { KeyboardArrowRight } from "@styled-icons/material-rounded/KeyboardArrowRight"
+import {  } from "@styled-icons/fluentui-system-filled/Dock"
+import { ArrowFromRight, ArrowFromLeft } from "@styled-icons/boxicons-regular"
 
-const StyledAside = styled.aside`
-  min-width: ${({theme}) => theme.layout.sidebarWidth};
+const StyledAside = styled.aside<{ theme: DefaultTheme, isDocked: boolean }>`
+  overflow: auto;
+  position: relative;
+  z-index: 1;
+  
+  min-width: ${({theme, isDocked}) => isDocked ? theme.space[7] : theme.layout.sidebarWidth };
+  width: ${({theme, isDocked}) => isDocked ? theme.space[7] : theme.layout.sidebarWidth };
+  left: -${({theme, isDocked}) => isDocked ? theme.layout.sidebarWidth : '0px'};
 
   background-color: ${({theme}) => theme.colors.secondaryOpacity01};
+  transition: all 100ms ease-out;
 
   .ReactCollapse--collapse {
     transition: height 200ms ease-out;
@@ -18,6 +27,34 @@ const StyledAside = styled.aside`
   a {
     color: ${({theme}) => theme.colors.text}; 
   }
+`;
+
+const sidebarDockButtonsProps = ({ theme }: { theme: DefaultTheme }) =>
+  css`
+    width: ${theme.iconSize.large};
+    color: ${theme.colors.secondary};
+
+    &:hover {
+      cursor: pointer;
+      color: ${theme.colors.primary};
+    }
+  `
+
+const SidebarDockButton = styled(ArrowFromRight)`
+  ${sidebarDockButtonsProps}
+
+  position: absolute;
+  right: ${({theme}) => theme.space[2]};
+  top: ${({theme}) => theme.space[2]};
+`;
+
+const SidebarUndockButton = styled(ArrowFromLeft)`
+  ${sidebarDockButtonsProps}
+
+  position: fixed;
+  left: ${({theme}) => theme.space[4]};
+  top: ${({theme}) => theme.layout.navSize};
+  margin-top: ${({theme}) => theme.space[3]};
 `;
 
 const SidebarHeader = styled.h3`
@@ -56,6 +93,7 @@ const SubMenuList = styled.ul`
 `;
 
 const SidebarContent = styled.div`
+  padding-top: ${({theme}) => theme.space[2]};
 `;
 
 const Menu = styled.div`
@@ -68,6 +106,7 @@ const MenuItem = styled.li`
 
 const StyledNavLink = styled.a<{theme: DefaultTheme, activeClassName: string }>`
   text-decoration: none;
+  font-size: ${({theme}) => theme.fontSize.medium};
   
   &.${(props => props.activeClassName)} {
     color: ${({theme}) => theme.colors.primary};
@@ -76,10 +115,11 @@ const StyledNavLink = styled.a<{theme: DefaultTheme, activeClassName: string }>`
   &:hover {
     cursor: pointer;
     color: ${({theme}) => theme.colors.primary};
+    text-decoration: underline;
   }
 `
 
-const StyledArrowIcon = styled(KeyboardArrowRight)<{ theme: DefaultTheme, isPointingDown: boolean }>`
+const SubMenuArrow = styled(KeyboardArrowRight)<{ theme: DefaultTheme, isPointingDown: boolean }>`
   position: absolute;
   right: ${({theme}) => theme.space[2]};
   width: ${({theme}) => theme.fontSize.xlarge};
@@ -104,7 +144,7 @@ const SubMenu = ({title, children}: {
     <>
       <SubMenuHeader onClick={() => setIsOpened(!isOpened)}>
         {title}
-        <StyledArrowIcon isPointingDown={isOpened}></StyledArrowIcon>
+        <SubMenuArrow isPointingDown={isOpened}></SubMenuArrow>
       </SubMenuHeader>
       <Collapse isOpened={isOpened}>
         <SubMenuList>
@@ -116,13 +156,20 @@ const SubMenu = ({title, children}: {
 }
 
 export const Sidebar = ({title, items}: SidebarProps) => {
+  const [isDocked, setIsDocked] = useState<boolean>(false);
   const activeItemClass = 'sidebar-item-active'
   const router = useRouter()
   const currentSlug = router.query.slug
 
   return (
-    <StyledAside>
-      <SidebarHeader>{title}</SidebarHeader>
+    <StyledAside isDocked={isDocked}>
+      <SidebarHeader>
+        {title}
+        <SidebarDockButton onClick={() => setIsDocked(true)}></SidebarDockButton>
+        {isDocked && (
+          <SidebarUndockButton onClick={() => setIsDocked(false)}></SidebarUndockButton>
+        )}
+      </SidebarHeader>
       <SidebarContent>
         <Menu>
           <SubMenu title="Módulo 4">

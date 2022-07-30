@@ -39,8 +39,9 @@ export const theme: DefaultTheme = {
   iconSize: {
     small: '16px',
     medium: '20px',
-    large: '48px',
-    xlarge: '64px'
+    large: '32px',
+    xlarge: '48px',
+    xxlarge: '64px'
   },
   layout: {
     navSize: '8vh',

@@ -22,12 +22,13 @@ const NonLoggedContentFlexWrapper = styled.div`
   justify-content: center;
 
   svg {
-    width: ${({theme}) => theme.iconSize.large}
+    width: ${({theme}) => theme.iconSize.xlarge}
   }
 `;
 
 const ContentWrapper = styled.div`
   display: grid;
+  width: 100%;
   grid-template-columns: 44% 56%;
 `
 
@@ -114,7 +115,7 @@ export default function Exercise({ title, breadcrumb, slug, content, exercisesSu
     <>
       {router.isFallback ? (
         <>
-          <Loading size="xlarge"></Loading>
+          <Loading size="xxlarge"></Loading>
         </>
       ) : (
         <ContentWrapper>
@@ -132,7 +133,7 @@ export default function Exercise({ title, breadcrumb, slug, content, exercisesSu
             </div>
           ) : (
             authLoading || uiLoading ? (
-              <Loading size="xlarge"></Loading>
+              <Loading size="xxlarge"></Loading>
             ) : (
               <NonLoggedContentFlexWrapper>
                 <div><LoginIcon /></div>  
