@@ -36,7 +36,10 @@ declare module 'styled-components' {
     space: array,
     iconSize: {
       small: string,
+      medium: string,
       large: string,
+      xlarge: string,
+      xxlarge: string
     },
     layout: {
       navSize: string,
