@@ -6,6 +6,17 @@ const ButtonContainer = styled.div`
 
   & > button {
     width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+      margin: auto 0;
+      width: ${({theme}) => theme.fontSize.xlarge};
+      height: ${({theme}) => theme.fontSize.xlarge};
+      margin-right: ${({theme}) => theme.space[1]};
+    }
   }
 `
 

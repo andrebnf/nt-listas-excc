@@ -1,11 +1,10 @@
 import { useAuthState } from "react-firebase-hooks/auth";
 import { signInWithPopup } from "firebase/auth";
-import { ImGoogle2 } from 'react-icons/im';
 import styled from "styled-components";
 import { auth, authProvider } from "../firebase/clientApp";
 import { Button } from './button';
 import Image from "next/image";
-import { StyledReactIcon } from './styled-react-icon';
+import { Google } from "@styled-icons/bootstrap/Google";
 
 const NavBar = styled.nav`
   width: 100%;
@@ -50,10 +49,14 @@ export const Navigation = (props: any) => {
         <AuthAction>
           <Button onClick={
               () => {
-                signInWithPopup(auth, authProvider).then().catch(e => console.error("Erro ao fazer Login: ", error)); // TODO tratar erros (ex: sem conexão)
+                signInWithPopup(auth, authProvider)
+                  .then()
+                  .catch(
+                    e => console.error("Erro ao fazer Login: ", error)
+                  ); // TODO tratar erros (ex: sem conexão)
               }
             }>
-            <StyledReactIcon><ImGoogle2/></StyledReactIcon>&nbsp;&nbsp;Entrar com o Google
+            <Google/>Entrar com o Google
           </Button>
         </AuthAction>
       )}
