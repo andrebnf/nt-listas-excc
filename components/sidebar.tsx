@@ -2,7 +2,7 @@ import Link from "next/link";
 import styled, { DefaultTheme } from "styled-components";
 import { useRouter } from "next/router";
 import { ContentSummary } from "../lib/exercises";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 
 const StyledAside = styled.aside`
   min-width: ${({theme}) => theme.layout.sidebarWidth};
@@ -15,20 +15,23 @@ const SidebarHeader = styled.h3`
   margin: ${({theme}) => theme.space[2]} 0;
 `;
 
-const SubMenuHeader = styled.h4`
+const SubMenuHeader = styled.a`
+  font-weight: bold;
   padding-left: ${({theme}) => theme.space[2]};
   margin: ${({theme}) => theme.space[1]} 0;
+  display: inline-block;
 `;
 
 const SubMenuList = styled.ul`
   list-style: none;
   padding-left: ${({theme}) => theme.space[2]};
+  margin-top: 0;
 
   transition: max-height .6s ease;
   overflow: hidden;
   max-height: 0;
 
-  &.open {
+  &.sub-menu-open {
     max-height: 400px;
   }
 `;
@@ -61,19 +64,37 @@ interface SidebarProps {
   title: string;
 }
 
-const SubMenu = ({title, children}: { title: string, children: ReactNode }) => (
-  <>
-    <SubMenuHeader>{title}</SubMenuHeader>
-    <SubMenuList>
-      {children}
-    </SubMenuList>
-  </>
-)
+const SubMenu = ({title, children}: { 
+  title: string, 
+  children: ReactNode 
+}) => {
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+
+  return (
+    <>
+      <SubMenuHeader onClick={() => setIsOpen(!isOpen)}>{title}</SubMenuHeader>
+      <SubMenuList className={isOpen ? 'sub-menu-open' : ''}>
+        {children}
+      </SubMenuList>
+    </>
+  )
+}
+
+// interface SidebarState {
+//   [moduleId: string]: {
+//     isOpen: boolean,
+//     classes: {
+//       [classId: string]: {
+//         isOpen: boolean
+//       }
+//     }
+//   }
+// }
 
 // TODO: sidebar acessível em telas menores (https://github.com/azouaoui-med/react-pro-sidebar)
 export const Sidebar = ({title, items}: SidebarProps) => {
-  const activeClass = 'sidebar-item-active'
-  const router = useRouter();
+  const activeItemClass = 'sidebar-item-active'
+  const router = useRouter()
   const currentSlug = router.query.slug
 
   return (
@@ -88,7 +109,7 @@ export const Sidebar = ({title, items}: SidebarProps) => {
                   return (
                     <MenuItem key={slug}>
                       <Link href={`/exercises/${slug}`}>
-                        <StyledNavLink activeClassName={activeClass} className={slug === currentSlug ? activeClass : ''}>
+                        <StyledNavLink activeClassName={activeItemClass} className={slug === currentSlug ? activeItemClass : ''}>
                           {title}
                         </StyledNavLink>
                       </Link> 
@@ -103,7 +124,7 @@ export const Sidebar = ({title, items}: SidebarProps) => {
                   return (
                     <MenuItem key={slug}>
                       <Link href={`/exercises/${slug}`}>
-                        <StyledNavLink activeClassName={activeClass}  className={slug === currentSlug ? activeClass : ''}>
+                        <StyledNavLink activeClassName={activeItemClass}  className={slug === currentSlug ? activeItemClass : ''}>
                           {title}
                         </StyledNavLink>
                       </Link> 

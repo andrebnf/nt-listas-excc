@@ -34,35 +34,36 @@ function getExerciseMetadataBySlug(slug: string): ContentSummary {
   }
 }
 
-export function groupSummary(contentList: ContentSummary[]): ModulesGroup {
-  const group: ModulesGroup = {}
+// export function groupSummary(contentList: ContentSummary[]): ModulesGroup {
+//   const group: ModulesGroup = {}
 
-  for (let i = 0; i < contentList.length; i++){
-    const content = contentList[i];
-    const classContent = group[content.moduleId].classContentList || []
-    const exerciseContent = group[content.moduleId].exerciseContentList || []
+//   for (let i = 0; i < contentList.length; i++){
+//     const content = contentList[i];
+//     const classContent = group[content.moduleId].classContentList || []
+//     const exerciseContent = group[content.moduleId].exerciseContentList || []
 
-    if (content.type === 'aula') {
-      group[content.moduleId] = {
-        classId: content.classId,
-        classContentList: [...classContent, content],
-        exerciseContentList: [...exerciseContent, content]
-      }
-    }
-  }
+//     if (content.type === 'aula') {
+//       group[content.moduleId] = {
+//         classId: content.classId,
+//         classContentList: [...classContent, content],
+//         exerciseContentList: [...exerciseContent, content]
+//       }
+//     }
+//   }
 
-  console.log(JSON.stringify(group))
+//   console.log(JSON.stringify(group))
 
-  return group as ModulesGroup
-}
+//   return group as ModulesGroup
+// }
 
-interface ModulesGroup {
-  [key: string]: {
-    classId: string,
-    classContentList: ContentSummary[],
-    exerciseContentList: ContentSummary[]
-  }
-}
+// interface ModulesGroup {
+//   [moduleId: string]: {
+//     [classId: string]: {
+//       classContentList: ContentSummary[],
+//       exerciseContentList: ContentSummary[]
+//     }
+//   }
+// }
 
 export interface ContentSummary {
   title: string,
