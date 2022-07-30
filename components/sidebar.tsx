@@ -9,6 +9,9 @@ const StyledAside = styled.aside`
   padding-left: ${({theme}) => theme.space[2]};
 
   background-color: ${({theme}) => theme.colors.secondaryOpacity01};
+  * {
+    color: ${({theme}) => theme.colors.text}; 
+  }
 `;
 
 const SidebarHeader = styled.h3`
@@ -17,9 +20,14 @@ const SidebarHeader = styled.h3`
 
 const SubMenuHeader = styled.a`
   font-weight: bold;
-  padding-left: ${({theme}) => theme.space[2]};
   margin: ${({theme}) => theme.space[1]} 0;
   display: inline-block;
+  font-size: ${({theme}) => theme.fontSize.medium};
+
+  &:hover {
+    cursor: pointer;
+    color: ${({theme}) => theme.colors.primary};
+  }
 `;
 
 const SubMenuList = styled.ul`
