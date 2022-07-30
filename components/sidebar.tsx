@@ -33,10 +33,15 @@ const sidebarDockButtonsProps = ({ theme }: { theme: DefaultTheme }) =>
   css`
     width: ${theme.iconSize.large};
     color: ${theme.colors.secondary};
+    border-radius: 50%;
+    background-color: ${theme.colors.secondaryOpacity015};
+    padding: ${({theme}) => theme.space[0]};
 
     &:hover {
       cursor: pointer;
       color: ${theme.colors.primary};
+      background-color: ${theme.colors.primaryOpacity01};
+      box-shadow: rgba(0, 0, 0, 0.2) -2px 2px 5px;
     }
   `
 

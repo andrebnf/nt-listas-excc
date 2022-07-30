@@ -1,7 +1,7 @@
 import styled, { DefaultTheme, keyframes } from "styled-components";
 import { SpinnerIos as Spinner } from "@styled-icons/fluentui-system-filled/SpinnerIos";
 
-type Size = 'small' | 'large' | 'xlarge';
+type Size = 'small' | 'large' | 'xlarge' | 'xxlarge';
 
 interface StyledIconWrapProps {
   readonly size: Size;
