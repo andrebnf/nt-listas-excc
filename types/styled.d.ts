@@ -38,6 +38,7 @@ declare module 'styled-components' {
       small: string,
       medium: string,
       large: string,
+      xlarge: string,
     },
     layout: {
       navSize: string,

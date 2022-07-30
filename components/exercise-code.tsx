@@ -1,12 +1,12 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useTheme } from 'styled-components'
 import Editor from "@monaco-editor/react";
-
-import { FullWidthButton } from "./full-width-button";
-import { VscPlay } from "react-icons/vsc";
+import { Play } from "@styled-icons/feather/Play";
 import { useDebouncedCallback } from "use-debounce";
 import Moment from "react-moment";
-import { useEffect, useState } from "react";
+
+import { FullWidthButton } from "./full-width-button";
 
 const ExerciseCodeContainer = styled.div`
   padding: ${({theme}) => theme.space[4]} ${({theme}) => theme.space[4]};
@@ -166,7 +166,7 @@ export const ExerciseCode = ({ onAutoSaveEvent, onChange, code, slug, lastSavedA
           setLogs([]);
         }
       }}>
-        <VscPlay/> Executar Código
+        <Play size={theme.iconSize.medium}/> Executar Código
       </FullWidthButton>
     </ExerciseCodeContainer>
   )

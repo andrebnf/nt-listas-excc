@@ -1,42 +1,34 @@
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import ErrorPage from 'next/error';
 import { useAuthState } from "react-firebase-hooks/auth";
-import { VscSignIn, VscLoading } from 'react-icons/vsc';
 import styled from 'styled-components';
-
-import { auth, db } from "../../firebase/clientApp";
-import { doc, DocumentReference, getDoc, setDoc, updateDoc } from "firebase/firestore"; 
+import { Login as LoginIcon } from "@styled-icons/heroicons-outline/Login";
 
 import { ContentSummary, getExerciseBySlug, getExercisesSlugs, getExercisesSummary } from '../../lib/exercises'
 import markdownToHtml from '../../lib/markdownToHtml'
 
+import { auth, db } from "../../firebase/clientApp";
+import { doc, DocumentReference, getDoc, setDoc, updateDoc } from "firebase/firestore"; 
+
 import { ContentDetails } from '../../components/exercise-details'
 import { ExerciseCode } from '../../components/exercise-code'
-import { Sidebar } from '../../components/sidebar'
-import { useEffect, useState } from 'react';
-import { StyledReactIcon } from '../../components/styled-react-icon';
+import { Loading } from '../../components/loading';
 
-const NonLoggedContentWrapper = styled.div`
+const NonLoggedContentFlexWrapper = styled.div`
   display: flex;
-  padding-top: ${({theme}) => theme.space[6]};
   flex-direction: column;
   text-align: center;
-`;
-
-const StyledIcon = styled(VscSignIn)`
-  width: ${({theme}) => theme.iconSize.large};
-  height: ${({theme}) => theme.iconSize.large};
-`;
-
-const LoadingWrapper = styled.div`
   justify-content: center;
-  display: flex;
-  align-items: center;
-`
 
-const ContentContainer = styled.div`
+  svg {
+    width: ${({theme}) => theme.iconSize.large}
+  }
+`;
+
+const ContentWrapper = styled.div`
   display: grid;
-  grid-template-columns: 42% 58%;
+  grid-template-columns: 44% 56%;
 `
 
 interface ExerciseProps {
@@ -122,13 +114,10 @@ export default function Exercise({ title, breadcrumb, slug, content, exercisesSu
     <>
       {router.isFallback ? (
         <>
-          <Sidebar title="Exercícios" items={exercisesSummary}></Sidebar>
-          <LoadingWrapper>
-            <StyledReactIcon isRotating size="large"><VscLoading/></StyledReactIcon>
-          </LoadingWrapper>
+          <Loading size="xlarge"></Loading>
         </>
       ) : (
-        <ContentContainer>
+        <ContentWrapper>
           <ContentDetails title={title} breadcrumb={breadcrumb} content={content} />
           {user ? (
             <div>
@@ -143,19 +132,15 @@ export default function Exercise({ title, breadcrumb, slug, content, exercisesSu
             </div>
           ) : (
             authLoading || uiLoading ? (
-              <LoadingWrapper>
-                <StyledReactIcon isRotating size="large"><VscLoading/></StyledReactIcon>
-              </LoadingWrapper>
+              <Loading size="xlarge"></Loading>
             ) : (
-              <NonLoggedContentWrapper>
-                <div>
-                  <StyledIcon />
-                </div>  
+              <NonLoggedContentFlexWrapper>
+                <div><LoginIcon /></div>  
                 <h3>Faça o Login utilizando o botão acima<br/> para abrir o editor de código</h3>
-              </NonLoggedContentWrapper>
+              </NonLoggedContentFlexWrapper>
             )
           )}
-        </ContentContainer>
+        </ContentWrapper>
       )}
     </>
   )

@@ -6,9 +6,17 @@ export const Button = styled.button`
   border: 1px solid ${({theme}) => theme.colors.primary};
   color: white;
   font-size: ${({theme}) => theme.fontSize.large};
-  cursor: pointer;
+
+  svg {
+    position: relative;
+    top: -2px;
+    width: ${({theme}) => theme.fontSize.large};
+    height: ${({theme}) => theme.fontSize.large};
+    margin-right: ${({theme}) => theme.space[1]};
+  }
 
   &:hover {
+    cursor: pointer;
     background-color: ${({theme}) => theme.colors.primaryOpacity08};
   }
 `

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import styled, { DefaultTheme } from "styled-components";
+import styled, { DefaultTheme, useTheme } from "styled-components";
 import { Collapse } from 'react-collapse';
 import { useRouter } from "next/router";
 import { ContentSummary } from "../lib/exercises";
@@ -82,7 +82,7 @@ const StyledNavLink = styled.a<{theme: DefaultTheme, activeClassName: string }>`
 const StyledArrowIcon = styled(KeyboardArrowRight)<{ theme: DefaultTheme, isPointingDown: boolean }>`
   position: absolute;
   right: ${({theme}) => theme.space[2]};
-  width: ${({theme}) => theme.iconSize.medium};
+  width: ${({theme}) => theme.fontSize.xlarge};
   color: ${({theme}) => theme.colors.sectionSeparator};
 
   transition: all 100ms ease-in;
