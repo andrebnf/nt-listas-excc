@@ -36,6 +36,7 @@ declare module 'styled-components' {
     space: array,
     iconSize: {
       small: string,
+      medium: string,
       large: string,
     },
     layout: {

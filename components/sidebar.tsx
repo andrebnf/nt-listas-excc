@@ -4,6 +4,7 @@ import { Collapse } from 'react-collapse';
 import { useRouter } from "next/router";
 import { ContentSummary } from "../lib/exercises";
 import { ReactNode, useState } from "react";
+import { KeyboardArrowRight } from "@styled-icons/material-rounded/KeyboardArrowRight"
 
 const StyledAside = styled.aside`
   min-width: ${({theme}) => theme.layout.sidebarWidth};
@@ -14,7 +15,7 @@ const StyledAside = styled.aside`
     transition: height 200ms ease-out;
   }
 
-  * {
+  a {
     color: ${({theme}) => theme.colors.text}; 
   }
 `;
@@ -31,6 +32,7 @@ const SubMenuHeader = styled.a`
   padding-right: 0;
   padding-bottom: ${({theme}) => theme.space[2]};
   padding-left: ${({theme}) => theme.space[3]};
+  position: relative;
 
   font-weight: bold;
   display: block;
@@ -77,6 +79,16 @@ const StyledNavLink = styled.a<{theme: DefaultTheme, activeClassName: string }>`
   }
 `
 
+const StyledArrowIcon = styled(KeyboardArrowRight)<{ theme: DefaultTheme, isPointingDown: boolean }>`
+  position: absolute;
+  right: ${({theme}) => theme.space[2]};
+  width: ${({theme}) => theme.iconSize.medium};
+  color: ${({theme}) => theme.colors.sectionSeparator};
+
+  transition: all 100ms ease-in;
+  transform: ${({isPointingDown}) => isPointingDown ? 'rotate(90deg)' : 'rotate(0deg)'};
+`;
+
 interface SidebarProps {
   items: ContentSummary[];
   title: string;
@@ -90,7 +102,10 @@ const SubMenu = ({title, children}: {
 
   return (
     <>
-      <SubMenuHeader onClick={() => setIsOpened(!isOpened)}>{title}</SubMenuHeader>
+      <SubMenuHeader onClick={() => setIsOpened(!isOpened)}>
+        {title}
+        <StyledArrowIcon isPointingDown={isOpened}></StyledArrowIcon>
+      </SubMenuHeader>
       <Collapse isOpened={isOpened}>
         <SubMenuList>
           {children}

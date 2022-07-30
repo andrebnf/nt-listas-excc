@@ -12,10 +12,10 @@ const StyledIconWrap = styled.span<StyledIconWrapProps>`
 
   @keyframes rotate {
     0% {
-        transform: rotate(0);
+      transform: rotate(0);
     }
     100% {
-        transform: rotate(359deg);
+      transform: rotate(359deg);
     }
   }
 

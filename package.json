@@ -25,6 +25,7 @@
     "remark-parse": "^10.0.1",
     "remark-rehype": "^10.1.0",
     "styled-components": "^5.1.25",
+    "styled-icons": "^10.45.0",
     "unified": "^10.1.2",
     "use-debounce": "^8.0.1"
   },
