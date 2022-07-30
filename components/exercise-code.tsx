@@ -75,6 +75,60 @@ export const ExerciseCode = ({ onAutoSaveEvent, onChange, code, slug, lastSavedA
     autosaveMilliseconds // Se for igual a 2000, a cada 2 segundos depois da última alteração no código
   );
 
+  const executeCode = () => {
+    try {
+      const wrapCode = (code: string): string[] => {
+        const prefixFnCode = "" +
+          "let w___logs = []; \n" + 
+          "function w___customLogFn(text){ \n" +
+          "  w___logs.push(String(text)); \n" +
+          "} \n";
+
+        const parsedCode = code.replace(
+          /console\.(log|info|debug|warn|error)/g, 
+          "w___customLogFn"
+        ) + "\n";
+
+        const suffixFnCode = `return w___logs`;
+        const finalCode = prefixFnCode + parsedCode + suffixFnCode;
+
+        return new Function(finalCode)();
+      }
+      setLogs(wrapCode(code));
+    } catch (error) {
+      let message = 'Erro desconhecido';
+      let stack;
+      if (error instanceof Error) {
+        message = error.message;
+        stack = error.stack?.toString();
+      } 
+      alert(`Ops, tem algo de errado com seu código: ${message}\n\nStackTrace:\n${stack}`);
+      setLogs([]);
+    }
+  }
+
+  const monacoEditorOptions = {
+    minimap: {enabled: false},
+    automaticLayout: true,
+    padding: {top: theme.space[3], bottom: theme.space[3]},
+    scrollBeyondLastLine: false,
+    fontFamily: theme.fonts.codeEditor,
+    fontSize: 16,
+    tabSize: 2,
+    quickSuggestions: {
+      other: false,
+      comments: false,
+      strings: false
+    },
+    parameterHints: {
+      enabled: false
+    },
+    suggestOnTriggerCharacters: false,
+    acceptSuggestionOnEnter: "off",
+    tabCompletion: "off",
+    wordBasedSuggestions: false,
+  }
+
   useEffect(() => {
     setLogs([])
   }, [code])
@@ -101,29 +155,7 @@ export const ExerciseCode = ({ onAutoSaveEvent, onChange, code, slug, lastSavedA
             onChange(value || '');
           }}
           theme="light"
-          options={
-            {
-              minimap: {enabled: false},
-              automaticLayout: true,
-              padding: {top: theme.space[3], bottom: theme.space[3]},
-              scrollBeyondLastLine: false,
-              fontFamily: theme.fonts.codeEditor,
-              fontSize: 16,
-              tabSize: 2,
-              quickSuggestions: {
-                other: false,
-                comments: false,
-                strings: false
-              },
-              parameterHints: {
-                enabled: false
-              },
-              suggestOnTriggerCharacters: false,
-              acceptSuggestionOnEnter: "off",
-              tabCompletion: "off",
-              wordBasedSuggestions: false,
-            }
-          }
+          options={monacoEditorOptions}
      
         />
       </EditorContainer>
@@ -135,37 +167,7 @@ export const ExerciseCode = ({ onAutoSaveEvent, onChange, code, slug, lastSavedA
           ))}
         </OutputText>
       </OutputContainer>
-      <FullWidthButton onClick={() => {
-        try {
-          const wrapCode = (code: string): string[] => {
-            const prefixFnCode = "" +
-              "let w___logs = []; \n" + 
-              "function w___customLogFn(text){ \n" +
-              "  w___logs.push(String(text)); \n" +
-              "} \n";
-
-            const parsedCode = code.replace(
-              /console\.(log|info|debug|warn|error)/g, 
-              "w___customLogFn"
-            ) + "\n";
-
-            const suffixFnCode = `return w___logs`;
-            const finalCode = prefixFnCode + parsedCode + suffixFnCode;
-
-            return new Function(finalCode)();
-          }
-          setLogs(wrapCode(code));
-        } catch (error) {
-          let message = 'Erro desconhecido';
-          let stack;
-          if (error instanceof Error) {
-            message = error.message;
-            stack = error.stack?.toString();
-          } 
-          alert(`Ops, tem algo de errado com seu código: ${message}\n\nStackTrace:\n${stack}`);
-          setLogs([]);
-        }
-      }}>
+      <FullWidthButton onClick={executeCode}>
         <Play size={theme.iconSize.medium}/> Executar Código
       </FullWidthButton>
     </ExerciseCodeContainer>
