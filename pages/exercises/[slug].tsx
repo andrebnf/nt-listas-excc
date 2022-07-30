@@ -14,6 +14,7 @@ import { doc, DocumentReference, getDoc, setDoc, updateDoc } from "firebase/fire
 import { ContentDetails } from '../../components/exercise-details'
 import { ExerciseCode } from '../../components/exercise-code'
 import { Loading } from '../../components/loading';
+import Head from 'next/head';
 
 const NonLoggedContentFlexWrapper = styled.div`
   display: flex;
@@ -113,6 +114,9 @@ export default function Exercise({ title, breadcrumb, slug, content, exercisesSu
 
   return (
     <>
+      <Head>
+        <title>Núcleo de Tecnologia - Curso Online</title>
+      </Head>
       {router.isFallback ? (
         <>
           <Loading size="xxlarge"></Loading>
