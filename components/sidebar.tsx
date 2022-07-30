@@ -9,23 +9,31 @@ const StyledAside = styled.aside`
   min-width: ${({theme}) => theme.layout.sidebarWidth};
 
   background-color: ${({theme}) => theme.colors.secondaryOpacity01};
-  * {
-    color: ${({theme}) => theme.colors.text}; 
-  }
 
   .ReactCollapse--collapse {
     transition: height 200ms ease-out;
   }
+
+  * {
+    color: ${({theme}) => theme.colors.text}; 
+  }
 `;
 
 const SidebarHeader = styled.h3`
-  margin: ${({theme}) => theme.space[2]} 0;
+  margin: 0;
+  padding: ${({theme}) => theme.space[3]};
+  border-bottom: 1px solid ${({theme}) => theme.colors.secondaryOpacity02};
 `;
 
 const SubMenuHeader = styled.a`
+  margin: 0;
+  padding-top: ${({theme}) => theme.space[2]};
+  padding-right: 0;
+  padding-bottom: ${({theme}) => theme.space[2]};
+  padding-left: ${({theme}) => theme.space[3]};
+
   font-weight: bold;
-  margin: ${({theme}) => theme.space[1]} 0;
-  display: inline-block;
+  display: block;
   font-size: ${({theme}) => theme.fontSize.medium};
 
   &:hover {
@@ -35,9 +43,13 @@ const SubMenuHeader = styled.a`
 `;
 
 const SubMenuList = styled.ul`
+  margin: 0;
+  padding-top: ${({theme}) => theme.space[0]};
+  padding-right: 0;
+  padding-bottom: ${({theme}) => theme.space[0]};
+  padding-left: ${({theme}) => theme.space[3]};
+  
   list-style: none;
-  padding-left: ${({theme}) => theme.space[2]};
-  margin-top: 0;
   background-color: ${({theme}) => theme.colors.secondaryOpacity015};
 `;
 
@@ -49,6 +61,7 @@ const Menu = styled.div`
 
 const MenuItem = styled.li`
   padding-bottom: ${({theme}) => theme.space[0]};
+  padding-left: ${({theme}) => theme.space[3]};
 `;
 
 const StyledNavLink = styled.a<{theme: DefaultTheme, activeClassName: string }>`
