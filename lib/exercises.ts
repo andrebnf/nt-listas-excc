@@ -69,7 +69,7 @@ function getExerciseMetadataBySlug(slug: string): ContentSummary {
 
 interface MetadadosConteudo {
   titulo: string,
-  caminhoDoArquivo: string,
+  caminhoConteudo: string,
   slug: string,
   tipo: 'aula' | 'ex'
 }
@@ -116,7 +116,7 @@ export const getMetadadosConteudo = (caminhoConteudo: string): MetadadosConteudo
   const caminhoCompleto = path.join(caminhoBaseConteudo, caminhoConteudo)
   const conteudoArquivo = fs.readFileSync(caminhoCompleto, 'utf8')
 
-  const { data: { title } } = matter(conteudoArquivo)
+  const { data: { titulo } } = matter(conteudoArquivo)
   const filename = path.basename(caminhoConteudo)
   const slug = path.parse(caminhoConteudo).name
 
@@ -128,7 +128,7 @@ export const getMetadadosConteudo = (caminhoConteudo: string): MetadadosConteudo
 
   const [_, tipo] = slugMatchGroup as [any, MetadadosConteudo['tipo']]
 
-  return { titulo: title, caminhoDoArquivo: caminhoConteudo, slug, tipo }
+  return { titulo, caminhoConteudo: caminhoConteudo, slug, tipo }
 }
 
 // export function getTurmasForSidebar(): Turma[] {
