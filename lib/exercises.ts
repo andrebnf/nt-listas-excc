@@ -3,7 +3,6 @@ import path from 'path'
 import matter from 'gray-matter'
 
 const exercisesDirectory = path.join(process.cwd(), '_ignored_exercises')
-const caminhoBaseConteudo = path.join(process.cwd(), '_conteudo')
 
 const getRealSlug = (slugWithFileFormat: string): string => {
   return slugWithFileFormat.replace(/\.md$/, '')
@@ -35,48 +34,20 @@ function getExerciseMetadataBySlug(slug: string): ContentSummary {
   }
 }
 
-// export function groupSummary(contentList: ContentSummary[]): ModulesGroup {
-//   const group: ModulesGroup = {}
+// TODO refatorar acima
 
-//   for (let i = 0; i < contentList.length; i++){
-//     const content = contentList[i];
-//     const classContent = group[content.moduleId].classContentList || []
-//     const exerciseContent = group[content.moduleId].exerciseContentList || []
+const caminhoBaseConteudo = path.join(process.cwd(), '_conteudo')
 
-//     if (content.type === 'aula') {
-//       group[content.moduleId] = {
-//         classId: content.classId,
-//         classContentList: [...classContent, content],
-//         exerciseContentList: [...exerciseContent, content]
-//       }
-//     }
-//   }
-
-//   console.log(JSON.stringify(group))
-
-//   return group as ModulesGroup
-// }
-
-// interface ModulesGroup {
-//   [moduleId: string]: {
-//     [classId: string]: {
-//       classContentList: ContentSummary[],
-//       exerciseContentList: ContentSummary[]
-//     }
-//   }
-// }
-
-
-interface MetadadosConteudo {
+interface MetadadosArquivo {
   titulo: string,
-  caminhoConteudo: string,
+  caminhoArquivo: string,
   slug: string,
   tipo: 'aula' | 'ex'
 }
 
 interface Aula {
   id: string,
-  conteudo: MetadadosConteudo[]
+  arquivos: MetadadosArquivo[]
 }
 
 
@@ -90,7 +61,70 @@ interface Turma {
   modulos: Modulo[]
 }
 
-type x = Turma[]
+export const getMetadadosDoArquivo = (caminhoConteudo: string): MetadadosArquivo => {
+  const caminhoCompleto = path.join(caminhoBaseConteudo, caminhoConteudo)
+  const conteudoArquivo = fs.readFileSync(caminhoCompleto, 'utf8')
+
+  const { data: { titulo } } = matter(conteudoArquivo)
+  const filename = path.basename(caminhoConteudo)
+  const slug = path.parse(caminhoConteudo).name
+
+  const slugMatchGroup = filename.match(/^(aula|ex).*/)
+
+  if (slugMatchGroup === null) {
+    throw new Error(`Nome de arquivo com formato errado: ${slug}`)
+  }
+
+  const [_, tipo] = slugMatchGroup as [any, MetadadosArquivo['tipo']]
+
+  return { titulo, caminhoArquivo: caminhoConteudo, slug, tipo }
+}
+
+export const getConteudo = (): Turma[] => {
+  let turmas: Turma[] = []
+  const turmasDir: string[] = fs.readdirSync(caminhoBaseConteudo)
+  
+  for (let turmaDir of turmasDir) {
+    let turma: Turma = {
+      id: turmaDir.replace('turma', ''),
+      modulos: []
+    }
+    
+    let modulosDir = fs.readdirSync(path.join(caminhoBaseConteudo, turmaDir))
+    for (let moduloDir of modulosDir) {
+      let modulo: Modulo = {
+        id: moduloDir.replace('modulo', ''),
+        aulas: []
+      }
+
+      let aulasDir = fs.readdirSync(path.join(caminhoBaseConteudo, turmaDir, moduloDir))
+      for (let aulaDir of aulasDir) {
+        let aula: Aula = {
+          id: aulaDir.replace('aula', ''),
+          arquivos: []
+        }
+
+        let caminhoAula = path.join(caminhoBaseConteudo, turmaDir, moduloDir, aulaDir)
+        let arquivos = fs.readdirSync(caminhoAula)
+        for (let arquivo of arquivos) {
+          let caminhoArquivoMd = path.join(turmaDir, moduloDir, aulaDir, arquivo)
+          const metadados = getMetadadosDoArquivo(caminhoArquivoMd)
+          aula.arquivos.push(metadados)
+        }
+
+        modulo.aulas.push(aula)
+      }
+
+      turma.modulos.push(modulo)
+    }
+
+    turmas.push(turma)
+  }
+  
+  return turmas
+}
+
+// todo refatorar abaixo
 
 export interface ContentSummary {
   title: string,
@@ -111,61 +145,6 @@ export interface ContentDetails {
 export function getExercisesSlugs(): string[] {
   return fs.readdirSync(exercisesDirectory).map(getRealSlug)
 }
-
-export const getMetadadosConteudo = (caminhoConteudo: string): MetadadosConteudo => {
-  const caminhoCompleto = path.join(caminhoBaseConteudo, caminhoConteudo)
-  const conteudoArquivo = fs.readFileSync(caminhoCompleto, 'utf8')
-
-  const { data: { titulo } } = matter(conteudoArquivo)
-  const filename = path.basename(caminhoConteudo)
-  const slug = path.parse(caminhoConteudo).name
-
-  const slugMatchGroup = filename.match(/^(aula|ex).*/)
-
-  if (slugMatchGroup === null) {
-    throw new Error(`Nome de arquivo com formato errado: ${slug}`)
-  }
-
-  const [_, tipo] = slugMatchGroup as [any, MetadadosConteudo['tipo']]
-
-  return { titulo, caminhoConteudo: caminhoConteudo, slug, tipo }
-}
-
-// export function getTurmasForSidebar(): Turma[] {
-//   let turmas: Turma[] = []
-//   const turmasDir: string[] = fs.readdirSync(caminhoBaseConteudo);
-  
-//   let turmas = []
-//   let turmasDir = fs.readdirSync(caminhoBaseConteudo);
-//   for (let turmaDir of turmasDir) {
-//     // let modulos: Modulo[] = []
-//     // modulos = []
-//     turma = {
-//       id: turmaDir.replace('turma', ''),
-//       modulos: []
-//     }
-    
-//     modulosDir = fs.readdirSync(path.join(caminhoBaseConteudo, turmaDir))
-//     for (let moduloDir of modulosDir) {
-//       modulo = {
-//         id: moduloDir.replace('modulo', ''),
-//         aulas: []
-//       }
-
-//       aulasDir = fs.readdirSync(path.join(caminhoBaseConteudo, turmaDir, moduloDir))
-//       for (let aulaDir of aulasDir) {
-
-
-//         console.log(aulaDir)
-//       }
-//     }
-//   }
-  
-//   const x = fs.readdirSync(caminhoBaseConteudo)
-//     .map(getRealSlug)
-  
-//   return []
-// }
 
 export function getExerciseBySlug(slug: string): ContentDetails {
   const { data, content } = readFileContents(slug)
