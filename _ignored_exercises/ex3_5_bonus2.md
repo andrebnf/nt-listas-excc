@@ -1,5 +1,5 @@
 ---
-title: '3.5.bonus2 - Listas em JS'
+titulo: '3.5.bonus2 - Listas em JS'
 breadcrumb: 'Módulo 3 > Aula 5 > Execício Bônus 2'
 ---
 

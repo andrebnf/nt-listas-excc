@@ -1,7 +1,7 @@
 ---
-title: "Exercício Bônus"
+titulo: "Exercício Bônus"
 breadcrumb: "Módulo 4 > Aula 3: Inspeção de Código (debug) > Execício Bônus"
-startingEditorCode: "// copie o código do enunciado e faça seus ajustes"
+codigoInicial: "// copie o código do enunciado e faça seus ajustes"
 ---
 
 Bonus ☠) Descubra o que o código abaixo está fazendo e encontre os erros:

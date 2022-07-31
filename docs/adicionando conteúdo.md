@@ -21,7 +21,7 @@ Crie um arquivo com a extensão `.md` (formato Markdown) na pasta `_exercises`, 
 Nas primeiras linhas do novo arquivo criado, adicione o seguinte texto:
 ```
 ---
-title: 'Ex. Exemplo'
+titulo: 'Ex. Exemplo'
 breadcrumb: 'Módulo X > Aula X > Execício Exemplo'
 ---
 ```
@@ -35,7 +35,7 @@ Nesta aplicação, atualmente temos 2 metadados: `title` e `breadcrumb`. **Title
 Abaixo do bloco de metadados, adicione o texto do exercício. Segue um exemplo do enunciado:
 ```
 ---
-title: 'Ex. Exemplo'
+titulo: 'Ex. Exemplo'
 breadcrumb: 'Módulo X > Aula X > Execício Exemplo'
 ---
 

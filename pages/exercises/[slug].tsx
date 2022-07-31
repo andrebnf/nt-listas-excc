@@ -39,14 +39,14 @@ interface ExerciseProps {
   slug: string,
   content: string,
   exercisesSummary: ContentSummary[],
-  startingEditorCode?: string
+  codigoInicial?: string
 }
 
 // TODO: quando PageContainer for redimensionado, alterar tamanho do editor (IEditor.layout({} as IDimension))
 //       para identificar quando PageContainer for redimensionado: https://github.com/wellyshen/react-cool-dimensions
-export default function Exercise({ title, breadcrumb, slug, content, exercisesSummary, startingEditorCode = '' }: ExerciseProps) {
+export default function Exercise({ title, breadcrumb, slug, content, exercisesSummary, codigoInicial = '' }: ExerciseProps) {
   const router = useRouter()
-  const [code, setCode] = useState(startingEditorCode);
+  const [code, setCode] = useState(codigoInicial);
   const [uiLoading, setUiLoading] = useState(true);
   const [docExists, setDocExists] = useState<boolean | null>(null);
   const [lastSavedAt, setLastSavedAt] = useState<number | null>(null);
@@ -59,7 +59,7 @@ export default function Exercise({ title, breadcrumb, slug, content, exercisesSu
   }
   
   const createOrUpdateCode = (value: string) => {
-    setCode(!!value ? value : startingEditorCode);
+    setCode(!!value ? value : codigoInicial);
   
     return (async() => {
       if (userExerciseRef) {
@@ -99,14 +99,14 @@ export default function Exercise({ title, breadcrumb, slug, content, exercisesSu
           setLastSavedAt(docSnap.data().updatedAt);
         } else {
           setDocExists(false);
-          setCode(startingEditorCode);
+          setCode(codigoInicial);
           setLastSavedAt(null);
         }
       }
       
       setUiLoading(false);
     })();
-  }, [slug, user, startingEditorCode]);
+  }, [slug, user, codigoInicial]);
 
   if (!router.isFallback && !slug) {
     return <ErrorPage statusCode={404} />
@@ -162,7 +162,7 @@ export async function getStaticProps({ params }: { params: { slug: string } }) {
       title: ContentDetails.title,
       slug: ContentDetails.slug,
       breadcrumb: ContentDetails.breadcrumb,
-      startingEditorCode: ContentDetails.startingEditorCode || null,
+      codigoInicial: ContentDetails.codigoInicial || null,
       content,
       exercisesSummary
     },
