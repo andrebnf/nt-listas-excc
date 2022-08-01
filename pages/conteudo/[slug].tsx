@@ -5,7 +5,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import styled from 'styled-components';
 import { Login as LoginIcon } from "@styled-icons/heroicons-outline/Login";
 
-import { ContentSummary, getExerciseBySlug, getExercisesSlugs, getExercisesSummary } from '../../lib/exercises'
+import { Conteudo, DadosArquivo, getConteudo, getConteudoBySlug, getSlugsIndividuais } from '../../lib/conteudo'
 import markdownToHtml from '../../lib/markdownToHtml'
 
 import { auth, db } from "../../firebase/clientApp";
@@ -34,19 +34,13 @@ const ContentWrapper = styled.div`
 `
 
 interface ExerciseProps {
-  title: string,
-  breadcrumb: string,
-  slug: string,
-  content: string,
-  exercisesSummary: ContentSummary[],
-  codigoInicial?: string
+  conteudoArquivo: DadosArquivo
+  conteudoSidebar: Conteudo,
 }
 
-// TODO: quando PageContainer for redimensionado, alterar tamanho do editor (IEditor.layout({} as IDimension))
-//       para identificar quando PageContainer for redimensionado: https://github.com/wellyshen/react-cool-dimensions
-export default function Exercise({ title, breadcrumb, slug, content, exercisesSummary, codigoInicial = '' }: ExerciseProps) {
+export default function ConteudoPage({ conteudoArquivo }: ExerciseProps) {
   const router = useRouter()
-  const [code, setCode] = useState(codigoInicial);
+  const [code, setCode] = useState(conteudoArquivo.codigoInicial || '');
   const [uiLoading, setUiLoading] = useState(true);
   const [docExists, setDocExists] = useState<boolean | null>(null);
   const [lastSavedAt, setLastSavedAt] = useState<number | null>(null);
@@ -55,11 +49,11 @@ export default function Exercise({ title, breadcrumb, slug, content, exercisesSu
   let userExerciseRef: DocumentReference | null = null;
 
   if (user && user?.uid) {
-    userExerciseRef = doc(db, "user_exercises", user.uid, "exercises", slug);
+    userExerciseRef = doc(db, "user_exercises", user.uid, "exercises", conteudoArquivo.slug);
   }
   
   const createOrUpdateCode = (value: string) => {
-    setCode(!!value ? value : codigoInicial);
+    setCode(!!value ? value : conteudoArquivo.codigoInicial || '');
   
     return (async() => {
       if (userExerciseRef) {
@@ -90,7 +84,7 @@ export default function Exercise({ title, breadcrumb, slug, content, exercisesSu
     (async() => {
       setUiLoading(true);
       if (user && user?.uid) {
-        const userExerciseRef = doc(db, "user_exercises", user.uid, "exercises", slug);
+        const userExerciseRef = doc(db, "user_exercises", user.uid, "exercises", conteudoArquivo.slug);
         const docSnap = await getDoc(userExerciseRef);
         
         if (docSnap.exists()) {
@@ -99,16 +93,16 @@ export default function Exercise({ title, breadcrumb, slug, content, exercisesSu
           setLastSavedAt(docSnap.data().updatedAt);
         } else {
           setDocExists(false);
-          setCode(codigoInicial);
+          setCode(conteudoArquivo.codigoInicial || '');
           setLastSavedAt(null);
         }
       }
       
       setUiLoading(false);
     })();
-  }, [slug, user, codigoInicial]);
+  }, [conteudoArquivo, user]);
 
-  if (!router.isFallback && !slug) {
+  if (!router.isFallback && !conteudoArquivo.slug) {
     return <ErrorPage statusCode={404} />
   }
 
@@ -123,14 +117,18 @@ export default function Exercise({ title, breadcrumb, slug, content, exercisesSu
         </>
       ) : (
         <ContentWrapper>
-          <ContentDetails title={title} breadcrumb={breadcrumb} content={content} />
+          <ContentDetails 
+            title={conteudoArquivo.titulo} 
+            breadcrumb={conteudoArquivo.breadcrumb} 
+            content={conteudoArquivo.conteudo} 
+          />
           {user ? (
             <div>
               <ExerciseCode 
                 onAutoSaveEvent={createOrUpdateCode}
                 onChange={(value: string) => setCode(value)} 
                 code={code} 
-                slug={slug}
+                slug={conteudoArquivo.slug}
                 lastSavedAt={lastSavedAt}
                 autosaveMilliseconds={2000}
               />
@@ -152,25 +150,24 @@ export default function Exercise({ title, breadcrumb, slug, content, exercisesSu
 }
 
 export async function getStaticProps({ params }: { params: { slug: string } }) {
-  // Lendo arquivos dos exercícios
-  const ContentDetails = getExerciseBySlug(params.slug)
-  const content = await markdownToHtml(ContentDetails.content || '')
-  const exercisesSummary = getExercisesSummary()
+  // const contentDetails = getExerciseBySlug(params.slug)
+  const conteudoArquivo: DadosArquivo = getConteudoBySlug(params.slug)
+  const content = await markdownToHtml(conteudoArquivo.conteudo || '')
+  const conteudoSidebar = getConteudo()
 
   return {
     props: {
-      title: ContentDetails.title,
-      slug: ContentDetails.slug,
-      breadcrumb: ContentDetails.breadcrumb,
-      codigoInicial: ContentDetails.codigoInicial || null,
-      content,
-      exercisesSummary
+      conteudoArquivo: {
+        ...conteudoArquivo,
+        conteudo: content
+      },
+      conteudoSidebar
     },
   }
 }
 
 export async function getStaticPaths() {
-  const slugs = getExercisesSlugs()
+  const slugs = getSlugsIndividuais()
 
   return {
     paths: slugs.map((slug) => ({params: { slug }})),

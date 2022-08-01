@@ -2,7 +2,7 @@ import Link from "next/link";
 import styled, { css, DefaultTheme, useTheme } from "styled-components";
 import { Collapse } from 'react-collapse';
 import { useRouter } from "next/router";
-import { ContentSummary } from "../lib/exercises";
+import { Conteudo } from "../lib/conteudo";
 import { ReactNode, useState } from "react";
 import { KeyboardArrowRight } from "@styled-icons/material-rounded/KeyboardArrowRight"
 import {  } from "@styled-icons/fluentui-system-filled/Dock"
@@ -135,7 +135,7 @@ const SubMenuArrow = styled(KeyboardArrowRight)<{ theme: DefaultTheme, isPointin
 `;
 
 interface SidebarProps {
-  items: ContentSummary[];
+  conteudo: Conteudo;
   title: string;
 }
 
@@ -160,11 +160,12 @@ const SubMenu = ({title, children}: {
   )
 }
 
-export const Sidebar = ({title, items}: SidebarProps) => {
+export const Sidebar = ({title, conteudo}: SidebarProps) => {
   const [isDocked, setIsDocked] = useState<boolean>(false);
   const activeItemClass = 'sidebar-item-active'
   const router = useRouter()
   const currentSlug = router.query.slug
+  const turma1 = conteudo[0] // Fixo para turma 1!
 
   return (
     <StyledAside isDocked={isDocked}>
@@ -177,38 +178,28 @@ export const Sidebar = ({title, items}: SidebarProps) => {
       </SidebarHeader>
       <SidebarContent>
         <Menu>
-          <SubMenu title="Módulo 4">
-            <SubMenu title="Aula 3">
-              {items.map(({slug, title, moduleId, classId}) => {
-                if (moduleId === '4' && classId === '3') {
-                  return (
-                    <MenuItem key={slug}>
-                      <Link href={`/exercises/${slug}`}>
-                        <StyledNavLink activeClassName={activeItemClass} className={slug === currentSlug ? activeItemClass : ''}>
-                          {title}
+          {turma1.modulos.map(modulo => (
+            <SubMenu key={`${turma1.id}_${modulo.id}`} title={`Módulo ${modulo.id}`}>
+              {modulo.aulas.map(aula => (
+                <SubMenu key={`${turma1.id}_${modulo.id}_${aula.id}`} title={`Aula ${aula.id}`}>
+                  {aula.arquivos.map(arquivo => (
+                    <MenuItem key={arquivo.slug}>
+                      <Link href={`/conteudo/${arquivo.slug}`}>
+                        <StyledNavLink 
+                          activeClassName={activeItemClass} 
+                          className={arquivo.slug === currentSlug ? activeItemClass : ''}
+                        >
+                          {arquivo.titulo}
                         </StyledNavLink>
                       </Link> 
                     </MenuItem>
-                  )
-                }    
-              })}
+                  ))}
+                </SubMenu>
+              ))}
             </SubMenu>
-            <SubMenu title="Aula 4">
-              {items.map(({slug, title, moduleId, classId}) => {
-                if (moduleId === '4' && classId === '4') {
-                  return (
-                    <MenuItem key={slug}>
-                      <Link href={`/exercises/${slug}`}>
-                        <StyledNavLink activeClassName={activeItemClass}  className={slug === currentSlug ? activeItemClass : ''}>
-                          {title}
-                        </StyledNavLink>
-                      </Link> 
-                    </MenuItem>
-                  )
-                }    
-              })}
-            </SubMenu>
-          </SubMenu>
+          ))}
+          
+
         </Menu>
       </SidebarContent>
     </StyledAside>

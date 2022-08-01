@@ -18,7 +18,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <Navigation />
-        <AppLayout exercisesSummary={pageProps.exercisesSummary}>
+        <AppLayout conteudoSidebar={pageProps.conteudoSidebar}>
           <Component {...pageProps} />
         </AppLayout>
         <Footer />
