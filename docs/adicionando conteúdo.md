@@ -21,7 +21,7 @@ _conteudo
 ```
 
 ⚠️ Importante:
-- Somente os níveis acima (Turma > Modulo > Aula > <arquivo>) são suportados
+- Somente os níveis acima (Turma > Modulo > Aula > arquivo) são suportados
 - Os arquivos precisam necessariamente iniciar com 'aula' ou 'ex', como no exemplo acima
 
 ## Como escrever um arquivo de conteúdo
