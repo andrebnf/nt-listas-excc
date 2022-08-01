@@ -9,7 +9,7 @@ Quando a branch principal do repositório (`main`) é atualizada, Vercel automat
 
 Quando um Pull Request é aberto no GitHub, um serviço da Vercel vai fazer o deploy da sua branch no ambiente de **prévia** e vai retornar um link no próprio Pull Request para a versão do site online utilizando o código novo. Porém, nesta versão, não será possível login com o Google, isto ocorre porque uma nova URL é gerada para o Pull Request e essa nova URL tem que ser cadastrada manualmente no painel do Firebase. Se necessário testar suas alterações com o Login do Google, utilize o ambiente de **staging**.
 
-Para utilizar o ambiente de **staging**, faça o merge de suas alterações para branch `staging`. Isto vai gerar o processo de build na Vercel e o link para que seja testada a versão do projeto.
+Para utilizar o ambiente de **staging**, faça o merge de suas alterações para branch `staging`. Isto vai gerar o processo de build na Vercel. Para visitar a nova versão vá para https://bonfatti.dev.
 
 Veja mais detalhes do fluxo de desenvolvimento abaixo:
 
