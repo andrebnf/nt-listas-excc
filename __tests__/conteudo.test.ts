@@ -1,4 +1,10 @@
-import { getDadosDoArquivo, getConteudo, getConteudoBySlug, DadosArquivo, getSlugsIndividuais } from "../lib/conteudo"
+import { 
+  getDadosDoArquivo, 
+  getConteudo, 
+  getConteudoBySlug, 
+  DadosArquivo, 
+  getSlugsIndividuais 
+} from "../lib/conteudo"
 
 it('busca metadados de um arquivo Markdown', () => {
   const caminhoConteudo = 'turma1/modulo4/aula3/aula4_3.md'

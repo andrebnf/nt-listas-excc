@@ -165,7 +165,6 @@ export const Sidebar = ({title, conteudo}: SidebarProps) => {
   const activeItemClass = 'sidebar-item-active'
   const router = useRouter()
   const currentSlug = router.query.slug
-  const turma1 = conteudo[0] // Fixo para turma 1!
 
   return (
     <StyledAside isDocked={isDocked}>
@@ -178,10 +177,10 @@ export const Sidebar = ({title, conteudo}: SidebarProps) => {
       </SidebarHeader>
       <SidebarContent>
         <Menu>
-          {turma1.modulos.map(modulo => (
-            <SubMenu key={`${turma1.id}_${modulo.id}`} title={`Módulo ${modulo.id}`}>
+          {conteudo !== undefined && conteudo[0].modulos.map(modulo => (
+            <SubMenu key={`${conteudo[0].id}_${modulo.id}`} title={`Módulo ${modulo.id}`}>
               {modulo.aulas.map(aula => (
-                <SubMenu key={`${turma1.id}_${modulo.id}_${aula.id}`} title={`Aula ${aula.id}`}>
+                <SubMenu key={`${conteudo[0].id}_${modulo.id}_${aula.id}`} title={`Aula ${aula.id}`}>
                   {aula.arquivos.map(arquivo => (
                     <MenuItem key={arquivo.slug}>
                       <Link href={`/conteudo/${arquivo.slug}`}>
