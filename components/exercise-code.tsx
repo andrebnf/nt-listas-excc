@@ -136,35 +136,28 @@ export const ExerciseCode = ({ onAutoSaveEvent, onChange, code, slug, lastSavedA
         </OutputText>
       </OutputContainer>
       <FullWidthButton onClick={() => {
-        try {
+        // try {
           const wrapCode = (code: string): string[] => {
-            const prefixFnCode = "" +
-              "let w___logs = []; \n" + 
-              "function w___customLogFn(text){ \n" +
-              "  w___logs.push(String(text)); \n" +
-              "} \n";
+            const prefixFnCode = "let w___logs = []; let w___errorLine = 0; let w___errorMessage = ''; function w___customLogFn(text){ w___logs.push(String(text)); }" + 
+              "try{ \n";
 
             const parsedCode = code.replace(
               /console\.(log|info|debug|warn|error)/g, 
               "w___customLogFn"
             ) + "\n";
 
-            const suffixFnCode = `return w___logs`;
+            const suffixFnCode = `\n } catch(err) { w___errorMessage = err.message; w___errorLine = +err.stack.split("\\n").filter(e => e.includes("<anonymous>") || e.includes("Function"))[0].replace(/.*\\:(\\d+)\\:.*/, "$1"); } \n finally { \n return [ w___logs, w___errorLine > 0, w___errorLine - 3, w___errorMessage ]; }`;
             const finalCode = prefixFnCode + parsedCode + suffixFnCode;
 
             return new Function(finalCode)();
           }
-          setLogs(wrapCode(code));
-        } catch (error) {
-          let message = 'Erro desconhecido';
-          let stack;
-          if (error instanceof Error) {
-            message = error.message;
-            stack = error.stack?.toString();
-          } 
-          alert(`Ops, tem algo de errado com seu código: ${message}\n\nStackTrace:\n${stack}`);
-          setLogs([]);
-        }
+
+          let [logs, hasError, errorLine, errorMessage] = wrapCode(code) as [string[], string, number, string]
+          setLogs(logs);
+
+          if (hasError) {
+            alert(`Ops, tem algo de errado com seu código na linha ${errorLine}: ${errorMessage}`)
+          }
       }}>
         <Play size={theme.iconSize.medium}/> Executar Código
       </FullWidthButton>
