@@ -151,13 +151,16 @@ export const ExerciseCode = ({ onAutoSaveEvent, onChange, code, slug, lastSavedA
 
             return new Function(finalCode)();
           }
-
+        try {
           let [logs, hasError, errorLine, errorMessage] = wrapCode(code) as [string[], string, number, string]
           setLogs(logs);
 
           if (hasError) {
             alert(`Ops, tem algo de errado com seu código na linha ${errorLine}: ${errorMessage}`)
           }
+        } catch (err) {
+          alert(`O código contém erros de sintaxe: "${(err as Error).stack?.split("\n")[0]}". 💡 Dica: utilize as marcações em vermelho no editor para encontrar o problema.`)
+        }
       }}>
         <Play size={theme.iconSize.medium}/> Executar Código
       </FullWidthButton>
