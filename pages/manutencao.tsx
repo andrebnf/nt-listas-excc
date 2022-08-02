@@ -2,16 +2,6 @@ import { NextPage } from 'next';
 import Head from 'next/head';
 import styled from 'styled-components';
 
-import { getExercisesSummary } from '../lib/exercises';
-
-export async function getStaticProps() {
-  const exercisesSummary = getExercisesSummary()
-
-  return {
-    props: { exercisesSummary }
-  }
-}
-
 const ContainerManutencao = styled.div`
   padding-left: ${({theme}) => theme.space[4]};
   padding-top: ${({theme}) => theme.space[2]};
