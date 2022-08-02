@@ -14,7 +14,16 @@ Para configurar e executar o projeto no seu computador, acesse o guia [Executand
 
 ### Next.js (React)
 
-O Next é um framework de desenvolvimento e construção de artefatos entregáveis. O Next utiliza React junto com funcionalidades executadas no Servidor (Server Side Rendering). É importante entender as premissas do framework para entender este projeto. Para isto, uma sugestão é começar pela [plataforma de aprendizado Next.js](https://nextjs.org/learn) (infelizmente disponível somente em inglês. Se necessário, traduza as páginas utilizando seu navegador e isto deve ser suficiente para entender sobre o Next.js)
+O Next é um framework de desenvolvimento e construção de artefatos entregáveis. O Next utiliza React junto com funcionalidades executadas no Servidor (Server Side Rendering). É importante entender as premissas do framework para entender este projeto. Para isto, uma sugestão é começar pela [plataforma de aprendizado Next.js](https://nextjs.org/learn) (infelizmente disponível somente em inglês. Se necessário, traduza as páginas utilizando seu navegador e isto deve ser suficiente para entender sobre o Next.js).
+
+Variáveis de ambiente customizadas para o projeto:
+```shell
+# Arquivo .env.local
+
+NEXT_PUBLIC_MAINTENANCE_MODE=true
+```
+- `NEXT_PUBLIC_MAINTENANCE_MODE` quando true, o site exibirá somente uma página de manutenção (necessita redeploy se alterada a variável)
+
 
 ### Firebase
 
