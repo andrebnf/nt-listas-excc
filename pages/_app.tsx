@@ -9,6 +9,7 @@ import AppLayout from '../components/layout/app-layout'
 
 import Moment from 'react-moment'
 import 'moment/locale/pt-br';
+import PaginaManutencao from './manutencao'
 Moment.globalLocale = 'pt-br';
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -18,9 +19,13 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <Navigation />
-        <AppLayout exercisesSummary={pageProps.exercisesSummary}>
-          <Component {...pageProps} />
-        </AppLayout>
+        {process.env.NEXT_PUBLIC_MAINTENANCE_MODE === 'true' ? (
+          <PaginaManutencao></PaginaManutencao>
+        ) : (
+          <AppLayout exercisesSummary={pageProps.exercisesSummary}>
+            <Component {...pageProps} />
+          </AppLayout>
+        )}
         <Footer />
       </ThemeProvider>
     </>
