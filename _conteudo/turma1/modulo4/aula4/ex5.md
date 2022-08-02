@@ -1,7 +1,7 @@
 ---
-title: "Exercício 5"
+titulo: "Exercício 5"
 breadcrumb: "Módulo 4 > Aula 4: Funções > Execício 5"
-startingEditorCode: "// copie o código do enunciado e faça seus ajustes"
+codigoInicial: "// copie o código do enunciado e faça seus ajustes"
 ---
 
 5••••) O código abaixo funciona sem errors, porém várias operações poderiam ser abstraídas para funções. Identifique essas operações e converta-as em funções, modificado o programa original:

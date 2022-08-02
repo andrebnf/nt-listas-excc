@@ -1,7 +1,7 @@
 ---
-title: "Exercício 5"
+titulo: "Exercício 5"
 breadcrumb: "Módulo 4 > Aula 3: Inspeção de Código (debug) > Execício 5"
-startingEditorCode: "// copie o código do enunciado e faça seus ajustes"
+codigoInicial: "// copie o código do enunciado e faça seus ajustes"
 ---
 
 5••••) João está escrevendo um programa para a Marta utilizar. Ela é quem administra os ingredientes da Cozinha Solidária do seu bairro.

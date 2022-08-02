@@ -1,7 +1,7 @@
 ---
-title: "Aula: Utilidades"
+titulo: "Aula: Utilidades"
 breadcrumb: "Módulo 4 > Aula 3: Inspeção de Código (debug)"
-startingEditorCode: |
+codigoInicial: |
   console.log("Olá, mundo")
   let alunos = ["Dani", "Giovanna", "Nicollas"];
 

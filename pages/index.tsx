@@ -2,13 +2,13 @@ import { NextPage } from 'next';
 import Head from 'next/head';
 import styled from 'styled-components';
 
-import { getExercisesSummary } from '../lib/exercises';
+import { getConteudo } from '../lib/conteudo';
 
-export async function getStaticProps() {
-  const exercisesSummary = getExercisesSummary()
+export function getStaticProps() {
+  const conteudoSidebar = getConteudo()
 
   return {
-    props: { exercisesSummary }
+    props: { conteudoSidebar }
   }
 }
 

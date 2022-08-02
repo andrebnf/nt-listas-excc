@@ -7,7 +7,9 @@
     "dev:emulators": "concurrently -p \"[{name}]\" -n \"NEXT-DEV,FIRE-EMU\" -c \"bgBlue.bold,bgYellow.bold\" \"next dev\" \"firebase emulators:start\"",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "jest --watch",
+    "test:ci": "jest --ci"
   },
   "dependencies": {
     "@monaco-editor/react": "^4.4.5",
@@ -29,6 +31,7 @@
     "use-debounce": "^8.0.1"
   },
   "devDependencies": {
+    "@types/jest": "^28.1.6",
     "@types/node": "18.0.0",
     "@types/react": "18.0.14",
     "@types/react-collapse": "^5.0.1",
@@ -37,6 +40,8 @@
     "concurrently": "^7.3.0",
     "eslint": "8.19.0",
     "eslint-config-next": "12.2.0",
+    "jest": "^28.1.3",
+    "ts-node": "^10.9.1",
     "typescript": "4.7.4"
   }
 }

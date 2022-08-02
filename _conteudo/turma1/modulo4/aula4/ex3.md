@@ -1,7 +1,7 @@
 ---
-title: "Exercício 3"
+titulo: "Exercício 3"
 breadcrumb: "Módulo 4 > Aula 4: Funções > Execício 3"
-startingEditorCode: "// copie o código do enunciado e faça seus ajustes"
+codigoInicial: "// copie o código do enunciado e faça seus ajustes"
 ---
 
 3••) Crie uma função que receba uma marmita e um ingrediente e que adiciona o ingrediente na marmita. Crie também uma função que pergunte ao usuário um ingrediente para ser adicionado à marmita e retorne a resposta. Utilize as duas funções para resolver de novo o exercício 4.3.3 (o exercício 3 da aula passada).

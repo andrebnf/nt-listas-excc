@@ -1,7 +1,7 @@
 ---
-title: "Aula: Funções"
+titulo: "Aula: Funções"
 breadcrumb: "Módulo 4 > Aula 4: Funções"
-startingEditorCode: |
+codigoInicial: |
   function olaMundo() {
     console.log("Olá, mundo!")
   }

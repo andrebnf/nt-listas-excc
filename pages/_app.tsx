@@ -22,7 +22,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         {process.env.NEXT_PUBLIC_MAINTENANCE_MODE === 'true' ? (
           <PaginaManutencao></PaginaManutencao>
         ) : (
-          <AppLayout exercisesSummary={pageProps.exercisesSummary}>
+          <AppLayout conteudoSidebar={pageProps.conteudoSidebar}>
             <Component {...pageProps} />
           </AppLayout>
         )}
