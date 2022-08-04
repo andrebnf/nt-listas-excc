@@ -1,6 +1,6 @@
 ---
-titulo: "Aula: Funções"
-breadcrumb: "Módulo 4 > Aula 4: Funções"
+titulo: "Aula: Exemplos de Funções"
+breadcrumb: "Módulo 4 > Aula 4: Exemplos de Funções"
 codigoInicial: "// copie aqui os exemplos e teste ou modifique a vontade!"
 ---
 
