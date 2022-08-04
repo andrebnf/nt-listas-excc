@@ -15,6 +15,13 @@
     "jsx": "preserve",
     "incremental": true
   },
+  "ts-node": {
+    "files": true,
+    "transpileOnly": true,
+    "compilerOptions": {
+      "isolatedModules": false,
+    },
+  },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules", "docs"]
 }

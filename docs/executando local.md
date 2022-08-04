@@ -57,6 +57,15 @@ Neste ponto seu ambiente está configurado e você pode seguir o [guia de instal
 
 Pronto. Agora qualquer alteração no código surtirá efeito na página local do projeto.
 
+**Executando os testes**
+```
+npm run test
+```
+ou, para não "travar" o console: 
+```
+npm run test:ci
+```
+
 **Executando o processo de build:**
 > Este processo é útil para validar que nosso código está válido para o passo de build (o comando `npm run dev` não executa completamente este passo)
 

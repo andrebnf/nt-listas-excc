@@ -1,17 +1,17 @@
 import React from "react";
-import { ContentSummary, getExercisesSummary } from "../../lib/exercises";
+import { Conteudo } from "../../lib/conteudo";
 import { PageContainer } from "../page-container";
 import { Sidebar } from "../sidebar";
 
 interface AppLayoutProps {
-  exercisesSummary?: ContentSummary[];
+  conteudoSidebar: Conteudo;
   children: React.ReactNode;
 }
 
-export default function AppLayout({ exercisesSummary, children }: AppLayoutProps) {
+export default function AppLayout({ conteudoSidebar, children }: AppLayoutProps) {
   return (
     <PageContainer>
-      <Sidebar title={"Conteúdo"} items={exercisesSummary || []}></Sidebar>
+      <Sidebar title={"Conteúdo"} conteudo={conteudoSidebar}></Sidebar>
       {children}
     </PageContainer>
   );

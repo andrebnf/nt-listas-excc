@@ -14,8 +14,8 @@ const FooterText = styled.h5`
   font-weight: normal;
 `
 
-export const Footer = (props: any) => (
+export const Footer = (_props: any) => (
   <StyledFooter>
-    <FooterText>Feito com ❤️ pelo Núcleo de Tecnologia do MTST</FooterText>
+    <FooterText>Desenvolvido pelo Núcleo de Tecnologia do MTST</FooterText>
   </StyledFooter>
 )
