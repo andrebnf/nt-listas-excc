@@ -4,8 +4,13 @@ import matter from 'gray-matter'
 
 let __conteudo: Conteudo | null = null
 
-const caminhoBaseConteudo = path.join(process.cwd(), '_conteudo')
-
+const caminhoBaseConteudo = 
+  path.join(
+    process.cwd(), 
+    process.env.NODE_ENV === 'test' ? 
+      '__tests__/artefatos/conteudo_teste' : '_conteudo'
+  )
+  
 interface MetadadosArquivo {
   titulo: string,
   caminhoArquivo: string,
