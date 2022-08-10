@@ -30,7 +30,7 @@ export const executaJavaScript = (code: string): [
     return [ 
       w___logs, 
       w___errorLine > 0, 
-      w___errorLine - 9,
+      Math.max(w___errorLine - 9, 0),
       w___errorMessage 
     ]; 
   }`;
