@@ -16,11 +16,11 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v2
         with:
-          node-version: 12.x
-          cache: yarn
+          node-version: 16
+          cache: npm
 
-      - name: Instala Dependências usando Yarn
-        run: yarn install --frozen-lockfile
+      - name: Instala Dependências usando NPM
+        run: npm ci
 
       - name: Executa Testes
         run: npm run test:ci
