@@ -1,5 +1,6 @@
 // TODO: mover função `wrapCode` para um service worker
 // https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers
+// Avaliar: https://github.com/alewin/useWorker
 export const executaJavaScript = (code: string): [
   logs: string[], 
   hasError: boolean, 

@@ -1,9 +1,8 @@
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useTheme } from 'styled-components'
 import Editor from "@monaco-editor/react";
 import { Play } from "@styled-icons/feather/Play";
-import { useDebouncedCallback } from "use-debounce";
 import Moment from "react-moment";
 
 import { FullWidthButton } from "./full-width-button";
@@ -55,26 +54,14 @@ const OutputTitle = styled.p`
 `
 
 interface ExerciseCodeProps {
-  onAutoSaveEvent: (value: string) => void,
-  onChange: (value: string) => void,
+  onCodeChange: (value: string) => void,
   code: string,
-  slug: string,
-  lastSavedAt: number | null,
-  autosaveMilliseconds: number
+  lastSavedAt: number | null
 }
 
-export const ExerciseCode = ({ onAutoSaveEvent, onChange, code, slug, lastSavedAt, autosaveMilliseconds }: ExerciseCodeProps) => {
+export const ExerciseCode = ({onCodeChange, code, lastSavedAt}: ExerciseCodeProps) => {
   const [logs, setLogs] = useState<string[]>([]);
   const theme = useTheme();
-
-  // Debounce significa garantir que a função seja chamada um número absurdo de vezes
-  // A cada X segundos determinados abaixo, a função será executada somente 1 vez
-  const debouncedEditorChange = useDebouncedCallback(
-    (value) => {
-      onAutoSaveEvent(value);
-    },
-    autosaveMilliseconds // Se for igual a 2000, a cada 2 segundos depois da última alteração no código
-  );
 
   const executarCodigoClick = () => {
     try {
@@ -89,14 +76,6 @@ export const ExerciseCode = ({ onAutoSaveEvent, onChange, code, slug, lastSavedA
     }
   }
 
-  useEffect(() => {
-    setLogs([])
-  }, [code])
-
-  useEffect(() => {
-    debouncedEditorChange.cancel();
-  }, [slug])
-
   return (
     <ExerciseCodeContainer>
       <SavedAtInfo>
@@ -110,10 +89,7 @@ export const ExerciseCode = ({ onAutoSaveEvent, onChange, code, slug, lastSavedA
         <Editor 
           defaultLanguage="javascript"
           value={code}
-          onChange={(value) => {
-            debouncedEditorChange(value);
-            onChange(value || '');
-          }}
+          onChange={(value) => onCodeChange(value as string)}
           theme="light"
           options={
             {
@@ -135,7 +111,7 @@ export const ExerciseCode = ({ onAutoSaveEvent, onChange, code, slug, lastSavedA
               suggestOnTriggerCharacters: false,
               acceptSuggestionOnEnter: "off",
               tabCompletion: "off",
-              wordBasedSuggestions: false,
+              wordBasedSuggestions: false
             }
           }
      
