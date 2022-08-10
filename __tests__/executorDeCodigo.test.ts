@@ -45,7 +45,7 @@ const cenarios: InputDeCenario[] = [
   function abc(str) {
     return str + variavel_nao_definida
   }
-  console.log(abc('oi'))`, 0, true, 4, 'variavel_nao_definida', ['aaaa']],
+  console.log(abc('oi'))`, 0, true, 4, 'variavel_nao_definida', []],
 
 ]
 
