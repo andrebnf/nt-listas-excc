@@ -156,7 +156,7 @@ export const ExerciseCode = ({ onAutoSaveEvent, onChange, code, slug, lastSavedA
           setLogs(logs);
 
           if (hasError) {
-            alert(`Ops, tem algo de errado com seu código na linha ${errorLine}: ${errorMessage}`)
+            alert(`🚫 Erro na linha ${errorLine}: ${errorMessage}`)
           }
         } catch (err) {
           alert(`O código contém erros de sintaxe: "${(err as Error).stack?.split("\n")[0]}". 💡 Dica: utilize as marcações em vermelho no editor para encontrar o problema.`)
