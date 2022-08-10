@@ -14,7 +14,13 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          cache: npm
 
-      # Runs a single command using the runners shell
+      - name: Instala Dependências usando NPM
+        run: npm ci
+
       - name: Executa Testes
         run: npm run test:ci
