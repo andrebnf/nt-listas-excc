@@ -7,11 +7,11 @@ import {
 } from "../lib/conteudo"
 
 it('busca metadados de um arquivo Markdown', () => {
-  const caminhoConteudo = 'turma1/modulo4/aula3/aula4_3.md'
+  const caminhoConteudo = 'turma1/modulo4/aula3/aula3.md'
   const metadadosAula = getDadosDoArquivo(caminhoConteudo)
 
   expect(metadadosAula.titulo).toBe('Aula: Utilidades')
-  expect(metadadosAula.slug).toBe('1_4_3-aula4_3')
+  expect(metadadosAula.slug).toBe('1_4_3-aula3')
   expect(metadadosAula.tipo).toBe('aula')
   expect(metadadosAula.caminhoArquivo).toBe(caminhoConteudo)
   expect(metadadosAula).not.toHaveProperty(['codigoInicial'])
@@ -20,38 +20,52 @@ it('busca metadados de um arquivo Markdown', () => {
 })
 
 it('busca dados de um arquivo Markdown', () => {
-  const caminhoConteudo = 'turma1/modulo4/aula3/ex4_3_1.md'
+  const caminhoConteudo = 'turma1/modulo4/aula3/ex2.md'
   const dadosAula = getDadosDoArquivo(caminhoConteudo, { dadosCompletos: true }) as DadosArquivo
 
-  expect(dadosAula.titulo).toBe('Exercício 1')
-  expect(dadosAula.slug).toBe('1_4_3-ex4_3_1')
+  expect(dadosAula.titulo).toBe('Exercício 2')
+  expect(dadosAula.slug).toBe('1_4_3-ex2')
   expect(dadosAula.tipo).toBe('ex')
   expect(dadosAula.caminhoArquivo).toBe(caminhoConteudo)
-  expect(dadosAula.conteudo.length).toBeGreaterThanOrEqual(300)
+  expect(dadosAula.conteudo).toContain('let listaDeIngredientes =')
   expect(dadosAula.breadcrumb.startsWith('Módulo')).toBe(true)
   expect(dadosAula.codigoInicial?.startsWith('//')).toBe(true)
 })
 
+
 it('busca estrutura de conteudo no sistema de arquivos', () => {
   const turmas = getConteudo();
-  const aula1 = turmas[0].modulos[0].aulas[0]
-  const aula2 = turmas[0].modulos[0].aulas[1]
+  
+  const testaAula = (aula: any, id: string, numeroDeArquivos: number) => {
+    expect(aula.id).toBe(id)
+    expect(aula.arquivos.length).toEqual(numeroDeArquivos)
+  }
 
-  expect(aula1.id).toBe('3')
-  expect(aula1.arquivos.length).toEqual(7)
-
-  expect(aula2.id).toBe('4')
-  expect(aula2.arquivos.length).toEqual(8)
+  testaAula(turmas[0].modulos[0].aulas[0], '3', 3)
+  testaAula(turmas[0].modulos[0].aulas[1], '4', 2)
+  testaAula(turmas[1].modulos[0].aulas[0], '1', 2)
 })
 
 it('constroi path baseado em um slug', () => {
-  const slug1 = '1_4_3-aula4_3'
-  const conteudoCompleto1 = getConteudoBySlug(slug1)
-  expect(conteudoCompleto1).toHaveProperty(['conteudo'])
-  expect(conteudoCompleto1).toHaveProperty(['breadcrumb'])
-  expect(conteudoCompleto1).toHaveProperty(['codigoInicial'])
+  const slug1 = '2_1_1-aula1'
+  const dadosDoConteudo = getConteudoBySlug(slug1)
+  expect(dadosDoConteudo).toHaveProperty(['conteudo'])
+  expect(dadosDoConteudo).toHaveProperty(['breadcrumb'])
+  expect(dadosDoConteudo).toHaveProperty(['codigoInicial'])
+  expect(dadosDoConteudo.conteudo).toContain("Texto aula teste 1")
+  expect(dadosDoConteudo.codigoInicial).toContain("let ola")
+  expect(dadosDoConteudo.breadcrumb).toEqual("Teste")
+
+  
 })
 
 it('busca todos os slugs insividalmente', () => {
-  expect(getSlugsIndividuais()).toEqual(expect.arrayContaining(['1_4_3-aula4_3', '1_4_3-ex4_3_1']))
+  expect(getSlugsIndividuais()).toEqual([
+    "1_4_3-aula3", 
+    "1_4_3-ex1", 
+    "1_4_3-ex2", 
+    "1_4_4-aula4_parte1_fundamentos", 
+    "1_4_4-ex1_nome_grande_do_exercicio", 
+    "2_1_1-aula1", "2_1_1-ex1"
+  ])
 })

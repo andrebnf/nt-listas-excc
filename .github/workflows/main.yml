@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [ "main", "staging" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  # workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          cache: npm
+
+      - name: Instala Dependências usando NPM
+        run: npm ci
+
+      - name: Executa Testes
+        run: npm run test:ci

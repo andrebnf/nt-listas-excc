@@ -7,6 +7,7 @@ import { useDebouncedCallback } from "use-debounce";
 import Moment from "react-moment";
 
 import { FullWidthButton } from "./full-width-button";
+import { executaJavaScript } from "../lib/executorDeCodigo";
 
 const ExerciseCodeContainer = styled.div`
   padding: ${({theme}) => theme.space[4]} ${({theme}) => theme.space[4]};
@@ -75,6 +76,19 @@ export const ExerciseCode = ({ onAutoSaveEvent, onChange, code, slug, lastSavedA
     autosaveMilliseconds // Se for igual a 2000, a cada 2 segundos depois da última alteração no código
   );
 
+  const executarCodigoClick = () => {
+    try {
+      let [logs, hasError, errorLine, errorMessage] = executaJavaScript(code)
+      setLogs(logs);
+
+      if (hasError) {
+        alert(`Ops, tem algo de errado com seu código na linha ${errorLine}: ${errorMessage}`)
+      }
+    } catch (err) {
+      alert(`O código contém erros de sintaxe: "${(err as Error).stack?.split("\n")[0]}". 💡 Dica: utilize as marcações em vermelho no editor para encontrar o problema.`)
+    }
+  }
+
   useEffect(() => {
     setLogs([])
   }, [code])
@@ -135,33 +149,7 @@ export const ExerciseCode = ({ onAutoSaveEvent, onChange, code, slug, lastSavedA
           ))}
         </OutputText>
       </OutputContainer>
-      <FullWidthButton onClick={() => {
-        // try {
-          const wrapCode = (code: string): string[] => {
-            const prefixFnCode = "let w___logs = []; let w___errorLine = 0; let w___errorMessage = ''; function w___customLogFn(text){ w___logs.push(String(text)); }" + 
-              "try{ \n";
-
-            const parsedCode = code.replace(
-              /console\.(log|info|debug|warn|error)/g, 
-              "w___customLogFn"
-            ) + "\n";
-
-            const suffixFnCode = `\n } catch(err) { w___errorMessage = err.message; w___errorLine = +err.stack.split("\\n").filter(e => e.includes("<anonymous>") || e.includes("Function"))[0].replace(/.*\\:(\\d+)\\:.*/, "$1"); } \n finally { \n return [ w___logs, w___errorLine > 0, w___errorLine - 3, w___errorMessage ]; }`;
-            const finalCode = prefixFnCode + parsedCode + suffixFnCode;
-
-            return new Function(finalCode)();
-          }
-        try {
-          let [logs, hasError, errorLine, errorMessage] = wrapCode(code) as [string[], string, number, string]
-          setLogs(logs);
-
-          if (hasError) {
-            alert(`Ops, tem algo de errado com seu código na linha ${errorLine}: ${errorMessage}`)
-          }
-        } catch (err) {
-          alert(`O código contém erros de sintaxe: "${(err as Error).stack?.split("\n")[0]}". 💡 Dica: utilize as marcações em vermelho no editor para encontrar o problema.`)
-        }
-      }}>
+      <FullWidthButton onClick={executarCodigoClick}>
         <Play size={theme.iconSize.medium}/> Executar Código
       </FullWidthButton>
     </ExerciseCodeContainer>
