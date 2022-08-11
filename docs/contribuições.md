@@ -21,6 +21,8 @@ Veja mais detalhes do fluxo de desenvolvimento abaixo:
 
 ## Modificar o código
 
+> ⚠️ Antes de qualquer modificação, peça para os voluntários do Núcleo de Tecnologia acesso de contribuidor neste projeto.
+
 Existem 2 maneiras de alterar o código: pela interface do GitHub ou baixando o projeto no seu computador.
 
 ### Opção 1: Alterando o código através da interface do GitHub:
