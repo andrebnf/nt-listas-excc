@@ -7,7 +7,7 @@ import { InformationCircle } from '@styled-icons/ionicons-sharp/InformationCircl
 import Moment from 'react-moment'
 
 import { executaJavaScript } from '../lib/executorDeCodigo';
-import { Button2 } from './button2'
+import { Button } from './button'
 
 const ContentCodeContainer = styled.div`
   padding: ${({theme}) => theme.space[4]} ${({theme}) => theme.space[4]};
@@ -94,9 +94,9 @@ export const ContentCode = ({onCodeChange, code, lastSavedAt}: ContentCodeProps)
             </>
           )}
         </SavedAtInfo>
-        <Button2 variant="primary" onClick={executarCodigoClick}>
+        <Button variant="primary" onClick={executarCodigoClick}>
           <PlayFill/>Executar Código
-        </Button2>
+        </Button>
       </EditorActionsContainer>
       <EditorContainer>
         <Editor 
