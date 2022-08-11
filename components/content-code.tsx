@@ -33,7 +33,7 @@ const EditorContainer = styled.div`
 `
 
 const SavedAtInfo = styled.p`
-  max-width: 60%;
+  max-width: 54%;
   text-align: left;
   font-size: ${({theme}) => theme.fontSize.medium};
   margin: 0;

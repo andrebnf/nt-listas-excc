@@ -39,8 +39,8 @@ export const Button2 = styled.button<ButtonProps>`
     right: 0px;
     box-shadow: none;
     background-color: ${({theme, variant}) => variant === 'primary' ? theme.colors.primaryOpacity08 : '#EEE'};
-    color: ${({theme, variant}) => variant === 'primary' ? 'white' : theme.colors.text};
-    outline: 3px solid ${({theme}) => theme.colors.sectionSeparator};
-    outline-offset: -3px;
+    color: ${({theme, variant}) => variant === 'primary' ? theme.colors.primaryOpacity01 : theme.colors.text};
+    outline: 2px solid ${({theme}) => theme.colors.sectionSeparator};
+    outline-offset: -2px;
   }
 `
