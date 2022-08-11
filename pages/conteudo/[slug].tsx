@@ -64,7 +64,6 @@ export default function ConteudoPage({ conteudoArquivo }: ContentProps) {
   }
 
   const debouncedSaveCode = useDebouncedCallback((value, userUid) => {
-    console.log('ahoy')
     createOrUpdateCode(value, userUid)
   }, 1200)
 
