@@ -5,7 +5,7 @@ Antes de contribuir para este repositório, por favor leia este guia.
 ## Sobre os Ambientes e Entrega contínua
 O repositório utiliza o serviço da [Vercel](https://vercel.com/) para disponibilizar o site usando o conceito de entrega contínua. Atualmente temos 3 ambientes na Vercel: **produção** (entregável para o usuário final), o ambiente de **prévia** (ambiente similar ao de produção porém o usuário final não terá acesso a este ambiente). Há também um ambiente de **staging**, similar ao de prévia e que, ao contrário do convencional, utiliza recursos de produção (Firestore, Firebase Auth).
 
-#### Produção
+### Produção
 
 Quando a branch principal do repositório (`main`) é atualizada, Vercel automaticamente atualiza o site de produção. Logo, durante a fase de desenvolvimento, é proibido subir alterações direto na branch `main`. A única forma de uma alteração ir para a branch `main` é através de um Pull Request.
 
