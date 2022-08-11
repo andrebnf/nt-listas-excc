@@ -19,6 +19,7 @@ export const theme: DefaultTheme = {
     primary: '#DB4682',
     background: '#FFF5E6',
     primaryFaded: '#eec5d5',
+    primaryOpacity09: '#df588e',
     primaryOpacity08: '#e26b9b',
     primaryOpacity01: '#fbecf2',
     secondary: '#013ba2',
@@ -48,5 +49,15 @@ export const theme: DefaultTheme = {
     contentSize: '88vh',
     footerSize: '4vh',
     sidebarWidth: '220px'
+  },
+  radii: {
+    small: '2px',
+    regular: '4px',
+    circular: '50%'
+  },
+  shadows: {
+    whiteNoSpread: 'rgba(255, 255, 255, 0.5) -2px 2px 0px',
+    darkNoSpread: 'rgba(100, 25, 32, 0.2) -2px 2px 0px',
+    darkSpread: 'rgba(0, 0, 0, 0.2) -2px 2px 3px'
   }
 };

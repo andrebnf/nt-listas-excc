@@ -19,6 +19,7 @@ declare module 'styled-components' {
     colors: {
       primary: string,
       primaryFaded: string,
+      primaryOpacity09: string,
       primaryOpacity08: string,
       primaryOpacity01: string,
       secondary: string,
@@ -46,6 +47,16 @@ declare module 'styled-components' {
       contentSize: string,
       footerSize: string,
       sidebarWidth: string
+    },
+    radii: {
+      small: string,
+      regular: string,
+      circular: string
+    },
+    shadows: {
+      whiteNoSpread: string,
+      darkNoSpread: string,
+      darkSpread: string
     }
   }
 }

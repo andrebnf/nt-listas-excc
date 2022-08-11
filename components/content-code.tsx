@@ -1,12 +1,13 @@
-import styled from "styled-components";
-import { useState } from "react";
+import styled from 'styled-components'
+import { useState } from 'react'
 import { useTheme } from 'styled-components'
-import Editor from "@monaco-editor/react";
-import { Play } from "@styled-icons/feather/Play";
-import Moment from "react-moment";
+import Editor from '@monaco-editor/react'
+import { PlayFill } from '@styled-icons/bootstrap/PlayFill'
+import { InformationCircle } from '@styled-icons/ionicons-sharp/InformationCircle'
+import Moment from 'react-moment'
 
-import { FullWidthButton } from "./full-width-button";
-import { executaJavaScript } from "../lib/executorDeCodigo";
+import { executaJavaScript } from '../lib/executorDeCodigo';
+import { Button } from './button'
 
 const ContentCodeContainer = styled.div`
   padding: ${({theme}) => theme.space[4]} ${({theme}) => theme.space[4]};
@@ -19,13 +20,21 @@ const ContentCodeContainer = styled.div`
   max-height: ${({theme}) => theme.layout.contentSize};
 `
 
+const EditorActionsContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-bottom: ${({theme}) => theme.space[2]};
+`
+
 const EditorContainer = styled.div`
   border: 1px solid ${({theme}) => theme.colors.editorBorder};
   height: 65%;
 `
 
 const SavedAtInfo = styled.p`
-  text-align: right;
+  max-width: 54%;
+  text-align: left;
   font-size: ${({theme}) => theme.fontSize.medium};
   margin: 0;
   min-height: ${({theme}) => theme.space[4]};
@@ -35,7 +44,6 @@ const OutputContainer = styled.div`
   padding: ${({theme}) => theme.space[1]};
   border: 1px solid ${({theme}) => theme.colors.editorBorder};
   border-top: 0px;
-  border-bottom: 0px;
   height: 35%;
   overflow: auto;
 `
@@ -78,13 +86,18 @@ export const ContentCode = ({onCodeChange, code, lastSavedAt}: ContentCodeProps)
 
   return (
     <ContentCodeContainer>
-      <SavedAtInfo>
-        {lastSavedAt && (
-          <>
-            Código salvo: <Moment fromNow>{lastSavedAt}</Moment>
-          </>
-        )}
-      </SavedAtInfo>
+      <EditorActionsContainer>
+        <SavedAtInfo>
+          {lastSavedAt && (
+            <>
+              📝 Salvo <Moment fromNow>{lastSavedAt}</Moment>
+            </>
+          )}
+        </SavedAtInfo>
+        <Button variant="primary" onClick={executarCodigoClick}>
+          <PlayFill/>Executar Código
+        </Button>
+      </EditorActionsContainer>
       <EditorContainer>
         <Editor 
           defaultLanguage="javascript"
@@ -125,9 +138,6 @@ export const ContentCode = ({onCodeChange, code, lastSavedAt}: ContentCodeProps)
           ))}
         </OutputText>
       </OutputContainer>
-      <FullWidthButton onClick={executarCodigoClick}>
-        <Play size={theme.iconSize.medium}/> Executar Código
-      </FullWidthButton>
     </ContentCodeContainer>
   )
 }

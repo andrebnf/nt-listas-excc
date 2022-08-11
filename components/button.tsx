@@ -1,11 +1,20 @@
-import styled from "styled-components";
+import styled, { DefaultTheme } from "styled-components";
 
-export const Button = styled.button`
+interface ButtonProps {
+  theme: DefaultTheme,
+  variant: 'primary' | 'secondary'
+}
+
+export const Button = styled.button<ButtonProps>`
   padding: ${({theme}) => theme.space[0]} ${({theme}) => theme.space[2]};
-  background-color: ${({theme}) => theme.colors.primary};
-  border: 1px solid ${({theme}) => theme.colors.primary};
-  color: white;
-  font-size: ${({theme}) => theme.fontSize.large};
+  background-color: ${({theme, variant}) => variant === 'primary' ? theme.colors.primary : theme.colors.secondaryOpacity015};
+  color: ${({theme, variant}) => variant === 'primary' ? 'white' : theme.colors.secondary};
+  
+  font-size: ${({theme}) => theme.fontSize.medium};
+  border-radius: ${({theme}) => theme.radii.regular};
+  border: 0px;
+  font-weight: bold;
+  position: relative;
 
   svg {
     position: relative;
@@ -15,8 +24,23 @@ export const Button = styled.button`
     margin-right: ${({theme}) => theme.space[1]};
   }
 
-  &:hover {
+  &:hover, &:focus {
     cursor: pointer;
-    background-color: ${({theme}) => theme.colors.primaryOpacity08};
+    top: -1px;
+    right: -1px;
+    box-shadow: ${({theme, variant}) => variant === 'primary' ? theme.shadows.darkNoSpread : theme.shadows.whiteNoSpread};
+    color: ${({theme, variant}) => variant === 'primary' ? 'white' : theme.colors.primary};
+    background-color: ${({theme, variant}) => variant === 'primary' ? 
+      theme.colors.primaryOpacity09 : theme.colors.primaryOpacity01};
+  }
+
+  &:active {
+    top: 0px;
+    right: 0px;
+    box-shadow: none;
+    background-color: ${({theme, variant}) => variant === 'primary' ? theme.colors.primaryOpacity08 : '#EEE'};
+    color: ${({theme, variant}) => variant === 'primary' ? theme.colors.primaryOpacity01 : theme.colors.text};
+    outline: 2px solid ${({theme}) => theme.colors.sectionSeparator};
+    outline-offset: -2px;
   }
 `

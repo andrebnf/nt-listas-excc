@@ -1,10 +1,11 @@
-import { useAuthState } from "react-firebase-hooks/auth";
-import { signInWithPopup } from "firebase/auth";
-import styled from "styled-components";
-import { auth, authProvider } from "../firebase/clientApp";
-import { Button } from './button';
-import Image from "next/image";
-import { Google } from "@styled-icons/bootstrap/Google";
+import { useAuthState } from "react-firebase-hooks/auth"
+import { signInWithPopup } from "firebase/auth"
+import styled from "styled-components"
+import { auth, authProvider } from "../firebase/clientApp"
+import { Button } from './button'
+import Image from "next/image"
+import { Google } from "@styled-icons/bootstrap/Google"
+import { LogOut } from "@styled-icons/ionicons-outline/LogOut"
 
 const NavBar = styled.nav`
   width: 100%;
@@ -43,11 +44,13 @@ export const Navigation = (props: any) => {
           <UserNameTag>
             Olá, <b>{auth.currentUser?.displayName}</b>
           </UserNameTag>
-          <Button onClick={() => auth.signOut()}>Sair</Button>
+          <Button variant='secondary' onClick={() => auth.signOut()}>
+            <LogOut/>Sair
+          </Button>
         </AuthAction>
       ) : (
         <AuthAction>
-          <Button onClick={
+          <Button variant='secondary' onClick={
               () => {
                 signInWithPopup(auth, authProvider)
                   .then()
