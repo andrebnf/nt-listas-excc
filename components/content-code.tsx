@@ -8,7 +8,7 @@ import Moment from "react-moment";
 import { FullWidthButton } from "./full-width-button";
 import { executaJavaScript } from "../lib/executorDeCodigo";
 
-const ExerciseCodeContainer = styled.div`
+const ContentCodeContainer = styled.div`
   padding: ${({theme}) => theme.space[4]} ${({theme}) => theme.space[4]};
 
   height: 100%;
@@ -53,13 +53,13 @@ const OutputTitle = styled.p`
   font-weight: bold;
 `
 
-interface ExerciseCodeProps {
+interface ContentCodeProps {
   onCodeChange: (value: string) => void,
   code: string,
   lastSavedAt: number | null
 }
 
-export const ExerciseCode = ({onCodeChange, code, lastSavedAt}: ExerciseCodeProps) => {
+export const ContentCode = ({onCodeChange, code, lastSavedAt}: ContentCodeProps) => {
   const [logs, setLogs] = useState<string[]>([]);
   const theme = useTheme();
 
@@ -77,7 +77,7 @@ export const ExerciseCode = ({onCodeChange, code, lastSavedAt}: ExerciseCodeProp
   }
 
   return (
-    <ExerciseCodeContainer>
+    <ContentCodeContainer>
       <SavedAtInfo>
         {lastSavedAt && (
           <>
@@ -128,6 +128,6 @@ export const ExerciseCode = ({onCodeChange, code, lastSavedAt}: ExerciseCodeProp
       <FullWidthButton onClick={executarCodigoClick}>
         <Play size={theme.iconSize.medium}/> Executar Código
       </FullWidthButton>
-    </ExerciseCodeContainer>
+    </ContentCodeContainer>
   )
 }

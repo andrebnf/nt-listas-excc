@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 
 import styled from 'styled-components';
 import { Login as LoginIcon } from "@styled-icons/heroicons-outline/Login";
@@ -14,8 +13,8 @@ import { auth, db } from "../../firebase/clientApp";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore"; 
 
-import { ContentDetails } from '../../components/exercise-details'
-import { ExerciseCode } from '../../components/exercise-code'
+import { ContentDetails } from '../../components/content-details'
+import { ContentCode } from '../../components/content-code'
 import { Loading } from '../../components/loading';
 
 const NonLoggedContentFlexWrapper = styled.div`
@@ -35,15 +34,14 @@ const ContentWrapper = styled.div`
   grid-template-columns: 44% 56%;
 `
 
-interface ExerciseProps {
+interface ContentProps {
   conteudoArquivo: DadosArquivo
   conteudoSidebar: Conteudo,
 }
 
-export default function ConteudoPage({ conteudoArquivo }: ExerciseProps) {
+export default function ConteudoPage({ conteudoArquivo }: ContentProps) {
   const [user, authLoading, _error] = useAuthState(auth);
 
-  const router = useRouter()
   const [code, setCode] = useState('');
   const [uiLoading, setUiLoading] = useState(true);
   const [docExists, setDocExists] = useState<boolean>(false);
@@ -65,21 +63,6 @@ export default function ConteudoPage({ conteudoArquivo }: ExerciseProps) {
     }
   }
 
-  const loadCodeInfoFromFirestore = async(userUid: string) => {
-    const userExerciseRef = doc(db, "user_exercises", userUid, "exercises", conteudoArquivo.slug)
-    const docSnap = await getDoc(userExerciseRef);
-    const docExists = docSnap.exists()
-
-    if (docExists) {
-      setCode(docSnap.data().code)
-      setLastSavedAt(docSnap.data().updatedAt);
-    } else {
-      setCode(conteudoArquivo.codigoInicial || '')
-      setLastSavedAt(null)
-    }
-    setDocExists(docSnap.exists())
-  }
-
   const debouncedSaveCode = useDebouncedCallback((value, userUid) => {
     console.log('ahoy')
     createOrUpdateCode(value, userUid)
@@ -91,12 +74,27 @@ export default function ConteudoPage({ conteudoArquivo }: ExerciseProps) {
   }
 
   useEffect(() => {
+    const loadCodeInfoFromFirestore = async(userUid: string) => {
+      const userContentRef = doc(db, "user_exercises", userUid, "exercises", conteudoArquivo.slug)
+      const docSnap = await getDoc(userContentRef);
+      const docExists = docSnap.exists()
+  
+      if (docExists) {
+        setCode(docSnap.data().code)
+        setLastSavedAt(docSnap.data().updatedAt);
+      } else {
+        setCode(conteudoArquivo.codigoInicial || '')
+        setLastSavedAt(null)
+      }
+      setDocExists(docSnap.exists())
+    }
+  
     setUiLoading(true)
     user?.uid && loadCodeInfoFromFirestore(user.uid)
     setUiLoading(false)
 
     return () => debouncedSaveCode.cancel()
-  }, [conteudoArquivo, user]);
+  }, [conteudoArquivo, user, debouncedSaveCode]);
 
   return (
     <>
@@ -111,7 +109,7 @@ export default function ConteudoPage({ conteudoArquivo }: ExerciseProps) {
           />
           {user ? (
             <div>
-              <ExerciseCode 
+              <ContentCode 
                 onCodeChange={(code) => handleEditorCodeChange(code, user.uid)} 
                 code={code} 
                 lastSavedAt={lastSavedAt}
