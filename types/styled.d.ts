@@ -54,7 +54,9 @@ declare module 'styled-components' {
       circular: string
     },
     shadows: {
-      whiteNoSpread: string
+      whiteNoSpread: string,
+      darkNoSpread: string,
+      darkSpread: string
     }
   }
 }

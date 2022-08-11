@@ -41,7 +41,7 @@ const sidebarDockButtonsProps = ({ theme }: { theme: DefaultTheme }) =>
       cursor: pointer;
       color: ${theme.colors.primary};
       background-color: ${theme.colors.primaryOpacity01};
-      box-shadow: rgba(0, 0, 0, 0.2) -2px 2px 5px;
+      box-shadow: ${theme.shadows.darkSpread};
     }
   `
 

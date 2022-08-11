@@ -28,7 +28,7 @@ export const Button = styled.button<ButtonProps>`
     cursor: pointer;
     top: -1px;
     right: -1px;
-    box-shadow: ${({theme, variant}) => variant === 'primary' ? 'rgba(100, 25, 32, 0.2) -2px 2px 0px;' : theme.shadows.whiteNoSpread};
+    box-shadow: ${({theme, variant}) => variant === 'primary' ? theme.shadows.darkNoSpread : theme.shadows.whiteNoSpread};
     color: ${({theme, variant}) => variant === 'primary' ? 'white' : theme.colors.primary};
     background-color: ${({theme, variant}) => variant === 'primary' ? 
       theme.colors.primaryOpacity09 : theme.colors.primaryOpacity01};

@@ -56,6 +56,8 @@ export const theme: DefaultTheme = {
     circular: '50%'
   },
   shadows: {
-    whiteNoSpread: 'rgba(255, 255, 255, 0.5) -2px 2px 0px;'
+    whiteNoSpread: 'rgba(255, 255, 255, 0.5) -2px 2px 0px',
+    darkNoSpread: 'rgba(100, 25, 32, 0.2) -2px 2px 0px',
+    darkSpread: 'rgba(0, 0, 0, 0.2) -2px 2px 3px'
   }
 };
