@@ -2,7 +2,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { signInWithPopup } from "firebase/auth";
 import styled from "styled-components";
 import { auth, authProvider } from "../firebase/clientApp";
-import { Button } from './button';
+import { Button2 } from './button2';
 import Image from "next/image";
 import { Google } from "@styled-icons/bootstrap/Google";
 
@@ -43,11 +43,11 @@ export const Navigation = (props: any) => {
           <UserNameTag>
             Olá, <b>{auth.currentUser?.displayName}</b>
           </UserNameTag>
-          <Button onClick={() => auth.signOut()}>Sair</Button>
+          <Button2 variant='secondary' onClick={() => auth.signOut()}>Sair</Button2>
         </AuthAction>
       ) : (
         <AuthAction>
-          <Button onClick={
+          <Button2 variant='secondary' onClick={
               () => {
                 signInWithPopup(auth, authProvider)
                   .then()
@@ -57,7 +57,7 @@ export const Navigation = (props: any) => {
               }
             }>
             <Google/>Entrar com o Google
-          </Button>
+          </Button2>
         </AuthAction>
       )}
     </NavBar>

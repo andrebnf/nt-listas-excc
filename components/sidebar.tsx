@@ -1,5 +1,5 @@
 import Link from "next/link";
-import styled, { css, DefaultTheme, useTheme } from "styled-components";
+import styled, { css, DefaultTheme } from "styled-components";
 import { Collapse } from 'react-collapse';
 import { useRouter } from "next/router";
 import { Conteudo } from "../lib/conteudo";
@@ -33,7 +33,7 @@ const sidebarDockButtonsProps = ({ theme }: { theme: DefaultTheme }) =>
   css`
     width: ${theme.iconSize.large};
     color: ${theme.colors.secondary};
-    border-radius: 50%;
+    border-radius: ${theme.radii.circular};
     background-color: ${theme.colors.secondaryOpacity015};
     padding: ${({theme}) => theme.space[0]};
 
