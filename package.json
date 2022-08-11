@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "dev:emulators": "concurrently -p \"[{name}]\" -n \"NEXT-DEV,FIRE-EMU\" -c \"bgBlue.bold,bgYellow.bold\" \"next dev\" \"firebase emulators:start\"",
+    "start-emulators": "firebase emulators:start --project nt-cms-local",
+    "dev:emulators": "concurrently -p \"[{name}]\" -n \"next-dev,fire-emu\" -c \"bgBlue.bold,bgYellow.bold\" \"npm run dev\" \"npm run start-emulators\"",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

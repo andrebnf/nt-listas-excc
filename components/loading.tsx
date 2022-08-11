@@ -1,12 +1,5 @@
-import styled, { DefaultTheme, keyframes } from "styled-components";
+import styled, { DefaultTheme, keyframes, useTheme } from "styled-components";
 import { SpinnerIos as Spinner } from "@styled-icons/fluentui-system-filled/SpinnerIos";
-
-type Size = 'small' | 'large' | 'xlarge' | 'xxlarge';
-
-interface StyledIconWrapProps {
-  readonly size: Size;
-  readonly theme: DefaultTheme;
-}
 
 const rotate = keyframes`
   0% {
@@ -17,10 +10,8 @@ const rotate = keyframes`
   }
 `;
 
-const StyledIcon = styled(Spinner)<StyledIconWrapProps>`
+const StyledIcon = styled(Spinner)`
   animation: ${rotate} 1s linear infinite;
-  width: ${({theme, size}) => theme.iconSize[size]};
-  height: ${({theme, size}) => theme.iconSize[size]};
 `;
 
 const LoadingWrapper = styled.div`
@@ -40,11 +31,15 @@ const LoadingText = styled.p`
   margin-top: ${({theme}) => theme.space[2]};
 `
 
-export const Loading = ({size = 'small'}: { size: Size }) => { 
+type Size = 'small' | 'large' | 'xlarge' | 'xxlarge';
+
+export const Loading = ({size}: { size: Size }) => { 
+  const theme = useTheme();
+  const svgSize = theme.iconSize[size]
 
   return (
     <LoadingWrapper>
-      <StyledIcon size={size}/>
+      <StyledIcon height={svgSize} width={svgSize}/>
       <LoadingText>
         Carregando
       </LoadingText>
