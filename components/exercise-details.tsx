@@ -13,6 +13,12 @@ const ContentDetailsContainer = styled.div`
     padding: ${({theme}) => theme.space[2]};
     overflow: auto;
   }
+
+  blockquote {
+    margin-left: 0;
+    padding-left: 24px;
+    border-left: 4px solid ${({ theme }) => theme.colors.contentCodeBorder};
+  }
 `
 
 const ExerciseText = styled.div`
