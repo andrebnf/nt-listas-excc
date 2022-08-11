@@ -1,12 +1,13 @@
-import styled from "styled-components";
-import { useState } from "react";
+import styled from 'styled-components'
+import { useState } from 'react'
 import { useTheme } from 'styled-components'
-import Editor from "@monaco-editor/react";
-import { Play } from "@styled-icons/feather/Play";
-import Moment from "react-moment";
+import Editor from '@monaco-editor/react'
+import { PlayFill } from '@styled-icons/bootstrap/PlayFill'
+import { InformationCircle } from '@styled-icons/ionicons-sharp/InformationCircle'
+import Moment from 'react-moment'
 
-import { executaJavaScript } from "../lib/executorDeCodigo";
-import { Button2 } from "./button2";
+import { executaJavaScript } from '../lib/executorDeCodigo';
+import { Button2 } from './button2'
 
 const ContentCodeContainer = styled.div`
   padding: ${({theme}) => theme.space[4]} ${({theme}) => theme.space[4]};
@@ -89,12 +90,12 @@ export const ContentCode = ({onCodeChange, code, lastSavedAt}: ContentCodeProps)
         <SavedAtInfo>
           {lastSavedAt && (
             <>
-              Salvo <Moment fromNow>{lastSavedAt}</Moment>
+              📝 Salvo <Moment fromNow>{lastSavedAt}</Moment>
             </>
           )}
         </SavedAtInfo>
         <Button2 variant="primary" onClick={executarCodigoClick}>
-          <Play size={theme.iconSize.medium}/>Executar Código
+          <PlayFill/>Executar Código
         </Button2>
       </EditorActionsContainer>
       <EditorContainer>
