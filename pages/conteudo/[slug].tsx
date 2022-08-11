@@ -36,7 +36,7 @@ const ContentWrapper = styled.div`
 
 interface ContentProps {
   conteudoArquivo: DadosArquivo
-  conteudoSidebar: Conteudo,
+  conteudoSidebar: Conteudo
 }
 
 export default function ConteudoPage({ conteudoArquivo }: ContentProps) {
