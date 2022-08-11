@@ -21,7 +21,7 @@ const ContentDetailsContainer = styled.div`
   }
 `
 
-const ExerciseText = styled.div`
+const ContentText = styled.div`
   font-size: ${({theme}) => theme.fontSize.large};
 `
 
@@ -36,6 +36,6 @@ export const ContentDetails = ({breadcrumb, content, title}: ContentDetailsProps
     <h4>{breadcrumb}</h4>
     <h1>{title}</h1>
 
-    <ExerciseText dangerouslySetInnerHTML={{ __html: content }} />
+    <ContentText dangerouslySetInnerHTML={{ __html: content }} />
   </ContentDetailsContainer>  
 )
