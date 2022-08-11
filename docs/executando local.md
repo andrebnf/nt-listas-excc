@@ -4,6 +4,8 @@ Vá até a sessão do seu sistema para instruções detalhadas.
 
 ## Windows com Subsistema Linux (WSL)
 
+É necessario configurar previamente o ambiente WSL no Windows se não o tiver feito. Siga este guia para configurar e para executar, siga [o guia de execução no Ubuntu](#linux-ubuntu-ou-macos).
+
 ### 1. Verificando a versão do Windows:
 1. Pressione `Tecla do Windows + R` para abrir a janela "Execução" do Windows. Nesta janela, digite `msinfo32` e pressione `Enter`
 1. Na janela "Informações do Sistema" que abrirá, encontre o item "Versão" no painel do lado direito. O valor deste campo será algo como `10.0.22000 Build 22000`
@@ -42,18 +44,20 @@ Neste ponto seu ambiente está configurado e você pode seguir o [guia de instal
 - Seu usuário padrão deverá ter permissões de administrador (ex: para rodar comandos com `sudo`). Para checar o nome do usuário no Ubuntu, execute `whoami`.
 - O editor sugerido para este ambiente é o [Visual Studio Code](https://code.visualstudio.com/) por se integrar bem com o WSL.
 
-## Linux (Ubuntu)
+## Linux (Ubuntu) ou MacOS
 
 **Pré-requisitos:**
-- projeto clonado no seu computador
+- ter o projeto clonado no seu computador
 - Node versão 16 ou 18: Instale através do [Website oficial](https://nodejs.org/pt-br/) ou através do Gerenciador de Versões do Node ([nvm](https://github.com/nvm-sh/nvm))
 - git
-- criar um arquivo `.env.local` como indicado no arquivo README.md, na raíz do projeto 
+- instalar ferramenta de linha de comando do firebase: abra o terminal e execute `npm install -g firebase-tools`. Isto é necessário para emular o ambiente do Firebase no seu computador
+- criar um arquivo `.env.local` como indicado [aqui nessa sessão sobre variáveis de ambiente](../README.md#variáveis-de-ambiente).
 
 **Executando o projeto:**
 1. navegue até a pasta do projeto
 1. instale dependências com `npm install`
-1. execute o servidor de desenvolvimento com `npm run dev`. Este comando abrirá uma aba no seu navegador com o projeto local. Em geral, o endereço do seu site é: `http://localhost:3000/`
+1. execute o servidor de desenvolvimento com `npm run dev:emulators`. Este comando inicializa os emuladores do Firebase e também o servidor de desenvolvimento do Next.js
+1. No seu navegador, utilize a URL `http://localhost:3000/` para ver o projeto em desenvolvimento
 1. para iniciar suas alterações no repositório, lembre-se de criar uma branch nova utilizando o git: `git checkout -b nome-da-nova-branch`. Para mais detalhes, acesse o [guia de contribuição para o repositório](./contribui%C3%A7%C3%B5es.md)
 
 Pronto. Agora qualquer alteração no código surtirá efeito na página local do projeto.

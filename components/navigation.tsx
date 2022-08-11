@@ -37,7 +37,7 @@ export const Navigation = (props: any) => {
   return (
     <NavBar>
       <Image src="/logo-white.svg" alt="Logotipo do Núcleo de Tecnologia MTST" width={40} height={40}/>
-      <NavTitle>Curso Online de JavaScript - Núcleo de Tecnologia MTST</NavTitle>
+      <NavTitle>Curso Online de JavaScript</NavTitle>
       {user ? (
         <AuthAction>
           <UserNameTag>

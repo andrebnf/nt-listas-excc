@@ -1,20 +1,21 @@
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import ErrorPage from 'next/error';
-import { useAuthState } from "react-firebase-hooks/auth";
+import Head from 'next/head';
+
 import styled from 'styled-components';
 import { Login as LoginIcon } from "@styled-icons/heroicons-outline/Login";
+
+import { useDebouncedCallback } from "use-debounce";
 
 import { Conteudo, DadosArquivo, getConteudo, getConteudoBySlug, getSlugsIndividuais } from '../../lib/conteudo'
 import markdownToHtml from '../../lib/markdownToHtml'
 
 import { auth, db } from "../../firebase/clientApp";
-import { doc, DocumentReference, getDoc, setDoc, updateDoc } from "firebase/firestore"; 
+import { useAuthState } from "react-firebase-hooks/auth";
+import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore"; 
 
-import { ContentDetails } from '../../components/exercise-details'
-import { ExerciseCode } from '../../components/exercise-code'
+import { ContentDetails } from '../../components/content-details'
+import { ContentCode } from '../../components/content-code'
 import { Loading } from '../../components/loading';
-import Head from 'next/head';
 
 const NonLoggedContentFlexWrapper = styled.div`
   display: flex;
@@ -33,90 +34,73 @@ const ContentWrapper = styled.div`
   grid-template-columns: 44% 56%;
 `
 
-interface ExerciseProps {
+interface ContentProps {
   conteudoArquivo: DadosArquivo
-  conteudoSidebar: Conteudo,
+  conteudoSidebar: Conteudo
 }
 
-export default function ConteudoPage({ conteudoArquivo }: ExerciseProps) {
-  const router = useRouter()
-  const [code, setCode] = useState(conteudoArquivo.codigoInicial || '');
+export default function ConteudoPage({ conteudoArquivo }: ContentProps) {
+  const [user, authLoading, _error] = useAuthState(auth);
+
+  const [code, setCode] = useState('');
   const [uiLoading, setUiLoading] = useState(true);
-  const [docExists, setDocExists] = useState<boolean | null>(null);
+  const [docExists, setDocExists] = useState<boolean>(false);
   const [lastSavedAt, setLastSavedAt] = useState<number | null>(null);
 
-  const [user, authLoading, _error] = useAuthState(auth);
-  let userExerciseRef: DocumentReference | null = null;
+  const createOrUpdateCode = async (value: string, userUid: string) => {
+    const ref = doc(db, "user_exercises", userUid, "exercises", conteudoArquivo.slug);
+    if (ref) {
+      const now = (new Date()).valueOf();
 
-  if (user && user?.uid) {
-    userExerciseRef = doc(db, "user_exercises", user.uid, "exercises", conteudoArquivo.slug);
-  }
-  
-  const createOrUpdateCode = (value: string) => {
-    setCode(!!value ? value : conteudoArquivo.codigoInicial || '');
-  
-    return (async() => {
-      if (userExerciseRef) {
-        const now = (new Date()).valueOf();
-
-        if (docExists) {
-          await updateDoc(userExerciseRef, {
-            code: value,
-            updatedAt: now
-          })
-        } else {
-          await setDoc(userExerciseRef, {
-            code: value,
-            updatedAt: now,
-            createdAt: now
-          })
-        }
-        setLastSavedAt(now);
+      if (docExists) {
+        await updateDoc(ref, {code: value, updatedAt: now})
       } else {
-        console.log('Warning: não foi possível salvar: referencia do doc nao encontrada')
+        await setDoc(ref, {code: value, updatedAt: now, createdAt: now})
       }
-    })()
+      setLastSavedAt(now);
+    } else {
+      console.log('Warning: não foi possível salvar: referencia do doc nao encontrada')
+    }
+  }
+
+  const debouncedSaveCode = useDebouncedCallback((value, userUid) => {
+    createOrUpdateCode(value, userUid)
+  }, 1200)
+
+  const handleEditorCodeChange = (editorCode: string, userUid: string) => {
+    setCode(editorCode)
+    debouncedSaveCode(editorCode, userUid)
   }
 
   useEffect(() => {
-    // Recupera informações do exercício caso a pessoa já tenha começado
-    // ou cria um novo documento daquele exercício para aquele user
-    (async() => {
-      setUiLoading(true);
-      if (user && user?.uid) {
-        const userExerciseRef = doc(db, "user_exercises", user.uid, "exercises", conteudoArquivo.slug);
-        const docSnap = await getDoc(userExerciseRef);
-        
-        if (docSnap.exists()) {
-          setDocExists(true);
-          setCode(docSnap.data().code);
-          setLastSavedAt(docSnap.data().updatedAt);
-        } else {
-          setDocExists(false);
-          setCode(conteudoArquivo.codigoInicial || '');
-          setLastSavedAt(null);
-        }
+    const loadCodeInfoFromFirestore = async(userUid: string) => {
+      const userContentRef = doc(db, "user_exercises", userUid, "exercises", conteudoArquivo.slug)
+      const docSnap = await getDoc(userContentRef);
+      const docExists = docSnap.exists()
+  
+      if (docExists) {
+        setCode(docSnap.data().code)
+        setLastSavedAt(docSnap.data().updatedAt);
+      } else {
+        setCode(conteudoArquivo.codigoInicial || '')
+        setLastSavedAt(null)
       }
-      
-      setUiLoading(false);
-    })();
-  }, [conteudoArquivo, user]);
+      setDocExists(docSnap.exists())
+    }
+  
+    setUiLoading(true)
+    user?.uid && loadCodeInfoFromFirestore(user.uid)
+    setUiLoading(false)
 
-  if (!router.isFallback && !conteudoArquivo.slug) {
-    return <ErrorPage statusCode={404} />
-  }
+    return () => debouncedSaveCode.cancel()
+  }, [conteudoArquivo, user, debouncedSaveCode]);
 
   return (
     <>
       <Head>
         <title>Núcleo de Tecnologia - Curso Online</title>
       </Head>
-      {router.isFallback ? (
-        <>
-          <Loading size="xxlarge"></Loading>
-        </>
-      ) : (
-        <ContentWrapper>
+      <ContentWrapper>
           <ContentDetails 
             title={conteudoArquivo.titulo} 
             breadcrumb={conteudoArquivo.breadcrumb} 
@@ -124,13 +108,10 @@ export default function ConteudoPage({ conteudoArquivo }: ExerciseProps) {
           />
           {user ? (
             <div>
-              <ExerciseCode 
-                onAutoSaveEvent={createOrUpdateCode}
-                onChange={(value: string) => setCode(value)} 
+              <ContentCode 
+                onCodeChange={(code) => handleEditorCodeChange(code, user.uid)} 
                 code={code} 
-                slug={conteudoArquivo.slug}
                 lastSavedAt={lastSavedAt}
-                autosaveMilliseconds={2000}
               />
             </div>
           ) : (
@@ -144,13 +125,11 @@ export default function ConteudoPage({ conteudoArquivo }: ExerciseProps) {
             )
           )}
         </ContentWrapper>
-      )}
     </>
   )
 }
 
 export async function getStaticProps({ params }: { params: { slug: string } }) {
-  // const contentDetails = getExerciseBySlug(params.slug)
   const conteudoArquivo: DadosArquivo = getConteudoBySlug(params.slug)
   const content = await markdownToHtml(conteudoArquivo.conteudo || '')
   const conteudoSidebar = getConteudo()
