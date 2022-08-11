@@ -48,6 +48,7 @@ Neste ponto seu ambiente está configurado e você pode seguir o [guia de instal
 - projeto clonado no seu computador
 - Node versão 16 ou 18: Instale através do [Website oficial](https://nodejs.org/pt-br/) ou através do Gerenciador de Versões do Node ([nvm](https://github.com/nvm-sh/nvm))
 - git
+- criar um arquivo `.env.local` como indicado no arquivo README.md, na raíz do projeto 
 
 **Executando o projeto:**
 1. navegue até a pasta do projeto

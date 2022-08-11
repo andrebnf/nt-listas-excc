@@ -27,8 +27,9 @@ NEXT_PUBLIC_MAINTENANCE_MODE=true
 
 ### Firebase
 
-Algumas variáveis de ambiente são necessárias para usar funcionalidades do Firebase como autenticação e banco de dados (Firestore). Para isso, crie um arquivo chamado `.env.local` com o conteúdo abaixo e substitua os exemplos por seus valores de configuração de aplicação no Firebase:
+É o backend da aplicação, onde temos funcionalidades de autenticação e bancos de dados.
 
+Algumas variáveis de ambiente são necessárias para usar funcionalidades do Firebase como autenticação e banco de dados (Firestore). Para isso, crie um arquivo chamado `.env.local` com o conteúdo abaixo e substitua os exemplos por seus valores de configuração de aplicação no Firebase:
 
 ```shell
 # Arquivo .env.local
@@ -62,3 +63,15 @@ O padrão para criar estilos (CSS) neste projeto é através do pacote [`styled-
 Com `styled-components` o CSS é manipulado junto com Typescript e são tratados como componentes do React (técnica conhecida como CSS-in-JS). A biblioteca também se integra bem com o Next, fazendo com que parte do estilo seja otimizado e renderizado no servidor.
 
 Para utilizar `styled-components` no Visual Studio Code, utilize a extensão [vscode-styled-components](https://marketplace.visualstudio.com/items?itemName=styled-components.vscode-styled-components) para destacar corretamente o CSS nos arquivos de componentes React.
+
+### Testes e Integração Contínua
+
+#### Ferramenta de testes: Jest
+O projeto utiliza Jest para criar os testes, localizados na pasta `__tests__`. Dentro desta pasta, os arquivos com `.test.ts` no nome serão executados quando rodarmos os testes.
+
+Dentro da pasta de testes, existe uma pasta `artefatos`, onde ficam os arquivos auxiliares para os testes.
+
+Para rodar os testes, é necessário [configurar o ambiente local](./docs/executando%20local.md#). Após o processo feito, abra o terminal e execute `npm run test` dentro da pasta do projeto.
+
+#### Integração Contínua (CI)
+O repositório também conta com uma integração contínua com o GitHub Actions. Funciona assim: sempre que um Pull Request for criado para (tendo como destino as branchs `main` ou `staging`) o comando de teste será executado e o podemos consultar o resultado no próprio Pull Request (checks).
